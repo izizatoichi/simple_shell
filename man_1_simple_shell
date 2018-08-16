@@ -1,0 +1,33 @@
+.\" Manpage for Simple Shell.
+.\" Contact Stephen Chu stephenchu530@gmail.com to correct errors or typos.
+.TH "Simple Shell" 1 "30 August 2018" "1.0" "Simple Shell man page"
+
+.SH NAME
+Simple Shell
+
+.SH SYNOPSIS
+PLACEHOLDER
+
+.SH DESCRIPTION
+PLACEHOLDER
+
+.SS OTHER STUFF
+PLACEHOLDER
+
+.SH EXAMPLES
+PLACEHOLDER
+
+.SH SEE ALSO
+PLACEHOLDER
+
+.SH BUGS
+PLACEHOLDER
+
+.SH AUTHORS
+Jian Huang
+    jian.huang@holbertonschool.com
+    https://github.com/TrieToSucceed
+
+Stephen Chu
+    stephen.chu@holbertonschool.com
+    https://github.com/stephenchu530
