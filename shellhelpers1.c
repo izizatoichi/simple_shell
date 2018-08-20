@@ -23,7 +23,7 @@ char *getcommand(void)
 
 	while (numread == -1)
 	{
-		numread = _getline(&buffer, &size, stdin);
+		numread = _getline(&buffer, &size, STDIN_FILENO);
 		fflush(stdin);
 		if (numread != -1)
 		{
