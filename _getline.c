@@ -1,4 +1,4 @@
-#include "strings.h"
+#include "shell.h"
 
 /**
  * _getline - gets line from file descriptor
