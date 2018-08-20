@@ -16,9 +16,11 @@
 
 #include "strings.h"
 #include "linklists.h"
+#include "memory.h"
 
 #define SPACE " "
 #define PS1 "#cisfun$ "
+#define BUF_SIZE 1024
 
 /* shellhelpers1.c */
 void displayprompt(void);
