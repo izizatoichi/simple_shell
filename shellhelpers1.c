@@ -1,16 +1,6 @@
 #include "shell.h"
 
 /**
- * displayprompt - displayers prompt using write
- * Return: nada
- */
-void displayprompt(void)
-{
-	write(STDOUT_FILENO, PS1, _strlen(PS1));
-	fflush(stdout);
-}
-
-/**
  * sig_handler - handles interruption signal
  * @signum: signal num
  *

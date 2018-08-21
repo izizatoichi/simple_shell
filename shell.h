@@ -19,15 +19,16 @@
 #include "memory.h"
 
 #define SPACE " "
-#define PS1 "#cisfun$ "
 #define BUF_SIZE 1024
+#define PS1 write(STDOUT_FILENO, "JS$ ", 4)
 
 /* shellhelpers1.c */
-void displayprompt(void);
 char *getcommand(void);
 char **make_arr_str(char *s, const char *delim);
 int action(char **cv);
-ssize_t _getline(char **lineptr, size_t *n, int fd);
 void sig_handler(int signum);
+
+/* _getline.c */
+ssize_t _getline(char **lineptr, size_t *n, int fd);
 
 #endif /* _SHELL_H_ */

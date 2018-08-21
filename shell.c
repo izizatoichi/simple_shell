@@ -15,7 +15,7 @@ int main(int ac, char **av, char **ev)
 
 	while (1)
 	{
-		displayprompt();
+		PS1;
 		cmd = getcommand();
 		cv = make_arr_str(cmd, SPACE);
 		res = action(cv);
