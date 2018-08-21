@@ -11,6 +11,7 @@
 void sig_handler(int signum)
 {
 	(void) signum;
+	NEWLINE;
 	PS1;
 }
 
@@ -28,17 +29,14 @@ char *getcommand(void)
 	{
 		numread = _getline(&buffer, &size, STDIN_FILENO);
 		fflush(stdin);
-		if (numread != -1)
+		if (numread == -2)
+			exit(1);
+		len = _strlen(buffer);
+		if (buffer[len - 1] == '\n')
 		{
-			len = _strlen(buffer);
-			if (buffer[len - 1] == '\n')
-			{
-				buffer[len - 1] = '\0';
-				numread--;
-			}
+			buffer[len - 1] = '\0';
+			numread--;
 		}
-		else
-			numread = -1;
 	}
 	return (buffer);
 }
@@ -100,7 +98,7 @@ int action(char **cv)
 		{
 			result = execve(cv[0], cv, NULL);
 			free(cv);
-			return (result);
+			exit(result);
 		}
 		else
 			wait(NULL);

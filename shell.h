@@ -21,6 +21,7 @@
 #define SPACE " "
 #define BUF_SIZE 1024
 #define PS1 write(STDOUT_FILENO, "JS$ ", 4)
+#define NEWLINE write(STDOUT_FILENO, "\n", 1)
 
 /* shellhelpers1.c */
 char *getcommand(void);
