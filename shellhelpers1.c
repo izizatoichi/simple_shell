@@ -11,7 +11,7 @@
 void sig_handler(int signum)
 {
 	(void) signum;
-	write(STDOUT_FILENO, "\n$ ", 3);
+	PS1;
 }
 
 /**
