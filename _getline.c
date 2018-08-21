@@ -13,13 +13,14 @@
  *
  * Return: number of characters read or -1 upon failure
  */
-ssize_t _getline(char **lineptr, size_t *n, int fd)
+ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt)
 {
 	static char *buf;
 	ssize_t char_read = 0, char_to_read = BUF_SIZE / 2;
 	ssize_t buf_size = BUF_SIZE, count = 0;
 
 	buf = malloc(buf_size);
+	add_node(mt, (void *)buf);
 
 	if (!buf)
 		return (-1);
@@ -33,7 +34,6 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 	 */
 	if (*lineptr)
 	{
-		free(buf);
 		buf = *lineptr;
 		buf_size = *n;
 
@@ -57,10 +57,7 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 
 	/* Check EOF */
 	if (char_read == 0)
-	{
-		free(buf);
 		return (-2);
-	}
 
 	char_read = _strlen(buf);
 	count += char_read;
@@ -78,7 +75,7 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 		/* Resize if count exceeds half of buffer size */
 		if (count >= buf_size - char_to_read)
 		{
-			buf = (char *) _realloc(buf, buf_size, buf_size * 2);
+			buf = (char *)_realloc(buf, buf_size, buf_size * 2, mt);
 			buf_size *= 2;
 		}
 
