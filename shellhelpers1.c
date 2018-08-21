@@ -2,13 +2,25 @@
 
 /**
  * displayprompt - displayers prompt using write
- * @s: char * string representing the prompt
  * Return: nada
  */
 void displayprompt(void)
 {
 	write(STDOUT_FILENO, PS1, _strlen(PS1));
 	fflush(stdout);
+}
+
+/**
+ * sig_handler - handles interruption signal
+ * @signum: signal num
+ *
+ * Description: Function takes signal and performs certain task instead of
+ * executing original function
+ * Return: void
+ */
+void sig_handler(int signum)
+{
+	write(STDOUT_FILENO, "\n$ ", 3);
 }
 
 /**
