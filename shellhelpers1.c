@@ -29,13 +29,13 @@ char *getcommand(void)
 	{
 		numread = _getline(&buffer, &size, STDIN_FILENO);
 		fflush(stdin);
-		if (numread == -2)
+		if (numread == -2 || numread == -1)
 			exit(1);
-		len = _strlen(buffer);
-		if (buffer[len - 1] == '\n')
+		if (numread > 0)
 		{
-			buffer[len - 1] = '\0';
-			numread--;
+			len = _strlen(buffer);
+			if (buffer[len - 1] == '\n')
+				buffer[len - 1] = '\0';
 		}
 	}
 	return (buffer);
