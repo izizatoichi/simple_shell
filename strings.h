@@ -12,5 +12,6 @@ unsigned int _strlen(char *s);
 
 /* strings2.c */
 int _strcmp(char *s1, char *s2);
+int _atoi(char *s);
 
 #endif /* _STRINGS_H_ */
