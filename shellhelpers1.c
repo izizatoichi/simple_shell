@@ -81,6 +81,11 @@ char **make_arr_str(char *s, const char *delim)
 	return (argv);
 }
 
+/**
+ * action - function use to fork and execute commands entered by the user
+ * @cv: null termed array of strings that contain the command and flags
+ * Return: error code from execve.
+ */
 int action(char **cv)
 {
 	pid_t pid;
@@ -92,17 +97,17 @@ int action(char **cv)
 		if (pid == -1)
 		{
 			perror("Error");
-			return (1);
+			return (-1);
 		}
 		if (pid == 0)
 		{
 			result = execve(cv[0], cv, NULL);
-			free(cv);
+			if (result == -1)
+				perror("Error");
 			exit(result);
 		}
 		else
 			wait(NULL);
-		free(cv);
 	}
 	return (0);
 }
