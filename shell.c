@@ -12,7 +12,6 @@ int main(int ac, char **av, char **ev)
 	char *cmd = NULL;
 	char **cv = NULL;
 	char **history = NULL;
-	int res = 0;
 	(void)ac;
 	(void)av;
 	(void)ev;
@@ -25,17 +24,7 @@ int main(int ac, char **av, char **ev)
 		PS1;
 		cmd = getcommand();
 		cv = make_arr_str(cmd, SPACE);
-		res = action(cv);
-		if (res == -1)
-		{
-			write(STDOUT_FILENO, "HI\n", 3);
-			perror("Error");
-		}
-		free(cv);
-		free(cmd);
-		cv = NULL;
-		cmd = NULL;
-		(void)res;
+		action(cv);
 	}
 	return (0);
 }
