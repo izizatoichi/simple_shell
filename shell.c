@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ * main - the shell program entry point
+ * @ac: integer number of command line args
+ * @av: null term'd array of strings containing arguments
+ * @ev: null term'd array of strings containing environment vars
+ * Return: integer result. 0 for success, everything else is an error
+ */
 int main(int ac, char **av, char **ev)
 {
 	char *cmd = NULL;
@@ -11,7 +18,7 @@ int main(int ac, char **av, char **ev)
 	(void)ev;
 	(void)history;
 
-	signal(SIGINT,sig_handler);
+	signal(SIGINT, sig_handler);
 
 	while (1)
 	{
@@ -19,6 +26,15 @@ int main(int ac, char **av, char **ev)
 		cmd = getcommand();
 		cv = make_arr_str(cmd, SPACE);
 		res = action(cv);
+		if (res == -1)
+		{
+			write(STDOUT_FILENO, "HI\n", 3);
+			perror("Error");
+		}
+		free(cv);
+		free(cmd);
+		cv = NULL;
+		cmd = NULL;
 		(void)res;
 	}
 	return (0);
