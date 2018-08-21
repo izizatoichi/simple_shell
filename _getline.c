@@ -50,7 +50,18 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 	/* Begin filling buffer */
 	char_read = read(fd, buf + count, char_to_read);
 	if (char_read == -1)
+	{
+		free(buf);
 		return (-1);
+	}
+
+	/* Check EOF */
+	if (char_read == 0)
+	{
+		free(buf);
+		return (-2);
+	}
+
 	char_read = _strlen(buf);
 	count += char_read;
 
@@ -85,9 +96,10 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 	/* Check if last character is EOF */
 	if (buf[count - 1] != '\n')
 	{
-		free(buf);
+		*lineptr = buf;
+		*n = buf_size;
 		write(STDIN_FILENO, "\n", 1);
-		return (-1);
+		return (-3);
 	}
 
 	*lineptr = buf;
