@@ -5,6 +5,7 @@
  * @lineptr: pointer to buffer
  * @n: size of buffer
  * @fd: file descriptor
+ * @mt: pointer to memory tracker link list
  *
  * Description: Function will read line from file descriptor and put line into
  * buffer. If buffer passed into function is null, a newly allocated buffer
