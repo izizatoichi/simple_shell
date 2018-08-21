@@ -9,5 +9,6 @@ unsigned int _strspn(char *s, char *accept);
 char *_strpbrk(char *s, char *accept);
 char *_strtok(char *s, const char *delim);
 unsigned int _strlen(char *s);
+int _strcmp(char *s1, char *s2)
 
 #endif /* _STRINGS_H_ */
