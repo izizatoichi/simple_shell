@@ -11,6 +11,8 @@ int main(int ac, char **av, char **ev)
 	(void)ev;
 	(void)history;
 
+	signal(SIGINT, sig_handler);
+
 	while (1)
 	{
 		displayprompt();

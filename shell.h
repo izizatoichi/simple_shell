@@ -28,5 +28,6 @@ char *getcommand(void);
 char **make_arr_str(char *s, const char *delim);
 int action(char **cv);
 ssize_t _getline(char **lineptr, size_t *n, int fd);
+void sig_handler(int signum);
 
 #endif /* _SHELL_H_ */
