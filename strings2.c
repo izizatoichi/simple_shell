@@ -21,3 +21,31 @@ int _strcmp(char *s1, char *s2)
 
 	return (s1[i] - s2[i]);
 }
+
+/**
+ * _atoi - converts string to integer
+ * @s: string to be converted
+ * Description: Finds integers in a string and returns it as an int
+ * Return: int
+ */
+int _atoi(char *s)
+{
+
+	int negative = 1, i = 0;
+	unsigned int num = 0;
+
+	for (; (s[i] < '0' || s[i] > '9') && s[i] != '\0'; i++)
+	{
+		if (s[i] == '-')
+			negative *= -1;
+	}
+
+	for (; s[i] >= '0' && s[i] <= '9'; i++)
+	{
+		num = (num * 10) + s[i] - '0';
+	}
+
+		num *= negative;
+
+	return (num);
+}
