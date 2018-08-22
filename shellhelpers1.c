@@ -11,8 +11,7 @@
 void sig_handler(int signum)
 {
 	(void) signum;
-	NEWLINE;
-	PS1;
+	PS2;
 }
 
 /**
@@ -91,14 +90,20 @@ char **make_arr_str(char *s, const char *delim, list_t **mt)
  * action - function use to fork and execute commands entered by the user
  * @cv: null termed array of strings that contain the command and flags
  * @mt: double pointer to the memory tracker link list
+ * @ev: ptr to environ variable
  * Return: error code from execve.
  */
-int action(char **cv, list_t **mt)
+int action(char **cv, char **ev, list_t **mt)
 {
 	pid_t pid;
 	int result = 0;
+	char *fullpath = NULL;
 
 	if (cv)
+		fullpath = pathfinder(cv, ev, mt);
+	else
+		return (-1);
+	if (fullpath)
 	{
 		pid = fork();
 		if (pid == -1)
@@ -108,7 +113,7 @@ int action(char **cv, list_t **mt)
 		}
 		if (pid == 0)
 		{
-			result = execve(cv[0], cv, NULL);
+			result = execve(fullpath, cv, NULL);
 			if (result == -1)
 				perror("Error");
 			free_list(mt, 1);
@@ -117,5 +122,8 @@ int action(char **cv, list_t **mt)
 		else
 			wait(NULL);
 	}
+	else
+		printf("%s: not found\n", cv[0]);
+	free_list(mt, 1);
 	return (0);
 }

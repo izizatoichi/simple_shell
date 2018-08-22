@@ -69,11 +69,9 @@ char *_strcat(char *s1, char *s2, list_t **mt)
 
 	for (i = 0; i < len1; i++)
 		newstring[i] = s1[i];
-
 	for (; i < len1 + len2; i++)
 		newstring[i] = s2[i - len1];
 
         newstring[i] = '\0';
-
         return (newstring);
 }
