@@ -43,23 +43,23 @@ char *_getenv(char *envar, char **env)
  */
 char *pathfinder(char **av, char **ev, list_t **mt)
 {
-        char *cmd = NULL, *fullpath = NULL, *ev_path = _getenv("PATH", ev);
-        char **pathlist = NULL;
+	char *cmd = NULL, *fullpath = NULL, *ev_path = _getenv("PATH", ev);
+	char **pathlist = NULL;
 
-        if (!ev_path)
-                return (NULL);
-        if (av)
-        {
-                pathlist = make_arr_str(ev_path, COLON, mt);
-                if (!pathlist)
-                        return (NULL);
+	if (!ev_path)
+		return (NULL);
+	if (av)
+	{
+		pathlist = make_arr_str(ev_path, COLON, mt);
+		if (!pathlist)
+			return (NULL);
 		for (; *pathlist; pathlist++)
 		{
-                        fullpath = _strcat(*pathlist, BACKSLASH, mt);
+			fullpath = _strcat(*pathlist, BACKSLASH, mt);
 			fullpath = _strcat(*pathlist, av[0], mt);
-                        if (!access(fullpath, X_OK))
-                                return (fullpath);
-                }
-        }
-        return (NULL);
+			if (!access(fullpath, X_OK))
+				return (fullpath);
+		}
+	}
+	return (NULL);
 }
