@@ -17,6 +17,7 @@ void sig_handler(int signum)
 
 /**
  * getcommand - gets the command from the user and returns a string
+ * @mt: double pointer to the memory tracker link list
  * Return: char * string output or NULL if no input
  */
 char *getcommand(list_t **mt)
@@ -48,6 +49,7 @@ char *getcommand(list_t **mt)
  * make_arr_str - makes an array of strings from an input string
  * @s: input char * string
  * @delim: const char * used to split each token
+ * @mt: double pointer to the memory tracker link list
  * Return: resulting NULL terminated char ** array of strings. Will return
  * NULL if input s is empty.
  */
@@ -88,6 +90,7 @@ char **make_arr_str(char *s, const char *delim, list_t **mt)
 /**
  * action - function use to fork and execute commands entered by the user
  * @cv: null termed array of strings that contain the command and flags
+ * @mt: double pointer to the memory tracker link list
  * Return: error code from execve.
  */
 int action(char **cv, list_t **mt)
