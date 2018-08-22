@@ -32,6 +32,7 @@ char *_getenv(char *envar, char **env)
  * pathfinder - determines if a command is in path
  * @av: list of arguments
  * @ev: list of environment variables
+ * @mt: double ptr to memory tracker link list
  *
  * Description: Function takes a list of arguments and uses the first argument
  * to determine if the argument is an executable in a directory of PATH
@@ -42,32 +43,22 @@ char *_getenv(char *envar, char **env)
  */
 char *pathfinder(char **av, char **ev, list_t **mt)
 {
-        char *ev_path = _getenv("PATH", ev);
-        char **splitlist = NULL, **pathlist = NULL;
-        char *cmd = NULL, *paths = NULL, *concatpath;
+        char *cmd = NULL, *fullpath = NULL, *ev_path = _getenv("PATH", ev);
+        char **pathlist = NULL;
 
         if (!ev_path)
-                return (0);
+                return (NULL);
         if (av)
         {
-                splitlist = make_arr_str(ev_path, EQUAL, mt);
-                if (!splitlist)
-                        return (0);
-                paths = splitlist[1];
-                pathlist = make_arr_str(paths, COLON, mt);
+                pathlist = make_arr_str(ev_path, COLON, mt);
                 if (!pathlist)
-                        return (0);
-                cmd = av[0];
-		while (*pathlist)
-                {
-                        concatpath = _strcat(*pathlist, BACKSLASH, mt);
-			concatpath = _strcat(*pathlist, cmd, mt);
-                        if (!access(concatpath, X_OK))
-                        {
-                                return (concatpath);
-                        }
-                        free(concatpath);
-                        pathlist++;
+                        return (NULL);
+		for (; *pathlist; pathlist++)
+		{
+                        fullpath = _strcat(*pathlist, BACKSLASH, mt);
+			fullpath = _strcat(*pathlist, av[0], mt);
+                        if (!access(fullpath, X_OK))
+                                return (fullpath);
                 }
         }
         return (NULL);
