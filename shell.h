@@ -20,7 +20,8 @@
 
 #define SPACE " "
 #define EQUAL "="
-#define SEMICOLON ":"
+#define COLON ":"
+#define BACKSLASH "\\"
 #define BUF_SIZE 1024
 #define PS1 write(STDOUT_FILENO, "JS$ ", 4)
 #define NEWLINE write(STDOUT_FILENO, "\n", 1)
@@ -32,7 +33,7 @@ int action(char **cv, list_t **mt);
 void sig_handler(int signum);
 
 /* shellhelpers2.c */
-char *_getenv(char *envar, char **env, list_t **mt);
+char *_getenv(char *envar, char **env);
 char *pathfinder(char **av, char **ev, list_t **mt);
 
 /* _getline.c */
