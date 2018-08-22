@@ -31,7 +31,7 @@ char **make_arr_str(char *s, const char *delim, list_t **mt);
 int action(char **cv, list_t **mt);
 void sig_handler(int signum);
 
-/* shellhelpers2.c*/
+/* shellhelpers2.c */
 char *_getenv(char *envar, char **env, list_t **mt);
 char *_strcat_s(char *s1, char *s2, list_t **mt);
 char *pathfinder(char **av, char **ev, list_t **mt);
