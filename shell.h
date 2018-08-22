@@ -33,7 +33,6 @@ void sig_handler(int signum);
 
 /* shellhelpers2.c */
 char *_getenv(char *envar, char **env, list_t **mt);
-char *_strcat_s(char *s1, char *s2, list_t **mt);
 char *pathfinder(char **av, char **ev, list_t **mt);
 
 /* _getline.c */
