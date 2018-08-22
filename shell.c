@@ -17,7 +17,6 @@ int main(int ac, char **av, char **ev)
 	(void)av;
 	(void)ev;
 	(void)history;
-	(void)memtracker;
 
 	signal(SIGINT, sig_handler);
 
@@ -27,7 +26,7 @@ int main(int ac, char **av, char **ev)
 		cmd = getcommand(&memtracker);
 		cv = make_arr_str(cmd, SPACE, &memtracker);
 		action(cv, &memtracker);
-		freememtracker(&memtracker);
+		free_list(&memtracker, 1);
 	}
 	return (0);
 }

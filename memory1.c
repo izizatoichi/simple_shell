@@ -51,22 +51,3 @@ void reset_buffer(char *buffer, ssize_t buf_size)
 	while (i < buf_size)
 		buffer[i++] = '\0';
 }
-
-/**
- * freememtracker - frees all the nodes and dataptrs in the memory
- * tracker link list
- * @mt: double pointer to the memory tracker link list
- * Return: nothing
- */
-void freememtracker(list_t **mt)
-{
-	list_t *walker = NULL;
-
-	while (mt && *mt)
-	{
-		walker = *mt;
-		*mt = (*mt)->next;
-		free(walker->dataptr);
-		free(walker);
-	}
-}
