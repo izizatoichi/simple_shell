@@ -7,35 +7,24 @@
  *
  * Description: Function takes a list of env variables and returns env variable
  * if found.
- * Return: environment variable if found; otherwise, NULL 
+ * Return: environment variable if found; otherwise, NULL
  */
-char *_getenv(char *envar, char **env, list_t **mt)
+char *_getenv(char *envar, char **env)
 {
-        int len, i, j;
-        char *keyword, *line;
+	ssize_t i = 0, len = 0;
 
-        len = _strlen(envar);
-        keyword = malloc(sizeof(char) * len);
-	add_node(mt, (void *)keyword);
-        if (!keyword)
-                return (NULL);
-
-        reset_buffer(keyword, len);
-
-        for (i = 0; *env; i++, env++)
-        {
-                line = *env;
-
-                for (j = 0; j < len; j++)
-                        keyword[j] = line[j];
-
-                if (!_strcmp(keyword, envar))
-                {
-                        free(keyword);
-                        return (*env);
-                }
-        }
-        free(keyword);
+	if (envar && *envar)
+	{
+		len = _strlen(envar);
+		for (; *env; env++)
+		{
+			for (i = 0; i < len; i++)
+				if (envar[i] != (*env)[i])
+					break;
+			if (!envar[i])
+				return (_strpbrk(*env, EQUAL) + 1);
+		}
+	}
         return (NULL);
 }
 
@@ -53,7 +42,7 @@ char *_getenv(char *envar, char **env, list_t **mt)
  */
 char *pathfinder(char **av, char **ev, list_t **mt)
 {
-        char *ev_path = _getenv("PATH", ev, mt);
+        char *ev_path = _getenv("PATH", ev);
         char **splitlist = NULL, **pathlist = NULL;
         char *cmd = NULL, *paths = NULL, *concatpath;
 
@@ -65,13 +54,14 @@ char *pathfinder(char **av, char **ev, list_t **mt)
                 if (!splitlist)
                         return (0);
                 paths = splitlist[1];
-                pathlist = make_arr_str(paths, SEMICOLON, mt);
+                pathlist = make_arr_str(paths, COLON, mt);
                 if (!pathlist)
                         return (0);
                 cmd = av[0];
 		while (*pathlist)
                 {
-                        concatpath = _strcat_s(*pathlist, cmd, mt);
+                        concatpath = _strcat(*pathlist, BACKSLASH, mt);
+			concatpath = _strcat(*pathlist, cmd, mt);
                         if (!access(concatpath, X_OK))
                         {
                                 return (concatpath);
