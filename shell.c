@@ -9,6 +9,7 @@
  */
 int main(int ac, char **av, char **ev)
 {
+	list_t *memtracker = NULL;
 	char *cmd = NULL;
 	char **cv = NULL;
 	char **history = NULL;
@@ -16,15 +17,17 @@ int main(int ac, char **av, char **ev)
 	(void)av;
 	(void)ev;
 	(void)history;
+	(void)memtracker;
 
 	signal(SIGINT, sig_handler);
 
 	while (1)
 	{
 		PS1;
-		cmd = getcommand();
-		cv = make_arr_str(cmd, SPACE);
-		action(cv);
+		cmd = getcommand(&memtracker);
+		cv = make_arr_str(cmd, SPACE, &memtracker);
+		action(cv, &memtracker);
+		freememtracker(&memtracker);
 	}
 	return (0);
 }

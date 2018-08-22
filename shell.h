@@ -24,12 +24,12 @@
 #define NEWLINE write(STDOUT_FILENO, "\n", 1)
 
 /* shellhelpers1.c */
-char *getcommand(void);
-char **make_arr_str(char *s, const char *delim);
-int action(char **cv);
+char *getcommand(list_t **mt);
+char **make_arr_str(char *s, const char *delim, list_t **mt);
+int action(char **cv, list_t **mt);
 void sig_handler(int signum);
 
 /* _getline.c */
-ssize_t _getline(char **lineptr, size_t *n, int fd);
+ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt);
 
 #endif /* _SHELL_H_ */

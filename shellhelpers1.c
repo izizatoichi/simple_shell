@@ -19,7 +19,7 @@ void sig_handler(int signum)
  * getcommand - gets the command from the user and returns a string
  * Return: char * string output or NULL if no input
  */
-char *getcommand(void)
+char *getcommand(list_t **mt)
 {
 	char *buffer = NULL;
 	size_t size = 0, len = 0;
@@ -27,10 +27,13 @@ char *getcommand(void)
 
 	while (numread == -1)
 	{
-		numread = _getline(&buffer, &size, STDIN_FILENO);
+		numread = _getline(&buffer, &size, STDIN_FILENO, mt);
 		fflush(stdin);
 		if (numread == -2 || numread == -1)
+		{
+			freememtracker(mt);
 			exit(1);
+		}
 		if (numread > 0)
 		{
 			len = _strlen(buffer);
@@ -48,7 +51,7 @@ char *getcommand(void)
  * Return: resulting NULL terminated char ** array of strings. Will return
  * NULL if input s is empty.
  */
-char **make_arr_str(char *s, const char *delim)
+char **make_arr_str(char *s, const char *delim, list_t **mt)
 {
 	char *token = NULL;
 	list_t *head = NULL, *walker = NULL;
@@ -66,6 +69,7 @@ char **make_arr_str(char *s, const char *delim)
 	{
 		reverse_list(&head);
 		argv = malloc(sizeof(char *) * (numnodes + 1));
+		add_node(mt, (void *)argv);
 		for (; numnodes >= 0; numnodes--)
 			argv[numnodes] = NULL;
 		walker = head;
@@ -86,10 +90,11 @@ char **make_arr_str(char *s, const char *delim)
  * @cv: null termed array of strings that contain the command and flags
  * Return: error code from execve.
  */
-int action(char **cv)
+int action(char **cv, list_t **mt)
 {
 	pid_t pid;
 	int result = 0;
+	(void)mt;
 
 	if (cv)
 	{
@@ -104,6 +109,7 @@ int action(char **cv)
 			result = execve(cv[0], cv, NULL);
 			if (result == -1)
 				perror("Error");
+			freememtracker(mt);
 			exit(result);
 		}
 		else
