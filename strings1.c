@@ -4,24 +4,25 @@
  * _strdup - a function that returns a pointer to a newly allocated space
  * which contains a copy of a given string
  * @str: pointer to an input string
+ * @mt: pointer to the memory tracker link list
  * Return: NULL if str is NULL or if fail to allocate memory, otherwise returns
  * pointer to the newly allocated space
  */
-char *_strdup(char *str)
+char *_strdup(char *str, list_t **mt)
 {
-	unsigned int i = 0;
+	unsigned int len = 0;
 	char *s = NULL;
 
 	if (str)
 	{
-		while (str[i])
-			i++;
-		s = malloc(sizeof(char) * (i + 1));
+		len = _strlen(str);
+		s = malloc(sizeof(char) * (len + 1));
+		add_node(mt, (void *)s);
 		if (s)
 		{
-			for (i = 0; str[i]; i++)
-				s[i] = str[i];
-			s[i] = '\0';
+			for (; len; len--)
+				s[len] = str[len];
+			s[len] = str[len];
 		}
 	}
 	return (s);

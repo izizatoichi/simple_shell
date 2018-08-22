@@ -2,9 +2,10 @@
 #define _STRINGS_H_
 
 #include <stdlib.h>
+#include "linklists.h"
 
 /* strings1.c */
-char *_strdup(char *str);
+char *_strdup(char *str, list_t **mt);
 unsigned int _strspn(char *s, char *accept);
 char *_strpbrk(char *s, char *accept);
 char *_strtok(char *s, const char *delim);
