@@ -15,11 +15,22 @@ void sig_handler(int signum)
 }
 
 /**
+ * display_prompt - displays the prompt if in interactive mode
+ * @sev: shell environment variable
+ * Return: nothing
+ */
+void display_prompt(sev_t sev)
+{
+	if (sev.ia_mode)
+		PS1;
+}
+
+/**
  * getcommand - gets the command from the user and returns a string
- * @mt: double pointer to the memory tracker link list
+ * @sev: ptr to the shell environmen variable struct
  * Return: char * string output or NULL if no input
  */
-char *getcommand(list_t **mt)
+char *getcommand(sev_t *sev)
 {
 	char *buffer = NULL;
 	size_t size = 0, len = 0;
@@ -27,11 +38,12 @@ char *getcommand(list_t **mt)
 
 	while (numread == -1)
 	{
-		numread = _getline(&buffer, &size, STDIN_FILENO, mt);
+		numread = _getline(&buffer, &size, STDIN_FILENO, &(sev->mem));
 		fflush(stdin);
 		if (numread == -2 || numread == -1)
 		{
-			free_list(mt, 1);
+			free_list(&(sev->mem), 1);
+			NEWLINE;
 			exit(1);
 		}
 		if (numread > 0)
@@ -41,18 +53,19 @@ char *getcommand(list_t **mt)
 				buffer[len - 1] = '\0';
 		}
 	}
-	return (buffer);
+	sev->input = buffer;
+	sev->p_input = make_arr_str(sev->input, SPACE, sev);
+	return (sev->input = buffer);
 }
 
 /**
  * make_arr_str - makes an array of strings from an input string
- * @s: input char * string
+ * @sev: shell environment variable struct
  * @delim: const char * used to split each token
- * @mt: double pointer to the memory tracker link list
  * Return: resulting NULL terminated char ** array of strings. Will return
  * NULL if input s is empty.
  */
-char **make_arr_str(char *s, const char *delim, list_t **mt)
+char **make_arr_str(char *s, const char *delim, sev_t *sev)
 {
 	char *token = NULL;
 	list_t *head = NULL, *walker = NULL;
@@ -70,7 +83,7 @@ char **make_arr_str(char *s, const char *delim, list_t **mt)
 	{
 		reverse_list(&head);
 		argv = malloc(sizeof(char *) * (numnodes + 1));
-		add_node(mt, (void *)argv);
+		add_node(&(sev->mem), (void *)argv);
 		for (; numnodes >= 0; numnodes--)
 			argv[numnodes] = NULL;
 		walker = head;
@@ -88,19 +101,17 @@ char **make_arr_str(char *s, const char *delim, list_t **mt)
 
 /**
  * action - function use to fork and execute commands entered by the user
- * @cv: null termed array of strings that contain the command and flags
- * @mt: double pointer to the memory tracker link list
- * @ev: ptr to environ variable
+ * @sev: ptr to the shell environment variables struct
  * Return: error code from execve.
  */
-int action(char **cv, char **ev, list_t **mt)
+int action(sev_t *sev)
 {
 	pid_t pid;
 	int result = 0;
 	char *fullpath = NULL;
 
-	if (cv)
-		fullpath = pathfinder(cv, ev, mt);
+	if (sev->input)
+		fullpath = pathfinder(sev);
 	else
 		return (-1);
 	if (fullpath)
@@ -113,17 +124,14 @@ int action(char **cv, char **ev, list_t **mt)
 		}
 		if (pid == 0)
 		{
-			result = execve(fullpath, cv, NULL);
+			result = execve(fullpath, sev->p_input, NULL);
 			if (result == -1)
 				perror("Error");
-			free_list(mt, 1);
-			exit(result);
 		}
 		else
 			wait(NULL);
 	}
-	else
-		printf("%s: not found\n", cv[0]);
-	free_list(mt, 1);
+	else if (sev->p_input)
+		printf("%s: not found\n", sev->p_input[0]);
 	return (0);
 }
