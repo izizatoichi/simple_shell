@@ -40,42 +40,6 @@ char *_getenv(char *envar, char **env, list_t **mt)
 }
 
 /**
- * _strcat_s - conat two strings and adds forward slash between them
- * @s1: string1
- * @s2: string2
- *
- * Description: Function takes two strings and combines them together into
- * a new string. A forward slash is inserted into the new string between the
- * two strings.
- * Return: Concatenated string or NULL
- */
-char *_strcat_s(char *s1, char *s2, list_t **mt)
-{
-        int len_s1 = _strlen(s1), len_s2 = _strlen(s2), i = 0;
-        int newlen = len_s1 + len_s2;
-        char *newstring = malloc(sizeof(char) * (newlen + 1));
-	
-	add_node(mt, (void *)newstring);
-        if(!newstring)
-                return (NULL);
-        reset_buffer(newstring, newlen + 1);
-        while (i < len_s1)
-        {
-                newstring[i] = s1[i];
-                i++;
-        }
-        newstring[i] = '/';
-        i++;
-        while (i <= newlen)
-        {
-                newstring[i] = s2[i - len_s1 - 1];
-                i++;
-        }
-        newstring[i] = '\0';
-        return (newstring);
-}
-
-/**
  * pathfinder - determines if a command is in path
  * @av: list of arguments
  * @ev: list of environment variables
