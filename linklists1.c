@@ -45,9 +45,10 @@ list_t *reverse_list(list_t **head)
 /**
  * free_list - frees a linked list and sets the head to NULL
  * @head: list_t type
+ * @flag: flag 1 to free dataptr, 0 to not free dataptr
  * Return: nada
  */
-void free_list(list_t **head)
+void free_list(list_t **head, int flag)
 {
 	list_t *walker = NULL;
 
@@ -55,6 +56,8 @@ void free_list(list_t **head)
 	{
 		walker = *head;
 		*head = (*head)->next;
+		if (flag)
+			free(walker->dataptr);
 		free(walker);
 	}
 }

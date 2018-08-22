@@ -32,7 +32,7 @@ char *getcommand(list_t **mt)
 		fflush(stdin);
 		if (numread == -2 || numread == -1)
 		{
-			freememtracker(mt);
+			free_list(mt, 1);
 			exit(1);
 		}
 		if (numread > 0)
@@ -82,7 +82,7 @@ char **make_arr_str(char *s, const char *delim, list_t **mt)
 			walker = walker->next;
 			numnodes++;
 		}
-		free_list(&head);
+		free_list(&head, 0);
 	}
 	return (argv);
 }
@@ -97,7 +97,6 @@ int action(char **cv, list_t **mt)
 {
 	pid_t pid;
 	int result = 0;
-	(void)mt;
 
 	if (cv)
 	{
@@ -112,7 +111,7 @@ int action(char **cv, list_t **mt)
 			result = execve(cv[0], cv, NULL);
 			if (result == -1)
 				perror("Error");
-			freememtracker(mt);
+			free_list(mt, 1);
 			exit(result);
 		}
 		else
