@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include "linklists.h"
+#include "memory.h"
 
 /* strings1.c */
 char *_strdup(char *str, list_t **mt);
@@ -14,5 +15,6 @@ unsigned int _strlen(char *s);
 /* strings2.c */
 int _strcmp(char *s1, char *s2);
 int _atoi(char *s);
+char *_strcat(char *s1, char *s2, list_t **mt);
 
 #endif /* _STRINGS_H_ */
