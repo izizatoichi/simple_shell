@@ -17,6 +17,7 @@
 #include "strings.h"
 #include "linklists.h"
 #include "memory.h"
+#include "builtins.h"
 
 #define SPACE " "
 #define EQUAL "="
