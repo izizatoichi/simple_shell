@@ -4,13 +4,12 @@
  * _getenv - get environment variable
  * @envar: target environment variable
  * @env: list of environment variables
- * @mt: ptr to memory tracker link list
  *
  * Description: Function takes a list of env variables and returns env variable
  * if found.
  * Return: environment variable if found; otherwise, NULL
  */
-char *_getenv(char *envar, char **env, list_t **mt)
+char *_getenv(char *envar, sev_t *sev)
 {
 	ssize_t i = 0, j = 0, len = 0;
 	char *found = NULL;
@@ -18,14 +17,14 @@ char *_getenv(char *envar, char **env, list_t **mt)
 	if (envar && *envar)
 	{
 		len = _strlen(envar);
-		for (i = 0; env[i]; i++)
+		for (i = 0; sev->env[i]; i++)
 		{
 			for (j = 0; j < len; j++)
-				if (envar[j] != env[i][j])
+				if (envar[j] != sev->env[i][j])
 					break;
 			if (!envar[j])
 			{
-				found = _strdup(env[i], mt);
+				found = _strdup(sev->env[i], &(sev->mem));
 				return (_strpbrk(found, EQUAL) + 1);
 			}
 		}
@@ -35,9 +34,7 @@ char *_getenv(char *envar, char **env, list_t **mt)
 
 /**
  * pathfinder - determines if a command is in path
- * @av: list of arguments
- * @ev: list of environment variables
- * @mt: double ptr to memory tracker link list
+ * @sev: shell environment variable struct
  *
  * Description: Function takes a list of arguments and uses the first argument
  * to determine if the argument is an executable in a directory of PATH
@@ -46,30 +43,30 @@ char *_getenv(char *envar, char **env, list_t **mt)
  * returns NULL.
  * Return: Path to executable or NULL
  */
-char *pathfinder(char **av, char **ev, list_t **mt)
+char *pathfinder(sev_t *sev)
 {
-	char *fullpath = NULL, *ev_path = _getenv("PATH", ev, mt);
+	char *fpath = NULL, *ev_path = _getenv("PATH", sev);
 	char **pathlist = NULL;
 
 	if (!ev_path)
 		return (NULL);
-	if (av)
+	if (sev->p_input)
 	{
-		if (av[0][0] == '/')
+		if (sev->p_input[0][0] == '/')
 		{
-			if (!access(av[0], X_OK))
-				return (av[0]);
+			if (!access(sev->p_input[0], X_OK))
+				return (sev->p_input[0]);
 			return (NULL);
 		}
-		pathlist = make_arr_str(ev_path, COLON, mt);
+		pathlist = make_arr_str(ev_path, COLON, sev);
 		if (!pathlist)
 			return (NULL);
 		for (; *pathlist; pathlist++)
 		{
-			fullpath = _strcat(*pathlist, FSLASH, mt);
-			fullpath = _strcat(fullpath, av[0], mt);
-			if (!access(fullpath, X_OK))
-				return (fullpath);
+			fpath = _strcat(*pathlist, FSLASH, &(sev->mem));
+			fpath = _strcat(fpath, sev->p_input[0], &(sev->mem));
+			if (!access(fpath, X_OK))
+				return (fpath);
 		}
 	}
 	return (NULL);

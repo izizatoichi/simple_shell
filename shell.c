@@ -9,22 +9,18 @@
  */
 int main(int ac, char **av, char **ev)
 {
-	list_t *memtracker = NULL;
-	char *input = NULL;
-	char **arr_args = NULL;
-	char **history = NULL;
+	sev_t sev;
 	(void)ac;
 	(void)av;
-	(void)history;
 
+	sev = init_sev(ev);
 	signal(SIGINT, sig_handler);
 
-	while (1)
+	while (sev.good2go)
 	{
-		PS1;
-		input = getcommand(&memtracker);
-		arr_args = make_arr_str(input, SPACE, &memtracker);
-		action(arr_args, ev, &memtracker);
+		display_prompt(sev);
+		getcommand(&sev);
+		action(&sev);
 	}
 	return (0);
 }
