@@ -20,6 +20,7 @@ int main(int ac, char **av, char **ev)
 	{
 		display_prompt(sev);
 		getcommand(&sev);
+		check_builtin(&sev);
 		action(&sev);
 	}
 	return (0);
