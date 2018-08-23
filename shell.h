@@ -21,19 +21,20 @@
 #define SPACE " "
 #define EQUAL "="
 #define COLON ":"
-#define BACKSLASH "\\"
+#define BSLASH "\\"
+#define FSLASH "/"
 #define BUF_SIZE 1024
 #define PS1 write(STDOUT_FILENO, "JS$ ", 4)
-#define NEWLINE write(STDOUT_FILENO, "\n", 1)
+#define PS2 write(STDOUT_FILENO, "\nJS$ ", 5)
 
 /* shellhelpers1.c */
 char *getcommand(list_t **mt);
 char **make_arr_str(char *s, const char *delim, list_t **mt);
-int action(char **cv, list_t **mt);
+int action(char **cv, char **ev, list_t **mt);
 void sig_handler(int signum);
 
 /* shellhelpers2.c */
-char *_getenv(char *envar, char **env);
+char *_getenv(char *envar, char **env, list_t **mt);
 char *pathfinder(char **av, char **ev, list_t **mt);
 
 /* _getline.c */

@@ -10,12 +10,11 @@
 int main(int ac, char **av, char **ev)
 {
 	list_t *memtracker = NULL;
-	char *cmd = NULL;
-	char **cv = NULL;
+	char *input = NULL;
+	char **arr_args = NULL;
 	char **history = NULL;
 	(void)ac;
 	(void)av;
-	(void)ev;
 	(void)history;
 
 	signal(SIGINT, sig_handler);
@@ -23,10 +22,9 @@ int main(int ac, char **av, char **ev)
 	while (1)
 	{
 		PS1;
-		cmd = getcommand(&memtracker);
-		cv = make_arr_str(cmd, SPACE, &memtracker);
-		action(cv, &memtracker);
-		free_list(&memtracker, 1);
+		input = getcommand(&memtracker);
+		arr_args = make_arr_str(input, SPACE, &memtracker);
+		action(arr_args, ev, &memtracker);
 	}
 	return (0);
 }

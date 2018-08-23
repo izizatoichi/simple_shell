@@ -4,25 +4,30 @@
  * _getenv - get environment variable
  * @envar: target environment variable
  * @env: list of environment variables
+ * @mt: ptr to memory tracker link list
  *
  * Description: Function takes a list of env variables and returns env variable
  * if found.
  * Return: environment variable if found; otherwise, NULL
  */
-char *_getenv(char *envar, char **env)
+char *_getenv(char *envar, char **env, list_t **mt)
 {
-	ssize_t i = 0, len = 0;
+	ssize_t i = 0, j = 0, len = 0;
+	char *found = NULL;
 
 	if (envar && *envar)
 	{
 		len = _strlen(envar);
-		for (; *env; env++)
+		for (i = 0; env[i]; i++)
 		{
-			for (i = 0; i < len; i++)
-				if (envar[i] != (*env)[i])
+			for (j = 0; j < len; j++)
+				if (envar[j] != env[i][j])
 					break;
-			if (!envar[i])
-				return (_strpbrk(*env, EQUAL) + 1);
+			if (!envar[j])
+			{
+				found = _strdup(env[i], mt);
+				return (_strpbrk(found, EQUAL) + 1);
+			}
 		}
 	}
         return (NULL);
@@ -43,20 +48,26 @@ char *_getenv(char *envar, char **env)
  */
 char *pathfinder(char **av, char **ev, list_t **mt)
 {
-	char *cmd = NULL, *fullpath = NULL, *ev_path = _getenv("PATH", ev);
+	char *fullpath = NULL, *ev_path = _getenv("PATH", ev, mt);
 	char **pathlist = NULL;
 
 	if (!ev_path)
 		return (NULL);
 	if (av)
 	{
+		if (av[0][0] == '/')
+		{
+			if (!access(av[0], X_OK))
+				return (av[0]);
+			return (NULL);
+		}
 		pathlist = make_arr_str(ev_path, COLON, mt);
 		if (!pathlist)
 			return (NULL);
 		for (; *pathlist; pathlist++)
 		{
-			fullpath = _strcat(*pathlist, BACKSLASH, mt);
-			fullpath = _strcat(*pathlist, av[0], mt);
+			fullpath = _strcat(*pathlist, FSLASH, mt);
+			fullpath = _strcat(fullpath, av[0], mt);
 			if (!access(fullpath, X_OK))
 				return (fullpath);
 		}
