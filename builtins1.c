@@ -4,13 +4,17 @@
  * TODO:
  * 	1. signum > INTMAX..should return 2
  * 	2. Error messages using history
+ *
+ * 	3. DONT EXIT. RETURN SIGNUM as SEV->ERROR
  */
-void exit_sh(char **av, char **ev, list_t **mt)
+void exit_sh(sev_t *sev)
 {
+	char **av = sev->p_input;
+	list_t **mt = &(sev->mem);
 	char *signal = "0";
 	unsigned long siglong = 0, i, max = (long) INT_MAX;
 	int sigint;
-	(void) ev;
+
 	
 	if (av[1])
 		signal = av[1];
@@ -40,11 +44,10 @@ void exit_sh(char **av, char **ev, list_t **mt)
 	_exit(sigint);
 }
 
-void _printenv(char **av, char **ev, list_t **mt)
+void _printenv(sev_t *sev)
 {
 	int i;
-	(void) mt;
-	(void) av;
+	char **ev = sev->env;
 
 	if (ev)
 	{
@@ -61,11 +64,12 @@ void _printenv(char **av, char **ev, list_t **mt)
  * 	1. Add more builtin functions
  * 	2. integrate function into main shell
  */
-int check_builtin(char **av, char **env, list_t **mt)
+int check_builtin(sev_t *sev)
 {	
 	int i = 0;
 	char *cmd = NULL;
-	(void) env;
+	char **av = sev->p_input;
+	
 	built_t funclist[] = {{"exit", exit_sh}, 
 	  		      {"env", _printenv},
 			      {NULL, NULL}};
@@ -77,7 +81,7 @@ int check_builtin(char **av, char **env, list_t **mt)
 		{
 			if (!_strcmp(cmd, funclist[i].funcname))
 			{
-				funclist[i].func(av, env, mt);
+				funclist[i].func(sev);
 				return (1);
 			}
 		}
