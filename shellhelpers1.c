@@ -108,17 +108,28 @@ char **make_arr_str(char *s, const char *delim, sev_t *sev)
 int action(sev_t *sev)
 {
 	pid_t pid;
-	char *fullpath = NULL, *errmsg = NULL;
+	char *fullpath = NULL, *errmsg = NULL, **evp;
+	int result = 0;
 
-	if (sev->input)
+	if (_strlen(sev->input))
 		fullpath = pathfinder(sev);
+	else
+		return 0;
 	if (fullpath)
 	{
 		pid = fork();
 		if (pid == -1)
+		{
 			sev->error = -1;
+			sev->errmsg = "Error spawning child process\n";
+		}
 		else if (pid == 0)
-			execve(fullpath, sev->p_input, NULL);
+		{
+			evp = make_evp_arr(sev);
+			result = execve(fullpath, sev->p_input, evp);
+			if (result == -1)
+				perror("Error");
+		}
 		else
 			wait(NULL);
 	}

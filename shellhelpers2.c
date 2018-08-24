@@ -96,3 +96,35 @@ void clean_sev(sev_t *sev)
 	free_list(&sev->log, 0);
 	free_list(&sev->env, 0);
 }
+
+/**
+ * make_evp_arr - makes the enviroment varaible array from the in memory
+ * copy
+ * @sev: ptr to the shell environment variable link list
+ * Return: ptr to the constucted environment array
+ */
+char **make_evp_arr(sev_t *sev)
+{
+	char **evp = NULL;
+	int entries = 0, i = 0;
+	list_t *walker = sev->env;
+
+	while (walker)
+	{
+		entries++;
+		walker = walker->next;
+	}
+	evp = malloc(sizeof(char *) * (entries + 1));
+	if (!evp)
+		return (NULL);
+	add_node(&sev->mem, evp);
+	walker = sev->env;
+	for (i = 0; walker; i++)
+	{
+		evp[i] = (char *)walker->dataptr;
+		walker = walker->next;
+	}
+	evp[i] = NULL;
+
+	return (evp);
+}
