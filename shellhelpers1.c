@@ -108,7 +108,7 @@ char **make_arr_str(char *s, const char *delim, sev_t *sev)
 int action(sev_t *sev)
 {
 	pid_t pid;
-	char *fullpath = NULL, *errmsg = NULL, **evp;
+	char *fullpath = NULL, **evp;
 	int result = 0;
 
 	if (_strlen(sev->input))
@@ -134,19 +134,6 @@ int action(sev_t *sev)
 			wait(NULL);
 	}
 	else
-	{
-		sev->error = -1;
-		errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
-		errmsg = _strcat(errmsg, SPACE, &sev->mem);
-		errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
-		errmsg = _strcat(errmsg, COLON, &sev->mem);
-		errmsg = _strcat(errmsg, SPACE, &sev->mem);
-		errmsg = _strcat(errmsg, sev->input, &sev->mem);
-		errmsg = _strcat(errmsg, COLON, &sev->mem);
-		errmsg = _strcat(errmsg, SPACE, &sev->mem);
-		errmsg = _strcat(errmsg, "not found", &sev->mem);
-		errmsg = _strcat(errmsg, "\n", &sev->mem);
-		sev->errmsg = errmsg;
-	 }
+		filenotfound(sev);
 	return (0);
 }

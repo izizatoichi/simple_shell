@@ -52,6 +52,9 @@ void display_error(sev_t *sev)
 {
 	if (sev->error)
 		write(STDOUT_FILENO, sev->errmsg, _strlen(sev->errmsg));
-	sev->error = 0;
-	sev->errmsg = NULL;
+	if (sev->good2go)
+	{
+		sev->error = 0;
+		sev->errmsg = NULL;
+	}
 }

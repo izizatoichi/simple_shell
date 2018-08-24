@@ -19,6 +19,8 @@
 #include "memory.h"
 #include "shellvars.h"
 #include "builtins.h"
+#include "errors.h"
+#include "log.h"
 
 #define SPACE " "
 #define EQUAL "="
@@ -29,7 +31,6 @@
 #define PS1 write(STDOUT_FILENO, "JS$ ", 4)
 #define PS2 write(STDOUT_FILENO, "\nJS$ ", 5)
 #define NEWLINE write(STDOUT_FILENO, "\n", 1)
-#define LOGFILE ".simple_shell_history"
 
 /* shellhelpers1.c */
 void sig_handler(int signum);
@@ -41,7 +42,6 @@ int action(sev_t *sev);
 /* shellhelpers2.c */
 char *_getenv(char *envar, sev_t *sev);
 char *pathfinder(sev_t *sev);
-void add_log(sev_t *sev);
 void clean_sev(sev_t *sev);
 char **make_evp_arr(sev_t *sev);
 
