@@ -73,3 +73,26 @@ char *pathfinder(sev_t *sev)
 	}
 	return (NULL);
 }
+
+/**
+ * add_log - add input from user to log
+ * @sev: ptr to shell environment variable link list
+ * Return: nothing
+ */
+void add_log(sev_t *sev)
+{
+	add_node(&sev->log, _strdup(sev->input, &sev->mem));
+	sev->log_cnt++;
+}
+
+/**
+ * clean_sev - go through and free the link lists in the sev
+ * @sev: ptr to the shell environment variable link list
+ * Return: nothing
+ */
+void clean_sev(sev_t *sev)
+{
+	free_list(&sev->mem, 1);
+	free_list(&sev->log, 0);
+	free_list(&sev->env, 0);
+}

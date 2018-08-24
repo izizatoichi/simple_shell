@@ -76,3 +76,64 @@ char *_strcat(char *s1, char *s2, list_t **mt)
 	newstring[i] = '\0';
 	return (newstring);
 }
+
+/**
+ * _itoa - number to string convertor
+ * @num: the number of type ssize_t to be converted
+ * @mt: ptr to the memory tracker link list
+ 8 Return: returns the string
+ */
+char *_itoa(ssize_t num, list_t **mt)
+{
+	int index = 0, neg = 0;
+	char result[MAXNUMLEN];
+
+	if (num == 0)
+	{
+		result[0] = '0';
+		result[1] = '\0';
+	}
+	else
+	{
+		if (num < 0)
+			neg = 1;
+		while (num)
+		{
+			result[index] = '0' + num % 10;
+			num /= 10;
+			index++;
+		}
+		if (neg)
+		{
+			result[index] = '-';
+			index++;
+		}
+		result[index] = '\0';
+		reverse_str(result);
+	}
+	return (_strdup(result, mt));
+}
+
+/**
+ * reverse_str - in place string reversal
+ * @s: string to be reversed
+ * Return: void
+ */
+char *reverse_str(char *s)
+{
+	int front = 0, back = _strlen(s) - 1;
+	char tmp;
+
+	if (s)
+	{
+		while (front < back)
+		{
+			tmp = s[front];
+			s[front] = s[back];
+			s[back] = tmp;
+			front++;
+			back--;
+		}
+	}
+	return (s);
+}

@@ -12,8 +12,8 @@ int main(int ac, char **av, char **ev)
 	sev_t sev;
 	(void)ac;
 	(void)av;
-	sev = init_sev();
-	sev.env = read_env(&sev, ev);
+	initialize_shell_env(&sev, ev);
+
 	signal(SIGINT, sig_handler);
 
 	while (sev.good2go)
@@ -22,6 +22,7 @@ int main(int ac, char **av, char **ev)
 		getcommand(&sev);
 		check_builtin(&sev);
 		action(&sev);
+		display_error(&sev);
 	}
 	return (0);
 }

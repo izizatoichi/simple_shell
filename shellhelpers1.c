@@ -42,7 +42,7 @@ char *getcommand(sev_t *sev)
 		fflush(stdin);
 		if (numread == -2 || numread == -1)
 		{
-			free_list(&(sev->mem), 1);
+			clean_sev(sev);
 			NEWLINE;
 			exit(1);
 		}
@@ -54,6 +54,7 @@ char *getcommand(sev_t *sev)
 		}
 	}
 	sev->input = buffer;
+	add_log(sev);
 	sev->p_input = make_arr_str(sev->input, SPACE, sev);
 	return (sev->input = buffer);
 }
@@ -107,31 +108,34 @@ char **make_arr_str(char *s, const char *delim, sev_t *sev)
 int action(sev_t *sev)
 {
 	pid_t pid;
-	int result = 0;
-	char *fullpath = NULL;
+	char *fullpath = NULL, *errmsg = NULL;
 
 	if (sev->input)
 		fullpath = pathfinder(sev);
-	else
-		return (-1);
 	if (fullpath)
 	{
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("Error");
-			return (-1);
-		}
-		if (pid == 0)
-		{
-			result = execve(fullpath, sev->p_input, NULL);
-			if (result == -1)
-				perror("Error");
-		}
+			sev->error = -1;
+		else if (pid == 0)
+			execve(fullpath, sev->p_input, NULL);
 		else
 			wait(NULL);
 	}
-	else if (sev->p_input)
-		printf("%s: not found\n", sev->p_input[0]);
+	else
+	{
+		sev->error = -1;
+		errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
+		errmsg = _strcat(errmsg, SPACE, &sev->mem);
+		errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
+		errmsg = _strcat(errmsg, COLON, &sev->mem);
+		errmsg = _strcat(errmsg, SPACE, &sev->mem);
+		errmsg = _strcat(errmsg, sev->input, &sev->mem);
+		errmsg = _strcat(errmsg, COLON, &sev->mem);
+		errmsg = _strcat(errmsg, SPACE, &sev->mem);
+		errmsg = _strcat(errmsg, "not found", &sev->mem);
+		errmsg = _strcat(errmsg, "\n", &sev->mem);
+		sev->errmsg = errmsg;
+	 }
 	return (0);
 }
