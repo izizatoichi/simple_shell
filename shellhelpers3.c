@@ -1,7 +1,7 @@
 #include "shell.h"
+
 /**
  * init_sev - initialzies the shell environment variables
- * @ev: double ptr to the os environment variables
  * Return: the initialized values of type sev_t
  */
 sev_t init_sev(void)
@@ -22,16 +22,22 @@ sev_t init_sev(void)
 	return (init);
 }
 
+/**
+ * read_env - read list of env and store in linked list
+ * @sev: shell variable struct
+ * @ev: list of environment variables
+ *
+ * Description: Function parses a list of env vars and stores each string in
+ * linked list
+ * Return: head of linked list
+ */
 list_t *read_env(sev_t *sev, char **ev)
 {
 	list_t **mt = &(sev->mem);
-	list_t *head = NULL, *new_node = NULL;
+	list_t *head = NULL;
 
 	for (; *ev; ev++)
-	{
-		new_node = add_node(&head, (char *) *ev);
-		add_node(mt, (void *) new_node);
-	}
+		add_node(&head, _strdup(*ev, mt));
 
 	return (head);
 }
