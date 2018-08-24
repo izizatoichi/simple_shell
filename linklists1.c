@@ -61,3 +61,44 @@ void free_list(list_t **head, int flag)
 		free(walker);
 	}
 }
+
+
+/**
+ * delete_nodeint_at_index - delete node at index
+ * @head: head of linked list
+ * @index: index of deletion
+ *
+ * Description: Function will take a linked list and delete node at index.
+ * Return: 1 if successful, -1 if failure
+ */
+int delete_node_at_index(list_t **head, unsigned int index)
+{
+	unsigned int listidx = 0;
+	list_t *cur;
+	list_t *prev;
+
+	if (!*head)
+		return (-1);
+	cur = *head;
+	prev = *head;
+
+	while (listidx < index)
+	{
+		if (!cur)
+			return (-1);
+		if (listidx < index - 1)
+			prev = prev->next;
+		cur = cur->next;
+		listidx++;
+	}
+	if (!index)
+	{
+		cur = cur->next;
+		free(*head);
+		*head = cur;
+		return (1);
+	}
+	prev->next = cur->next;
+	free(cur);
+	return (1);
+}

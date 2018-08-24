@@ -20,8 +20,8 @@ int main(int ac, char **av, char **ev)
 	{
 		display_prompt(sev);
 		getcommand(&sev);
-		check_builtin(&sev);
-		action(&sev);
+		if (!check_builtin(&sev))
+			action(&sev);
 		display_error(&sev);
 	}
 	return (0);

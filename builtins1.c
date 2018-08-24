@@ -71,6 +71,81 @@ void _printenv(sev_t *sev)
 	}
 }
 
+
+void _setenv(sev_t *sev)
+{
+	unsigned int j = 0, found = 0;
+	list_t *ev = sev->env;
+	list_t **mt = &(sev->mem);
+	char **av = sev->p_input;
+	char *variable, *value, *envar, *new;
+
+	variable = av[1];
+	value = av[2];
+
+	if (variable && value)
+	{
+		for (; ev; ev = ev->next)
+		{
+			envar = ev->dataptr;
+			for (j = 0; j < _strlen(variable) && envar[j]; j++)
+			{
+				if (variable[j] != envar[j])
+					break;
+			}
+			if (j == _strlen(variable) && envar[j] == '=')
+			{
+				found = 1;
+				break;
+			}
+		}
+
+		new = _strcat(variable, "=", mt);
+		new = _strcat(new, value, mt);
+		if (found)
+			ev->dataptr = _strdup(new, mt);
+		else
+			add_node(&(sev->env), (void *)_strdup(new, mt));
+	}
+	else
+		write(STDERR_FILENO, "Usage: setenv VARIABLE VALUE\n", 29);
+}
+
+void _unsetenv(sev_t*sev)
+{
+	unsigned int i = 0, index_count = 0, found = 0;
+	list_t *ev = sev->env;
+	char **av = sev->p_input;
+	char *variable, *envar;
+
+	variable = av[1];
+
+	if (variable)
+	{
+		for (; ev; ev = ev->next)
+		{
+			envar = ev->dataptr;
+			for (i = 0; i < _strlen(variable) && envar[i]; i++)
+			{
+				if (variable[i] != envar[i])
+					break;
+			}
+			if (i == _strlen(variable) && envar[i] == '=')
+			{
+				found = 1;
+				break;
+			}
+			index_count++;
+		}
+
+		if (found)
+			delete_node_at_index(&(sev->env), index_count);
+		else
+			write(STDERR_FILENO, "Unable to find VARIABLE\n", 24);
+	}
+	else
+		write(STDERR_FILENO, "Usage: unsetenv VARIABLE\n", 25);
+}
 /**
  * check_builtin - call builtin function
  * @sev: struct containing shell variables
@@ -88,6 +163,8 @@ int check_builtin(sev_t *sev)
 	built_t funclist[] = {
 		{"exit", exit_sh},
 		{"env", _printenv},
+		{"setenv", _setenv},
+		{"unsetenv", _unsetenv},
 		{NULL, NULL}
 	};
 
