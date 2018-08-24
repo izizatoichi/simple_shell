@@ -22,16 +22,16 @@
  */
 typedef struct sev_s
 {
-        int good2go;
-        int ia_mode;
-        list_t *log;
-        int log_cnt;
-        list_t *mem;
-        list_t *env;
-        char *input;
-        char **p_input;
-        int error;
-        char * errmsg;
+	int good2go;
+	int ia_mode;
+	list_t *log;
+	int log_cnt;
+	list_t *mem;
+	list_t *env;
+	char *input;
+	char **p_input;
+	int error;
+	char * errmsg;
 } sev_t;
 
 #endif /* _SHELLVARS_H_ */
