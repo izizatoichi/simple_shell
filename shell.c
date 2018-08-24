@@ -13,7 +13,7 @@ int main(int ac, char **av, char **ev)
 	(void)ac;
 	(void)av;
 	sev = init_sev();
-	sev.env = read_env(&sev,ev);	
+	sev.env = read_env(&sev, ev);
 	signal(SIGINT, sig_handler);
 
 	while (sev.good2go)
