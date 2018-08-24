@@ -1,19 +1,11 @@
 #include "builtins.h"
 
 /**
- * TODO: 
- * 	Make linked list of env variables (read_env function)
- *	Change shellvars.h and call read_env in init_sev func in shellhelpers3
- */
-
-/**
- * TODO:
- * 	1. signum > INTMAX..should return 2
- * 	2. Error messages using history
+ * exit_sh - terminate shell
+ * @sev: struct containing shell variables
  *
- * 	3. DONT EXIT. SET SEV->ERROR to signum
- * 	4. SET good2go to 0 if exit is called
- * 	1 for illegal exit codes
+ * Description: Function causes shell to exit normally
+ * Return: void
  */
 void exit_sh(sev_t *sev)
 {
@@ -21,12 +13,13 @@ void exit_sh(sev_t *sev)
 	char *signal = "0";
 	unsigned long siglong = 0, i, max = (long) INT_MAX;
 	int sigint;
+
 	if (av[1])
 		signal = av[1];
 
 	for (i = 0; signal[i]; i++)
 	{
-		if (signal[i] == '-')
+		if (signal[i] == '-' || (signal[i] < '0' || signal[i] > '9'))
 		{
 			siglong = -1;
 			break;
@@ -55,6 +48,13 @@ void exit_sh(sev_t *sev)
 	}
 }
 
+/**
+ * _printenv - print environment variables
+ * @sev: struct containing shell variables
+ *
+ * Description: Function prints all environment variables
+ * Return: void
+ */
 void _printenv(sev_t *sev)
 {
 	list_t *ev = sev->env;
@@ -68,23 +68,28 @@ void _printenv(sev_t *sev)
 			write(STDOUT_FILENO, s, _strlen(s));
 			write(STDOUT_FILENO, "\n", 1);
 		}
-	}	
+	}
 }
 
 /**
- * TODO:
- * 	1. Add more builtin functions
- * 	2. integrate function into main shell
+ * check_builtin - call builtin function
+ * @sev: struct containing shell variables
+ *
+ * Description: Function checks if builtin function exists. If it does, the
+ * builtin function will be executed.
+ * Return: 1 for success; 0 for failure
  */
 int check_builtin(sev_t *sev)
-{	
+{
 	int i = 0;
 	char *cmd = NULL;
 	char **av = sev->p_input;
-	
-	built_t funclist[] = {{"exit", exit_sh}, 
-	  		      {"env", _printenv},
-			      {NULL, NULL}};
+
+	built_t funclist[] = {
+		{"exit", exit_sh},
+		{"env", _printenv},
+		{NULL, NULL}
+	};
 
 	if (av && *av)
 	{
@@ -98,6 +103,5 @@ int check_builtin(sev_t *sev)
 			}
 		}
 	}
-
 	return (0);
 }
