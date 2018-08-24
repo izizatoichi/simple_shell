@@ -36,22 +36,17 @@ char *getcommand(sev_t *sev)
 	size_t size = 0, len = 0;
 	ssize_t numread = -1;
 
-	while (numread == -1)
+	numread = _getline(&buffer, &size, STDIN_FILENO, &(sev->mem));
+	if (numread == -2 || numread == -1)
 	{
-		numread = _getline(&buffer, &size, STDIN_FILENO, &(sev->mem));
-		fflush(stdin);
-		if (numread == -2 || numread == -1)
-		{
-			clean_sev(sev);
-			NEWLINE;
-			exit(1);
-		}
-		if (numread > 0)
-		{
-			len = _strlen(buffer);
-			if (buffer[len - 1] == '\n')
-				buffer[len - 1] = '\0';
-		}
+		sev->good2go = 0;
+		NEWLINE;
+	}
+	if (numread > 0)
+	{
+		len = _strlen(buffer);
+		if (buffer[len - 1] == '\n')
+			buffer[len - 1] = '\0';
 	}
 	sev->input = buffer;
 	add_log(sev);
