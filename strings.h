@@ -5,6 +5,8 @@
 #include "linklists.h"
 #include "memory.h"
 
+#define MAXNUMLEN 1024
+
 /* strings1.c */
 char *_strdup(char *str, list_t **mt);
 unsigned int _strspn(char *s, char *accept);
@@ -16,5 +18,7 @@ unsigned int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
 int _atoi(char *s);
 char *_strcat(char *s1, char *s2, list_t **mt);
+char *_itoa(ssize_t num, list_t **mt);
+char *reverse_str(char *s);
 
 #endif /* _STRINGS_H_ */
