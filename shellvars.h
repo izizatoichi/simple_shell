@@ -27,7 +27,7 @@ typedef struct sev_s
         list_t *log;
         int log_cnt;
         list_t *mem;
-        char **env;
+        list_t *env;
         char *input;
         char **p_input;
         int error;

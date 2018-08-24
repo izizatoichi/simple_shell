@@ -11,20 +11,22 @@
  */
 char *_getenv(char *envar, sev_t *sev)
 {
-	ssize_t i = 0, j = 0, len = 0;
-	char *found = NULL;
+	ssize_t j = 0, len = 0;
+	char *found = NULL, *str;
+	list_t *env = sev->env;
 
 	if (envar && *envar)
 	{
 		len = _strlen(envar);
-		for (i = 0; sev->env[i]; i++)
+		for (; env; env = env->next)
 		{
+			str = env->dataptr;
 			for (j = 0; j < len; j++)
-				if (envar[j] != sev->env[i][j])
+				if (envar[j] != str[j])
 					break;
 			if (!envar[j])
 			{
-				found = _strdup(sev->env[i], &(sev->mem));
+				found = _strdup(str, &(sev->mem));
 				return (_strpbrk(found, EQUAL) + 1);
 			}
 		}

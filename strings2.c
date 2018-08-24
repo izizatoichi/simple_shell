@@ -75,3 +75,29 @@ char *_strcat(char *s1, char *s2, list_t **mt)
         newstring[i] = '\0';
         return (newstring);
 }
+
+/*
+int _abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
+
+void itoa(int n, char *s)
+{
+	static int i;
+
+	if (n / 10)
+		itoa(n / 10, s);
+
+	else
+	{
+		i = 0;
+		if (n < 0)
+			s[i++] = '-';
+	}
+	
+	s[i++] = _abs(n) % 10 + '0';
+	s[i] = '\0';
+*/
