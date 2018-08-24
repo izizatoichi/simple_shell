@@ -60,6 +60,14 @@ char *pathfinder(sev_t *sev)
 				return (sev->p_input[0]);
 			return (NULL);
 		}
+		if (sev->p_input[0][0] == '.')
+		{
+			fpath = _strcat(_getenv("PWD", sev),
+					FSLASH, &(sev->mem));
+			fpath = _strcat(fpath, sev->p_input[0], &(sev->mem));
+			if (!access(fpath, X_OK))
+				return (fpath);
+		}
 		pathlist = make_arr_str(ev_path, COLON, sev);
 		if (!pathlist)
 			return (NULL);
