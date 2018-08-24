@@ -1,21 +1,26 @@
 #include "builtins.h"
 
 /**
+ * TODO: 
+ * 	Make linked list of env variables (read_env function)
+ *	Change shellvars.h and call read_env in init_sev func in shellhelpers3
+ */
+
+/**
  * TODO:
  * 	1. signum > INTMAX..should return 2
  * 	2. Error messages using history
  *
- * 	3. DONT EXIT. RETURN SIGNUM as SEV->ERROR
+ * 	3. DONT EXIT. SET SEV->ERROR to signum
+ * 	4. SET good2go to 0 if exit is called
+ * 	1 for illegal exit codes
  */
 void exit_sh(sev_t *sev)
 {
 	char **av = sev->p_input;
-	list_t **mt = &(sev->mem);
 	char *signal = "0";
 	unsigned long siglong = 0, i, max = (long) INT_MAX;
 	int sigint;
-
-	
 	if (av[1])
 		signal = av[1];
 
@@ -37,23 +42,30 @@ void exit_sh(sev_t *sev)
 
 	sigint = (int) siglong;
 	if (sigint >= 0 && sigint <= INT_MAX)
+	{
 		sigint &= BYTE;
+		sev->error = sigint;
+		sev->good2go = 0;
+	}
 	else
-		sigint = 2;		
-	free_list(mt, 1);
-	_exit(sigint);
+	{
+		sigint = 2;
+		sev->error = sigint;
+		sev->good2go = 1;
+	}
 }
 
 void _printenv(sev_t *sev)
 {
-	int i;
-	char **ev = sev->env;
+	list_t *ev = sev->env;
+	char *s;
 
 	if (ev)
 	{
-		for (i = 0; ev[i]; i++)
+		for (; ev; ev = ev->next)
 		{
-			write(STDOUT_FILENO, ev[i], _strlen(ev[i]));
+			s = ev->dataptr;
+			write(STDOUT_FILENO, s, _strlen(s));
 			write(STDOUT_FILENO, "\n", 1);
 		}
 	}	

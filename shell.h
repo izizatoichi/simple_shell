@@ -43,7 +43,8 @@ char *_getenv(char *envar, sev_t *sev);
 char *pathfinder(sev_t *sev);
 
 /* shellhelpers3.c */
-sev_t init_sev(char **ev);
+sev_t init_sev(void);
+list_t *read_env(sev_t *sev, char **ev);
 
 /* _getline.c */
 ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt);
