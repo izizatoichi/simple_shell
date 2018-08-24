@@ -43,6 +43,7 @@ char *_getenv(char *envar, sev_t *sev);
 char *pathfinder(sev_t *sev);
 void add_log(sev_t *sev);
 void clean_sev(sev_t *sev);
+char **make_evp_arr(sev_t *sev);
 
 /* shellhelpers3.c */
 sev_t *initialize_shell_env(sev_t *sev, char **ev);

@@ -12,6 +12,7 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev)
 	sev->log_cnt = 0;
 	sev->mem = NULL;
 	sev->env = NULL;
+	sev->evp = ev;
 	sev->input = NULL;
 	sev->p_input = NULL;
 	sev->error = 0;
