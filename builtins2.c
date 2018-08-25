@@ -77,6 +77,7 @@ void history(sev_t *sev)
 		counter--;
 		walker = walker->next;
 	}
+	counter++;
 	walker = log;
 	while (walker)
 	{
