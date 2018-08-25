@@ -9,7 +9,6 @@ char *filenotfound(sev_t *sev)
 {
 	char *errmsg = NULL;
 
-	sev->error = -1;
 	errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
 	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
