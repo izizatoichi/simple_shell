@@ -7,5 +7,6 @@
 char *filenotfound(sev_t *sev);
 char *illegalnum(sev_t *sev);
 char *permdenied(sev_t *sev);
+char *invaliddir(sev_t *sev);
 
 #endif /* _ERRORS_H_ */
