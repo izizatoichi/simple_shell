@@ -57,3 +57,42 @@ void change_dir(sev_t *sev)
 		sev->oldpwd = _strdup(cwd, mt);
 	}
 }
+
+/**
+ * history - displays the user command history for the current session
+ * @sev: ptr to the shell environment variable struct
+ * Return: nothing
+ */
+void history(sev_t *sev)
+{
+	list_t *log = sev->log, *walker = NULL, *mt = sev->mem;
+	char *entry = NULL;
+	size_t counter = sev->log_cnt;
+	unsigned int num_spaces = 0;
+
+	reverse_list(&log);
+	walker = log;
+	while (walker)
+	{
+		counter--;
+		walker = walker->next;
+	}
+	walker = log;
+	while (walker)
+	{
+		entry = _itoa(counter, &mt);
+		num_spaces = 5 - _strlen(entry);
+		while (num_spaces)
+		{
+			entry = _strcat(SPACE, entry, &mt);
+			num_spaces--;
+		}
+		entry = _strcat(entry, SPACE, &mt);
+		entry = _strcat(entry, walker->dataptr, &mt);
+		write (STDOUT_FILENO, entry, _strlen(entry));
+		NEWLINE;
+		counter++;
+		walker = walker->next;
+	}
+	reverse_list(&log);
+}

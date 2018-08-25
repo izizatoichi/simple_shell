@@ -90,7 +90,7 @@ void _setenv(sev_t *sev)
 	char *variable, *value, *envar, *new;
  	variable = av[1];
 	value = av[2];
- 	
+
 	if (variable && value)
 	{
 		for (; ev; ev = ev->next)
@@ -181,6 +181,7 @@ int check_builtin(sev_t *sev)
 		{"setenv", _setenv},
 		{"unsetenv", _unsetenv},
 		{"cd", change_dir},
+		{"history", history},
 		{NULL, NULL}
 	};
 
