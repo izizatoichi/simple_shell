@@ -72,10 +72,18 @@ void _printenv(sev_t *sev)
 	}
 }
 
-
+/**
+ * _setenv - set environment variable
+ * @sev: struct of shell variables
+ *
+ * Description: Function checks to see if environment variable exists. If
+ * exists, the value will be overwritten with new value passed in by user. If
+ * it does not exist, a new variable will be created.
+ * Return: void
+ */
 void _setenv(sev_t *sev)
 {
-	unsigned int j = 0, found = 0;
+	unsigned int found = 0;
 	list_t *ev = sev->env;
 	list_t **mt = &(sev->mem);
 	char **av = sev->p_input;
@@ -85,7 +93,7 @@ void _setenv(sev_t *sev)
 	value = av[2];
 
 	if (variable && value)
-	{
+	{	/*
 		for (; ev; ev = ev->next)
 		{
 			envar = ev->dataptr;
@@ -99,7 +107,11 @@ void _setenv(sev_t *sev)
 				found = 1;
 				break;
 			}
-		}
+		}*/
+	  	envar = _getenv(variable, sev);
+
+		if (envar)
+			found = 1;
 
 		new = _strcat(variable, "=", mt);
 		new = _strcat(new, value, mt);
@@ -112,6 +124,14 @@ void _setenv(sev_t *sev)
 		write(STDERR_FILENO, "Usage: setenv VARIABLE VALUE\n", 29);
 }
 
+/**
+ * _unsetenv - remove environment variable
+ * @sev: struct of shell variables
+ *
+ * Description: Function checks to see if environment variable exists. If it
+ * exists, then it will be removed from the list of environment variables.
+ * Return: void
+ */
 void _unsetenv(sev_t*sev)
 {
 	unsigned int i = 0, index_count = 0, found = 0;
