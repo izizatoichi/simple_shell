@@ -83,37 +83,31 @@ void _printenv(sev_t *sev)
  */
 void _setenv(sev_t *sev)
 {
-	unsigned int found = 0;
+	unsigned int j = 0, found = 0;
 	list_t *ev = sev->env;
 	list_t **mt = &(sev->mem);
 	char **av = sev->p_input;
 	char *variable, *value, *envar, *new;
-
-	variable = av[1];
+ 	variable = av[1];
 	value = av[2];
-
+ 	
 	if (variable && value)
-	{	/*
+	{
 		for (; ev; ev = ev->next)
 		{
 			envar = ev->dataptr;
-			for (j = 0; j < _strlen(variable) && envar[j]; j++)
+			for (j = 0; j < _strlen(variable); j++)
 			{
 				if (variable[j] != envar[j])
 					break;
 			}
-			if (j == _strlen(variable) && envar[j] == '=')
+			if (!variable[j])
 			{
 				found = 1;
 				break;
 			}
-		}*/
-	  	envar = _getenv(variable, sev);
-
-		if (envar)
-			found = 1;
-
-		new = _strcat(variable, "=", mt);
+		}
+ 		new = _strcat(variable, "=", mt);
 		new = _strcat(new, value, mt);
 		if (found)
 			ev->dataptr = _strdup(new, mt);
@@ -146,12 +140,12 @@ void _unsetenv(sev_t*sev)
 		for (; ev; ev = ev->next)
 		{
 			envar = ev->dataptr;
-			for (i = 0; i < _strlen(variable) && envar[i]; i++)
+			for (i = 0; i < _strlen(variable); i++)
 			{
 				if (variable[i] != envar[i])
 					break;
 			}
-			if (i == _strlen(variable) && envar[i] == '=')
+			if (!variable[i])
 			{
 				found = 1;
 				break;
@@ -186,6 +180,7 @@ int check_builtin(sev_t *sev)
 		{"env", _printenv},
 		{"setenv", _setenv},
 		{"unsetenv", _unsetenv},
+		{"cd", change_dir},
 		{NULL, NULL}
 	};
 
