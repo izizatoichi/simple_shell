@@ -10,6 +10,7 @@
 int main(int ac, char **av, char **ev)
 {
 	sev_t sev;
+	int exitcode = 0;
 	(void)ac;
 	(void)av;
 	initialize_shell_env(&sev, ev);
@@ -24,5 +25,7 @@ int main(int ac, char **av, char **ev)
 			action(&sev);
 		display_error(&sev);
 	}
-	return (0);
+	exitcode = sev.error;
+	clean_sev(&sev);
+	return (exitcode);
 }

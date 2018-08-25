@@ -44,6 +44,7 @@ void exit_sh(sev_t *sev)
 	{
 		sigint = 2;
 		sev->error = sigint;
+		sev->errmsg = illegalnum(sev);
 		sev->good2go = 1;
 	}
 }

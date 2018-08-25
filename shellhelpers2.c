@@ -54,19 +54,11 @@ char *pathfinder(sev_t *sev)
 		return (NULL);
 	if (sev->p_input)
 	{
-		if (sev->p_input[0][0] == '/')
+		if (sev->p_input[0][0] == '/' || sev->p_input[0][0] == '.')
 		{
 			if (!access(sev->p_input[0], X_OK))
 				return (sev->p_input[0]);
 			return (NULL);
-		}
-		if (sev->p_input[0][0] == '.')
-		{
-			fpath = _strcat(_getenv("PWD", sev),
-					FSLASH, &(sev->mem));
-			fpath = _strcat(fpath, sev->p_input[0], &(sev->mem));
-			if (!access(fpath, X_OK))
-				return (fpath);
 		}
 		pathlist = make_arr_str(ev_path, COLON, sev);
 		if (!pathlist)
@@ -80,17 +72,6 @@ char *pathfinder(sev_t *sev)
 		}
 	}
 	return (NULL);
-}
-
-/**
- * add_log - add input from user to log
- * @sev: ptr to shell environment variable link list
- * Return: nothing
- */
-void add_log(sev_t *sev)
-{
-	add_node(&sev->log, _strdup(sev->input, &sev->mem));
-	sev->log_cnt++;
 }
 
 /**
