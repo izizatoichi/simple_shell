@@ -85,25 +85,41 @@ char *_strcat(char *s1, char *s2, list_t **mt)
  */
 char *_itoa(ssize_t num, list_t **mt)
 {
-	int index = 0, neg = 0;
-	char result[MAXNUMLEN];
+	int index = 0, sign = 1, tmp = 0, numsize = 0;
+	char *result = NULL;
 
 	if (num == 0)
 	{
+		result = malloc(sizeof(char) * 2);
+		if (!result)
+			return (NULL);
+		add_node(mt, result);
 		result[0] = '0';
 		result[1] = '\0';
 	}
 	else
 	{
 		if (num < 0)
-			neg = 1;
+			sign = -1;
+		tmp = num;
+		while (tmp)
+		{
+			tmp /= 10;
+			numsize++;
+		}
+		if (sign == -1)
+			numsize++;
+		result = malloc(sizeof(char) * (numsize + 1));
+		if (!result)
+			return (NULL);
+		add_node(mt, result);
 		while (num)
 		{
-			result[index] = '0' + num % 10;
+			result[index] = '0' + sign * (num % 10);
 			num /= 10;
 			index++;
 		}
-		if (neg)
+		if (sign == -1)
 		{
 			result[index] = '-';
 			index++;
@@ -111,7 +127,7 @@ char *_itoa(ssize_t num, list_t **mt)
 		result[index] = '\0';
 		reverse_str(result);
 	}
-	return (_strdup(result, mt));
+	return (result);
 }
 
 /**

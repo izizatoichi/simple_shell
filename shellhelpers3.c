@@ -18,6 +18,8 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev)
 	sev->error = 0;
 	sev->errmsg = NULL;
 	sev->oldpwd = NULL;
+	sev->olderror = 0;
+	sev->pid = getpid();
 
 	sev->env = read_env(sev, ev);
 	sev->oldpwd = _getenv("PWD", sev);
@@ -53,11 +55,49 @@ list_t *read_env(sev_t *sev, char **ev)
  */
 void display_error(sev_t *sev)
 {
+	sev->olderror = sev->error;
 	if (sev->error)
 		write(STDOUT_FILENO, sev->errmsg, _strlen(sev->errmsg));
 	if (sev->good2go)
 	{
 		sev->error = 0;
 		sev->errmsg = NULL;
+	}
+}
+
+/**
+ * var_expansion - checks the inputs for $ and performs an expansion
+ * @sev: ptr to the shell environment variable
+ * Return: nothing
+ */
+void var_expansion(sev_t *sev)
+{
+	int index = 0;
+	char *str = NULL;
+
+	if (!sev->p_input)
+		return;
+	for (index = 0; sev->p_input[index]; index++)
+	{
+		if (sev->p_input[index][0] == '$')
+		{
+			str = sev->p_input[index];
+			if (!_strcmp(sev->p_input[index], "$$"))
+				str = _itoa(sev->pid, &sev->mem);
+			else if (!_strcmp(sev->p_input[index], "$?"))
+				str = _itoa(sev->olderror, &sev->mem);
+			else if (sev->p_input[index][0] == '$')
+				str = _getenv(sev->p_input[index] + 1, sev);
+			sev->p_input[index] = str;
+		}
+	}
+	if (!_strcmp(sev->p_input[0], "cd"))
+	{
+		if (sev->p_input[1] && sev->p_input[1][0] == '~')
+		{
+			str = _getenv("HOME", sev);
+			str = _strcat(str, sev->p_input[1] + 1, &sev->mem);
+			sev->p_input[1] = str;
+		}
 	}
 }

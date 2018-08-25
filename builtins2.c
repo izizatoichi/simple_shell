@@ -76,35 +76,35 @@ void change_dir(sev_t *sev)
  */
 void history(sev_t *sev)
 {
-	list_t *log = sev->log, *walker = NULL, *mt = sev->mem;
+	list_t *walker = NULL;
 	char *entry = NULL;
 	size_t counter = sev->log_cnt;
 	unsigned int num_spaces = 0;
 
-	reverse_list(&log);
-	walker = log;
+	reverse_list(&sev->log);
+	walker = sev->log;
 	while (walker)
 	{
 		counter--;
 		walker = walker->next;
 	}
 	counter++;
-	walker = log;
+	walker = sev->log;
 	while (walker)
 	{
-		entry = _itoa(counter, &mt);
+		entry = _itoa(counter, &sev->mem);
 		num_spaces = 5 - _strlen(entry);
 		while (num_spaces)
 		{
-			entry = _strcat(SPACE, entry, &mt);
+			entry = _strcat(SPACE, entry, &sev->mem);
 			num_spaces--;
 		}
-		entry = _strcat(entry, SPACE, &mt);
-		entry = _strcat(entry, walker->dataptr, &mt);
+		entry = _strcat(entry, SPACE, &sev->mem);
+		entry = _strcat(entry, walker->dataptr, &sev->mem);
 		write (STDOUT_FILENO, entry, _strlen(entry));
 		NEWLINE;
 		counter++;
 		walker = walker->next;
 	}
-	reverse_list(&log);
+	reverse_list(&sev->log);
 }

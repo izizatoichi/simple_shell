@@ -50,7 +50,8 @@ char *getcommand(sev_t *sev)
 	}
 	sev->input = buffer;
 	add_log(sev);
-	sev->p_input = make_arr_str(sev->input, SPACE, sev);
+	sev->p_input = make_arr_str(sev->input, DELIM, sev);
+	var_expansion(sev);
 	return (sev->input = buffer);
 }
 
