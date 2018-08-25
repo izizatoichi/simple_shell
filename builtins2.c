@@ -15,11 +15,13 @@ void change_dir(sev_t *sev)
 	list_t **mt = &(sev->mem);
 	char *home = _getenv("HOME", sev), *envar = "PWD";
 	char *targetdir = (sev->p_input)[1], *str = NULL;
+	char *pwd_to_print;
 	char cwd[4096];
 	int ret_val;
 	unsigned int i;
 
 	/* call getcwd with size 4096 buffer */
+	reset_buffer(cwd, 4096);
 	getcwd(cwd, 4096);
 
 	/*
@@ -31,7 +33,11 @@ void change_dir(sev_t *sev)
 	if (!targetdir || (!_strcmp(targetdir, "..") && !_strcmp(home, cwd)))
 		targetdir = home;
 	else if (!_strcmp(targetdir, "-"))
+	{
 		targetdir = sev->oldpwd;
+		pwd_to_print = _strcat(targetdir, "\n", mt);
+		write(STDOUT_FILENO, pwd_to_print, _strlen(pwd_to_print));
+	}
 
 	ret_val = chdir(targetdir);
 
@@ -52,7 +58,12 @@ void change_dir(sev_t *sev)
 				if (envar[i] != str[i])
 					break;
 			if (!envar[i])
-				ev->dataptr = _strdup(cwd, mt);
+			{
+				envar = _strcat(envar, "=", mt);
+				envar = _strcat(envar, targetdir, mt);
+				ev->dataptr = _strdup(envar, mt);
+				break;
+			}
 		}
 		sev->oldpwd = _strdup(cwd, mt);
 	}
