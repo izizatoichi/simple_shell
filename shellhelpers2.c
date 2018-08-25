@@ -49,23 +49,24 @@ char *pathfinder(sev_t *sev)
 {
 	char *fpath = NULL, *ev_path = _getenv("PATH", sev);
 	char **pathlist = NULL;
+	DIR *dp = NULL;
 
 	if (!ev_path)
 		return (NULL);
-	if (opendir(sev->p_input[0]))
+	dp = opendir(sev->p_input[0]);
+	if (dp)
 	{
+		closedir(dp);
 		sev->error = -1;
-		sev->errmsg = permdenied(sev);
+		permdenied(sev);
 		return (NULL);
 	}
 	if (sev->p_input)
 	{
 		if (sev->p_input[0][0] == '/' || sev->p_input[0][0] == '.')
 		{
-			printf("A\n");
 			if (!access(sev->p_input[0], X_OK))
 				return (sev->p_input[0]);
-			printf("B\n");
 			return (NULL);
 		}
 		pathlist = make_arr_str(ev_path, COLON, sev);

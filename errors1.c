@@ -48,3 +48,27 @@ char *illegalnum(sev_t *sev)
 
 	return (errmsg);
 }
+
+/**
+ * permdenied - constructs the permission denied message
+ * @sev: ptr to the shell environment variable struct
+ * Return: the constructed error message
+ */
+char *permdenied(sev_t *sev)
+{
+	char *errmsg = NULL;
+
+	errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
+	errmsg = _strcat(errmsg, COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, sev->input, &sev->mem);
+	errmsg = _strcat(errmsg, COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, "Permission denied", &sev->mem);
+	errmsg = _strcat(errmsg, "\n", &sev->mem);
+	sev->errmsg = errmsg;
+
+	return (errmsg);
+}
