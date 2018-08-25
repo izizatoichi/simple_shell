@@ -108,8 +108,8 @@ int action(sev_t *sev)
 
 	if (_strlen(sev->input))
 		fullpath = pathfinder(sev);
-	else
-		return 0;
+	if (sev->error)
+		return (0);
 	if (fullpath)
 	{
 		pid = fork();
@@ -128,7 +128,5 @@ int action(sev_t *sev)
 		else
 			wait(NULL);
 	}
-	else
-		filenotfound(sev);
 	return (0);
 }

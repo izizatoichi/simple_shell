@@ -19,6 +19,7 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev)
 	sev->errmsg = NULL;
 
 	sev->env = read_env(sev, ev);
+	sev->log_cnt = get_log_count(sev);
 
 	return (sev);
 }
