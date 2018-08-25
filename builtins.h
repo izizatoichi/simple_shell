@@ -14,9 +14,14 @@ typedef struct builtin
 	void (*func)(sev_t *);
 } built_t;
 
+/* builtins1.c */
 void exit_sh(sev_t *sev);
 void _printenv(sev_t *sev);
 void _setenv(sev_t *sev);
+void _unsetenv(sev_t*sev);
 int check_builtin(sev_t *sev);
+
+/* builtins2.c */
+void change_dir(sev_t *sev);
 
 #endif	

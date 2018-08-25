@@ -72,7 +72,15 @@ void _printenv(sev_t *sev)
 	}
 }
 
-
+/**
+ * _setenv - set environment variable
+ * @sev: struct of shell variables
+ *
+ * Description: Function checks to see if environment variable exists. If
+ * exists, the value will be overwritten with new value passed in by user. If
+ * it does not exist, a new variable will be created.
+ * Return: void
+ */
 void _setenv(sev_t *sev)
 {
 	unsigned int j = 0, found = 0;
@@ -80,28 +88,26 @@ void _setenv(sev_t *sev)
 	list_t **mt = &(sev->mem);
 	char **av = sev->p_input;
 	char *variable, *value, *envar, *new;
-
-	variable = av[1];
+ 	variable = av[1];
 	value = av[2];
-
+ 	
 	if (variable && value)
 	{
 		for (; ev; ev = ev->next)
 		{
 			envar = ev->dataptr;
-			for (j = 0; j < _strlen(variable) && envar[j]; j++)
+			for (j = 0; j < _strlen(variable); j++)
 			{
 				if (variable[j] != envar[j])
 					break;
 			}
-			if (j == _strlen(variable) && envar[j] == '=')
+			if (!variable[j])
 			{
 				found = 1;
 				break;
 			}
 		}
-
-		new = _strcat(variable, "=", mt);
+ 		new = _strcat(variable, "=", mt);
 		new = _strcat(new, value, mt);
 		if (found)
 			ev->dataptr = _strdup(new, mt);
@@ -112,6 +118,14 @@ void _setenv(sev_t *sev)
 		write(STDERR_FILENO, "Usage: setenv VARIABLE VALUE\n", 29);
 }
 
+/**
+ * _unsetenv - remove environment variable
+ * @sev: struct of shell variables
+ *
+ * Description: Function checks to see if environment variable exists. If it
+ * exists, then it will be removed from the list of environment variables.
+ * Return: void
+ */
 void _unsetenv(sev_t*sev)
 {
 	unsigned int i = 0, index_count = 0, found = 0;
@@ -126,12 +140,12 @@ void _unsetenv(sev_t*sev)
 		for (; ev; ev = ev->next)
 		{
 			envar = ev->dataptr;
-			for (i = 0; i < _strlen(variable) && envar[i]; i++)
+			for (i = 0; i < _strlen(variable); i++)
 			{
 				if (variable[i] != envar[i])
 					break;
 			}
-			if (i == _strlen(variable) && envar[i] == '=')
+			if (!variable[i])
 			{
 				found = 1;
 				break;
@@ -166,6 +180,7 @@ int check_builtin(sev_t *sev)
 		{"env", _printenv},
 		{"setenv", _setenv},
 		{"unsetenv", _unsetenv},
+		{"cd", change_dir},
 		{NULL, NULL}
 	};
 
