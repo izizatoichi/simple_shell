@@ -128,10 +128,5 @@ int action(sev_t *sev)
 		else
 			wait(NULL);
 	}
-	else
-	{
-		sev->error = -1;
-		filenotfound(sev);
-	}
 	return (0);
 }

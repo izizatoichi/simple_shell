@@ -60,13 +60,18 @@ char *pathfinder(sev_t *sev)
 		sev->error = -1;
 		permdenied(sev);
 		return (NULL);
-	}
+		}
 	if (sev->p_input)
 	{
 		if (sev->p_input[0][0] == '/' || sev->p_input[0][0] == '.')
 		{
 			if (!access(sev->p_input[0], X_OK))
 				return (sev->p_input[0]);
+			sev->error = -1;
+			if (!access(sev->p_input[0], F_OK))
+				permdenied(sev);
+			else
+				filenotfound(sev);
 			return (NULL);
 		}
 		pathlist = make_arr_str(ev_path, COLON, sev);
@@ -77,8 +82,25 @@ char *pathfinder(sev_t *sev)
 			fpath = _strcat(*pathlist, FSLASH, &(sev->mem));
 			fpath = _strcat(fpath, sev->p_input[0], &(sev->mem));
 			if (!access(fpath, X_OK))
+			{
+				sev->error = 0;
 				return (fpath);
+			}
+			if (!access(fpath, F_OK))
+			{
+				sev->error = -2;
+				permdenied(sev);
+			}
+			else
+			{
+				if (sev->error != -2)
+				{
+					sev->error = -1;
+					filenotfound(sev);
+				}
+			}
 		}
+
 	}
 	return (NULL);
 }
