@@ -36,10 +36,11 @@ char *getcommand(sev_t *sev)
 	size_t size = 0, len = 0;
 	ssize_t numread = -1;
 
-	numread = _getline(&buffer, &size, STDIN_FILENO, &(sev->mem));
+	numread = _getline(&buffer, &size, STDIN_FILENO, &sev->mem);
 	if (numread == -2 || numread == -1)
 	{
 		sev->good2go = 0;
+		sev->error = sev->olderror;
 		NEWLINE;
 	}
 	if (numread > 0)
