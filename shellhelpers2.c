@@ -31,7 +31,7 @@ char *_getenv(char *envar, sev_t *sev)
 			}
 		}
 	}
-        return (NULL);
+	return (NULL);
 }
 
 /**
@@ -147,4 +147,41 @@ char **make_evp_arr(sev_t *sev)
 	evp[i] = NULL;
 
 	return (evp);
+}
+
+/**
+ * _setenv_helper - set dataptr in node
+ * @sev: struct containing shell variables
+ * @tofind: string to find
+ * @strtoappend: string to append
+ *
+ * Description: Function parses linked list containing environment variables to
+ * to find "tofind." If found, function will append "tofind" with "=" then with
+ * "strtoappend" and set the node's dataptr, which "tofind" was found in, as
+ * the newly concatenated string. If function fails to find node, then null is
+ * returned to the user.
+ * Return: 1 if success, 0 if failure
+ */
+int _setenv_helper(sev_t *sev, char *tofind, char *strtoappend)
+{
+	list_t *ev = sev->env;
+	list_t **mt = &(sev->mem);
+	char *evstr = NULL;
+	unsigned int i = 0;
+
+	for (; ev; ev = ev->next)
+	{
+		evstr = ev->dataptr;
+		for (i = 0; i < _strlen(tofind); i++)
+			if (tofind[i] != evstr[i])
+				break;
+		if (!tofind[i])
+		{
+			tofind = _strcat(tofind, "=", mt);
+			tofind = _strcat(tofind, strtoappend, mt);
+			ev->dataptr = _strdup(tofind, mt);
+			return (1);
+		}
+	}
+	return (0);
 }
