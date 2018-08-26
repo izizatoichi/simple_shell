@@ -45,7 +45,7 @@ list_t *read_env(sev_t *sev, char **ev)
 	list_t *head = NULL;
 
 	for (; *ev; ev++)
-		add_node(&head, _strdup(*ev, mt));
+		add_node(&head, NULL, _strdup(*ev, mt));
 
 	return (head);
 }

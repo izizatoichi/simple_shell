@@ -7,7 +7,7 @@
  */
 int add_log(sev_t *sev)
 {
-        if (add_node(&sev->log, _strdup(sev->input, &sev->mem)))
+        if (add_node(&sev->log, NULL, _strdup(sev->input, &sev->mem)))
 	{
 		sev->log_cnt++;
 		return (1);
@@ -38,7 +38,7 @@ int write_log(sev_t *sev)
 	walker = sev->log;
 	while (walker)
 	{
-		entry = (char *)walker->dataptr;
+		entry = walker->value;
 		entry = _strcat(entry, "\n", &sev->mem);
 		len = _strlen(entry);
 		if (write(fd, entry, len) < len)

@@ -64,7 +64,7 @@ char *_strcat(char *s1, char *s2, list_t **mt)
 	newstring = malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!newstring)
 		return (NULL);
-	add_node(mt, (void *)newstring);
+	add_node(mt, NULL, newstring);
 
 	reset_buffer(newstring, len1 + len2 + 1);
 
@@ -93,7 +93,7 @@ char *_itoa(ssize_t num, list_t **mt)
 		result = malloc(sizeof(char) * 2);
 		if (!result)
 			return (NULL);
-		add_node(mt, result);
+		add_node(mt, NULL, result);
 		result[0] = '0';
 		result[1] = '\0';
 	}
@@ -112,7 +112,7 @@ char *_itoa(ssize_t num, list_t **mt)
 		result = malloc(sizeof(char) * (numsize + 1));
 		if (!result)
 			return (NULL);
-		add_node(mt, result);
+		add_node(mt, NULL, result);
 		while (num)
 		{
 			result[index] = '0' + sign * (num % 10);

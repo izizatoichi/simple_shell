@@ -73,21 +73,21 @@ char **make_arr_str(char *s, const char *delim, sev_t *sev)
 	while (token)
 	{
 		numnodes++;
-		add_node(&head, token);
+		add_node(&head, NULL, token);
 		token = _strtok(NULL, delim);
 	}
 	if (numnodes)
 	{
 		reverse_list(&head);
 		argv = malloc(sizeof(char *) * (numnodes + 1));
-		add_node(&(sev->mem), (void *)argv);
+		add_node(&sev->mem, NULL, (void *)argv);
 		for (; numnodes >= 0; numnodes--)
 			argv[numnodes] = NULL;
 		walker = head;
 		numnodes = 0;
 		while (walker)
 		{
-			argv[numnodes] = (char *)walker->dataptr;
+			argv[numnodes] = (char *)walker->value;
 			walker = walker->next;
 			numnodes++;
 		}

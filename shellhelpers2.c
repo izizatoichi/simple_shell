@@ -20,13 +20,13 @@ char *_getenv(char *envar, sev_t *sev)
 		len = _strlen(envar);
 		for (; env; env = env->next)
 		{
-			str = env->dataptr;
+			str = env->value;
 			for (j = 0; j < len; j++)
 				if (envar[j] != str[j])
 					break;
 			if (!envar[j])
 			{
-				found = _strdup(str, &(sev->mem));
+				found = _strdup(str, &sev->mem);
 				return (_strpbrk(found, EQUAL) + 1);
 			}
 		}
@@ -137,11 +137,11 @@ char **make_evp_arr(sev_t *sev)
 	evp = malloc(sizeof(char *) * (entries + 1));
 	if (!evp)
 		return (NULL);
-	add_node(&sev->mem, evp);
+	add_node(&sev->mem, NULL, evp);
 	walker = sev->env;
 	for (i = 0; walker; i++)
 	{
-		evp[i] = (char *)walker->dataptr;
+		evp[i] = (char *)walker->value;
 		walker = walker->next;
 	}
 	evp[i] = NULL;
@@ -165,13 +165,13 @@ char **make_evp_arr(sev_t *sev)
 int _setenv_helper(sev_t *sev, char *tofind, char *strtoappend)
 {
 	list_t *ev = sev->env;
-	list_t **mt = &(sev->mem);
+	list_t **mt = &sev->mem;
 	char *evstr = NULL;
 	unsigned int i = 0;
 
 	for (; ev; ev = ev->next)
 	{
-		evstr = ev->dataptr;
+		evstr = ev->value;
 		for (i = 0; i < _strlen(tofind); i++)
 			if (tofind[i] != evstr[i])
 				break;
@@ -179,7 +179,7 @@ int _setenv_helper(sev_t *sev, char *tofind, char *strtoappend)
 		{
 			tofind = _strcat(tofind, "=", mt);
 			tofind = _strcat(tofind, strtoappend, mt);
-			ev->dataptr = _strdup(tofind, mt);
+			ev->value = _strdup(tofind, mt);
 			return (1);
 		}
 	}

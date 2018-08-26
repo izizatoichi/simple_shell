@@ -12,7 +12,7 @@
 void change_dir(sev_t *sev)
 {
 	//list_t *ev = sev->env;
-	list_t **mt = &(sev->mem);
+	list_t **mt = &sev->mem;
 	char *home = _getenv("HOME", sev), *envar = "PWD";
 	char *targetdir = (sev->p_input)[1];
        //	*str = NULL;
@@ -28,9 +28,9 @@ void change_dir(sev_t *sev)
 	{
 		oldpwd = _strcat(oldpwd, "=", mt);
 		oldpwd = _strcat(oldpwd, cwd, mt);
-		add_node(&(sev->env), (void *)_strdup(oldpwd, mt));	
+		add_node(&sev->env, NULL, _strdup(oldpwd, mt));
 	}
-	
+
 	/*
 	 * if: dir is not given or user wants to go to home's parent dir,
 	 * set target dir to home instead
@@ -129,7 +129,7 @@ void history(sev_t *sev)
 			num_spaces--;
 		}
 		entry = _strcat(entry, SPACE, &sev->mem);
-		entry = _strcat(entry, walker->dataptr, &sev->mem);
+		entry = _strcat(entry, walker->value, &sev->mem);
 		write (STDOUT_FILENO, entry, _strlen(entry));
 		NEWLINE;
 		counter++;

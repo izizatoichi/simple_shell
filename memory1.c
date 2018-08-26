@@ -19,7 +19,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size,
 	if (!ptr)
 	{
 		tmp = malloc(new_size);
-		add_node(mt, (void *)tmp);
+		add_node(mt, NULL, tmp);
 		return (tmp);
 	}
 
@@ -27,7 +27,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size,
 		return (0);
 
 	new_array = malloc(new_size);
-	add_node(mt, (void *)new_array);
+	add_node(mt, NULL, new_array);
 	reset_buffer(new_array, new_size);
 
 	if (new_array)
