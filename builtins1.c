@@ -83,35 +83,19 @@ void _printenv(sev_t *sev)
  */
 void _setenv(sev_t *sev)
 {
-	unsigned int j = 0, found = 0;
-	list_t *ev = sev->env;
 	list_t **mt = &(sev->mem);
 	char **av = sev->p_input;
-	char *variable, *value, *envar, *new;
- 	variable = av[1];
+	char *variable, *value, *new;
+ 	
+	variable = av[1];
 	value = av[2];
 
 	if (variable && value)
-	{
-		for (; ev; ev = ev->next)
-		{
-			envar = ev->dataptr;
-			for (j = 0; j < _strlen(variable); j++)
-			{
-				if (variable[j] != envar[j])
-					break;
-			}
-			if (!variable[j])
-			{
-				found = 1;
-				break;
-			}
-		}
+	{	
  		new = _strcat(variable, "=", mt);
 		new = _strcat(new, value, mt);
-		if (found)
-			ev->dataptr = _strdup(new, mt);
-		else
+
+		if (!_setenv_helper(sev, variable, value))
 			add_node(&(sev->env), (void *)_strdup(new, mt));
 	}
 	else
@@ -128,8 +112,8 @@ void _setenv(sev_t *sev)
  */
 void _unsetenv(sev_t*sev)
 {
-	unsigned int i = 0, index_count = 0, found = 0;
 	list_t *ev = sev->env;
+	unsigned int i = 0, index_count = 0, found = 0;
 	char **av = sev->p_input;
 	char *variable, *envar;
 
