@@ -7,7 +7,7 @@
 sev_t *initialize_shell_env(sev_t *sev, char **ev)
 {
 	sev->good2go = 1;
-	sev->ia_mode = 1;
+	sev->ia_mode = isatty(STDIN_FILENO);
 	sev->log = NULL;
 	sev->log_cnt = 0;
 	sev->mem = NULL;
@@ -24,6 +24,8 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev)
 	sev->env = read_env(sev, ev);
 	sev->oldpwd = _getenv("PWD", sev);
 	sev->log_cnt = get_log_count(sev);
+
+	signal(SIGINT, sig_handler);
 
 	return (sev);
 }

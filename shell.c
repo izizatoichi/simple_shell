@@ -15,8 +15,6 @@ int main(int ac, char **av, char **ev)
 	(void)av;
 	initialize_shell_env(&sev, ev);
 
-	signal(SIGINT, sig_handler);
-
 	while (sev.good2go)
 	{
 		display_prompt(sev);
