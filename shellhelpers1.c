@@ -41,7 +41,8 @@ char *getcommand(sev_t *sev)
 	{
 		sev->good2go = 0;
 		sev->error = sev->olderror;
-		NEWLINE;
+		if (sev->ia_mode)
+			NEWLINE;
 	}
 	if (numread > 0)
 	{
