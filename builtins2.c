@@ -11,30 +11,38 @@
  */
 void change_dir(sev_t *sev)
 {
-	list_t *ev = sev->env;
+	//list_t *ev = sev->env;
 	list_t **mt = &(sev->mem);
 	char *home = _getenv("HOME", sev), *envar = "PWD";
-	char *targetdir = (sev->p_input)[1], *str = NULL;
-	char *pwd_to_print;
+	char *targetdir = (sev->p_input)[1];
+       //	*str = NULL;
+	char *pwd_to_print, *oldpwd = "OLDPWD", *oldcp = "OLDPWD";
 	char cwd[4096];
 	int ret_val;
-	unsigned int i;
+	//unsigned int i;
 
 	/* call getcwd with size 4096 buffer */
 	reset_buffer(cwd, 4096);
 	getcwd(cwd, 4096);
-
+	if (!_getenv(oldpwd, sev))
+	{
+		oldpwd = _strcat(oldpwd, "=", mt);
+		oldpwd = _strcat(oldpwd, cwd, mt);
+		add_node(&(sev->env), (void *)_strdup(oldpwd, mt));	
+	}
+	
 	/*
 	 * if: dir is not given or user wants to go to home's parent dir,
 	 * set target dir to home instead
 	 *
 	 * else if: user specifies hyphen, set target dir to old dir instead
 	 */
-	if (!targetdir || (!_strcmp(targetdir, "..") && !_strcmp(home, cwd)))
+	if (!targetdir)
 		targetdir = home;
+
 	else if (!_strcmp(targetdir, "-"))
 	{
-		targetdir = sev->oldpwd;
+		targetdir = _getenv(oldpwd, sev);
 		pwd_to_print = _strcat(targetdir, "\n", mt);
 		write(STDOUT_FILENO, pwd_to_print, _strlen(pwd_to_print));
 	}
@@ -51,7 +59,27 @@ void change_dir(sev_t *sev)
 	/* change pwd in env list and reset oldpwd */
 	else
 	{
-		for (; ev; ev = ev->next)
+		/*
+		for (ev = sev->env; ev; ev = ev->next)
+		{
+			str = ev->dataptr;
+			for (i = 0; i <_strlen(oldcp); i++)
+				if (oldcp[i] != str[i])
+					break;
+			if (!oldcp[i])
+			{
+				oldcp = _strcat(oldcp, "=", mt);
+				oldcp = _strcat(oldcp, cwd, mt);
+				ev->dataptr = _strdup(oldcp, mt);
+				break;
+			}
+		}
+		*/
+	  	_setenv_helper(sev, oldcp, cwd);
+		getcwd(cwd, 4096);
+
+		/*
+		for (ev = sev->env; ev; ev = ev->next)
 		{
 			str = ev->dataptr;
 			for (i = 0; i < _strlen(envar); i++)
@@ -60,12 +88,13 @@ void change_dir(sev_t *sev)
 			if (!envar[i])
 			{
 				envar = _strcat(envar, "=", mt);
-				envar = _strcat(envar, targetdir, mt);
+				envar = _strcat(envar, cwd, mt);
 				ev->dataptr = _strdup(envar, mt);
 				break;
 			}
-		}
-		sev->oldpwd = _strdup(cwd, mt);
+		}*/
+
+		_setenv_helper(sev, envar, cwd);
 	}
 }
 
