@@ -31,6 +31,7 @@
 #define PS1 write(STDOUT_FILENO, "JS$ ", 4)
 #define PS2 write(STDOUT_FILENO, "\nJS$ ", 5)
 #define NEWLINE write(STDOUT_FILENO, "\n", 1)
+#define DELIM " \t"
 
 /* shellhelpers1.c */
 void sig_handler(int signum);
@@ -49,6 +50,7 @@ char **make_evp_arr(sev_t *sev);
 sev_t *initialize_shell_env(sev_t *sev, char **ev);
 list_t *read_env(sev_t *sev, char **ev);
 void display_error(sev_t *sev);
+void var_expansion(sev_t *sev);
 
 /* _getline.c */
 ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt);

@@ -15,7 +15,8 @@
  * @p_input: ptr to the procssed input
  * @error: error number from current command
  * @errmsg: error message associated with the error number
- *
+ * @olderror: error from previous command
+ * @pid: pid of current shell
  * Description: Structure containing all the shell environment variables.
  * This one structure will be passed from function to function and contain
  * all the shell environment variables for the current session.
@@ -34,6 +35,8 @@ typedef struct sev_s
 	int error;
 	char *errmsg;
 	char *oldpwd;
+	int olderror;
+	pid_t pid;
 } sev_t;
 
 #endif /* _SHELLVARS_H_ */
