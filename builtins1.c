@@ -65,7 +65,7 @@ void _printenv(sev_t *sev)
 	{
 		for (; ev; ev = ev->next)
 		{
-			s = ev->dataptr;
+			s = ev->value;
 			write(STDOUT_FILENO, s, _strlen(s));
 			write(STDOUT_FILENO, "\n", 1);
 		}
@@ -86,17 +86,17 @@ void _setenv(sev_t *sev)
 	list_t **mt = &(sev->mem);
 	char **av = sev->p_input;
 	char *variable, *value, *new;
- 	
+
 	variable = av[1];
 	value = av[2];
 
 	if (variable && value)
-	{	
+	{
  		new = _strcat(variable, "=", mt);
 		new = _strcat(new, value, mt);
 
 		if (!_setenv_helper(sev, variable, value))
-			add_node(&(sev->env), (void *)_strdup(new, mt));
+			add_node(&(sev->env), NULL, _strdup(new, mt));
 	}
 	else
 		write(STDERR_FILENO, "Usage: setenv VARIABLE VALUE\n", 29);
@@ -123,7 +123,7 @@ void _unsetenv(sev_t*sev)
 	{
 		for (; ev; ev = ev->next)
 		{
-			envar = ev->dataptr;
+			envar = ev->value;
 			for (i = 0; i < _strlen(variable); i++)
 			{
 				if (variable[i] != envar[i])

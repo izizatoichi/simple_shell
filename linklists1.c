@@ -6,17 +6,20 @@
  * @dataptr: ptr to new element for new node
  * Return: ptr to the new linked list
  */
-list_t *add_node(list_t **head, void *dataptr)
+list_t *add_node(list_t **head, void *key, void *value)
 {
 	list_t *new = NULL;
 
 	new = malloc(sizeof(list_t));
 	if (new)
 	{
-		new->dataptr = NULL;
+		new->key = NULL;
+		new->value = NULL;
 		new->next = *head;
-		if (dataptr)
-			new->dataptr = dataptr;
+		if (key)
+			new->key = key;
+		if (value)
+			new->value = value;
 		*head = new;
 	}
 	return (new);
@@ -57,7 +60,10 @@ void free_list(list_t **head, int flag)
 		walker = *head;
 		*head = (*head)->next;
 		if (flag)
-			free(walker->dataptr);
+		{
+			free(walker->key);
+			free(walker->value);
+		}
 		free(walker);
 	}
 }

@@ -21,7 +21,7 @@ ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt)
 	ssize_t buf_size = BUF_SIZE, count = 0;
 
 	buf = malloc(buf_size);
-	add_node(mt, (void *)buf);
+	add_node(mt, NULL, buf);
 
 	if (!buf)
 		return (-1);

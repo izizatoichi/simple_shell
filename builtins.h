@@ -25,4 +25,4 @@ int check_builtin(sev_t *sev);
 void change_dir(sev_t *sev);
 void history(sev_t *sev);
 
-#endif	
+#endif

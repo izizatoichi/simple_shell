@@ -17,7 +17,7 @@ char *_strdup(char *str, list_t **mt)
 	{
 		len = _strlen(str);
 		s = malloc(sizeof(char) * (len + 1));
-		add_node(mt, (void *)s);
+		add_node(mt, NULL, s);
 		if (s)
 		{
 			for (; len; len--)

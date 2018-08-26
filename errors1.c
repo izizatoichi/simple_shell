@@ -87,8 +87,8 @@ char *invaliddir(sev_t *sev)
         errmsg = _strcat(errmsg, SPACE, &sev->mem);
         errmsg = _strcat(errmsg, "can't cd to ", &sev->mem);
         errmsg = _strcat(errmsg, (sev->p_input)[1], &sev->mem);
-        errmsg = _strcat(errmsg, "\n", &sev->mem);      
-        sev->errmsg = errmsg;
+        errmsg = _strcat(errmsg, "\n", &sev->mem);
+	sev->errmsg = errmsg;
 
         return (errmsg);
 }
