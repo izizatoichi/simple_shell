@@ -57,7 +57,7 @@ char *pathfinder(sev_t *sev)
 	if (dp)
 	{
 		closedir(dp);
-		sev->error = -1;
+		sev->error = 126;
 		permdenied(sev);
 		return (NULL);
 		}
@@ -67,11 +67,16 @@ char *pathfinder(sev_t *sev)
 		{
 			if (!access(sev->p_input[0], X_OK))
 				return (sev->p_input[0]);
-			sev->error = -1;
 			if (!access(sev->p_input[0], F_OK))
+			{
+				sev->error = 126;
 				permdenied(sev);
+			}
 			else
+			{
+				sev->error = 127;
 				filenotfound(sev);
+			}
 			return (NULL);
 		}
 		pathlist = make_arr_str(ev_path, COLON, sev);
@@ -88,14 +93,14 @@ char *pathfinder(sev_t *sev)
 			}
 			if (!access(fpath, F_OK))
 			{
-				sev->error = -2;
+				sev->error = 126;
 				permdenied(sev);
 			}
 			else
 			{
 				if (sev->error != -2)
 				{
-					sev->error = -1;
+					sev->error = 127;
 					filenotfound(sev);
 				}
 			}
@@ -112,6 +117,12 @@ char *pathfinder(sev_t *sev)
  */
 void clean_sev(sev_t *sev)
 {
+/*	char *tmp = NULL;
+ *
+ *	tmp = _itoa(sev->error, &sev->mem);
+ *	tmp = _strcat(tmp, "\n", &sev->mem);
+ *	write(STDERR_FILENO, tmp, _strlen(tmp));
+ */
 	free_list(&sev->mem, 1);
 	free_list(&sev->log, 0);
 	free_list(&sev->env, 0);
