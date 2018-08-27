@@ -203,3 +203,77 @@ void alias(sev_t *sev)
 		found = 1;
 	}
 }
+
+void _help(sev_t *sev)
+{
+	list_t **mt = &(sev->mem);
+	char *filepath = NULL, *file = NULL, *arg = NULL;
+	char buf[BUF_SIZE];
+	char **av = sev->p_input;
+	int infile = 0, r_val = 0, w_val = 0, i = 0;
+
+	help_t help_l[] = {
+		{"exit", "help_exit"},
+		{"env", "help_env"},
+		{"setenv", "help_setenv"},
+		{"unsetenv", "help_unsetenv"},
+		{"cd", "help_cd"},
+		{"history", "help_history"},
+		{"alias", "help_alias"},
+		{"help", "help_help"},
+		{NULL, NULL}
+	};
+	
+	if (av && *av)
+	{
+		arg = av[1];
+		if (!arg)
+		{
+			write(STDOUT_FILENO, "Arg\n", 4);
+			goto exit;
+		}
+	
+		for (i = 0; help_l[i].arg; i++)
+		{
+			if (!_strcmp(arg, help_l[i].arg))
+			{
+				file = help_l[i].file;
+				break;
+			}
+		}
+
+		filepath = _strcat("/home/vagrant/simple_shell/", file, mt);
+		infile = open(filepath, O_RDONLY);
+	
+		r_val = read(infile, buf, BUF_SIZE);
+	
+		if (r_val == -1)
+		{
+			write(STDOUT_FILENO, "Fix me\n", 7);
+			r_val = 0;
+		}
+
+		while (r_val)
+		{
+			w_val = write(STDOUT_FILENO, buf, r_val);
+
+			if (w_val == -1)
+			{
+				write(STDOUT_FILENO, "Fix me!\n", 8);
+				break;
+			}
+			r_val = read(infile, buf, BUF_SIZE);
+		}
+
+		close(infile);
+	}
+	exit:
+		;
+}
+
+
+
+
+
+
+
