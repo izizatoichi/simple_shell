@@ -20,6 +20,7 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev)
 	sev->olderror = 0;
 	sev->pid = getpid();
 	sev->alias = NULL;
+	sev->cmd_q = NULL;
 
 	sev->env = read_env(sev, ev);
 	sev->log_cnt = get_log_count(sev);

@@ -7,9 +7,7 @@
  */
 int add_log(sev_t *sev)
 {
-	if (_strlen(sev->input) == 0)
-		return (0);
-	else if (add_node(&sev->log, NULL, _strdup(sev->input, &sev->mem)))
+	if (add_node(&sev->log, NULL, _strdup(sev->input, &sev->mem)))
 	{
 		sev->log_cnt++;
 		return (1);
