@@ -133,6 +133,8 @@ int action(sev_t *sev)
 		{
 			wait(&status);
 			sev->error = WEXITSTATUS(status);
+			if (sev->error)
+				sev->errmsg = NULL;
 		}
 	}
 	return (0);
