@@ -17,14 +17,10 @@
  * @errmsg: error message associated with the error number
  * @olderror: error from previous command
  * @pid: pid of current shell
-<<<<<<< HEAD
  * @alias: ptr to link list of all alias created by user
  * @shell_d: the path to directory where all files reside
- *
-=======
  * @alias: ptr to the link list containing the aliases
  * @cmd_q: ptr to the list of commands in the queue
->>>>>>> b440dc0426993faa01d55a316908947c2b055451
  * Description: Structure containing all the shell environment variables.
  * This one structure will be passed from function to function and contain
  * all the shell environment variables for the current session.
