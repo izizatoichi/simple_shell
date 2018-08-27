@@ -53,6 +53,9 @@ list_t *read_env(sev_t *sev, char **ev);
 void display_error(sev_t *sev);
 void var_expansion(sev_t *sev);
 
+/* shellhelpers4.c */
+void process_input(char *cmd, sev_t *sev);
+
 /* _getline.c */
 ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt);
 

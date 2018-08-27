@@ -127,6 +127,7 @@ void clean_sev(sev_t *sev)
 	free_list(&sev->log, 0);
 	free_list(&sev->env, 0);
 	free_list(&sev->alias, 0);
+	free_list(&sev->cmd_q, 0);
 }
 
 /**
