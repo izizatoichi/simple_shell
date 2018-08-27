@@ -7,12 +7,19 @@
 #include "shellvars.h"
 
 #define BYTE 255
+#define BUF_SIZE 1024
 
 typedef struct builtin
 {
 	char *funcname;
 	void (*func)(sev_t *);
 } built_t;
+
+typedef struct help_list
+{
+	char *arg;
+	char *file;
+} help_t;
 
 /* builtins1.c */
 void exit_sh(sev_t *sev);
@@ -26,5 +33,6 @@ void change_dir(sev_t *sev);
 void history(sev_t *sev);
 int print_alias_val(sev_t *sev, char *key, char *value, int flag);
 void alias(sev_t *sev);
+void _help(sev_t *sev);
 
 #endif

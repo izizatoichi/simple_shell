@@ -169,6 +169,7 @@ int check_builtin(sev_t *sev)
 		{"cd", change_dir},
 		{"history", history},
 		{"alias", alias},
+		{"help", _help},
 		{NULL, NULL}
 	};
 
