@@ -108,6 +108,7 @@ int action(sev_t *sev)
 	pid_t pid;
 	char *fullpath = NULL, **evp;
 	int result = 0;
+	int status;
 
 	if (_strlen(sev->input))
 		fullpath = pathfinder(sev);
@@ -129,7 +130,10 @@ int action(sev_t *sev)
 				perror("Error");
 		}
 		else
-			wait(NULL);
+		{
+			wait(&status);
+			sev->error = WEXITSTATUS(status);
+		}
 	}
 	return (0);
 }
