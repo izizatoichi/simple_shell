@@ -1,5 +1,6 @@
 #include "errors.h"
 
+
 /**
  * filenotfound - constructs the error message for file not found
  * @sev: ptr to the shell environment variable
@@ -92,3 +93,16 @@ char *invaliddir(sev_t *sev)
 
         return (errmsg);
 }
+
+char *invalidalias(sev_t *sev, int node)
+{
+	char *errmsg = NULL;
+	int i = node;
+	
+        errmsg = _strcat("alias: ", (sev->p_input)[i++], &sev->mem);
+	errmsg = _strcat(errmsg, " not found", &sev->mem);
+        errmsg = _strcat(errmsg, "\n", &sev->mem);
+	sev->errmsg = errmsg;
+	
+	return (errmsg);
+}	

@@ -34,9 +34,9 @@ typedef struct sev_s
 	char **p_input;
 	int error;
 	char *errmsg;
-	char *oldpwd;
 	int olderror;
 	pid_t pid;
+	list_t *alias;
 } sev_t;
 
 #endif /* _SHELLVARS_H_ */
