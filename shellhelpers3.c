@@ -108,7 +108,6 @@ void var_expansion(sev_t *sev)
 	}
 }
 
-
 /**
  * print_alias_val - prints and retrieves alias
  * @sev: struct of shell variables
@@ -124,44 +123,44 @@ void var_expansion(sev_t *sev)
  */
 int print_alias_val(sev_t *sev, char *key, char *value, int flag)
 {
-        list_t *alias = reverse_list(&(sev->alias));
-        list_t **mt = &(sev->mem);
-        char *argstr = NULL;
-        int success = 0;
+	list_t *alias = reverse_list(&(sev->alias));
+	list_t **mt = &(sev->mem);
+	char *argstr = NULL;
+	int success = 0;
 
-        for (; alias; alias = alias->next)
-        {
-                argstr = alias->key;
-                if (!flag)
-                {
+	for (; alias; alias = alias->next)
+	{
+		argstr = alias->key;
+		if (!flag)
+		{
 			if (!_strcmp(argstr, key))
-                        {
-                                argstr = _strcat(argstr, "='", mt);
-                                argstr = _strcat(argstr, alias->value, mt);
-                                argstr = _strcat(argstr, "'\n", mt);
-                                write(STDOUT_FILENO, argstr, _strlen(argstr));
-                                alias = reverse_list(&(sev->alias));
-                                return (1);
-                        }
-                }
-                else if (flag == -1)
-                {
-                        if (!_strcmp(argstr, key))
-                        {
-                                alias->value = value;
-                                alias = reverse_list(&(sev->alias));
-                                return (1);
-                        }
-                }       
-                else
-                {
-                  argstr = _strcat(argstr, "='", mt);
-                        argstr = _strcat(argstr, alias->value, mt);
-                        argstr = _strcat(argstr, "'\n", mt);
-                        write(STDOUT_FILENO, argstr, _strlen(argstr));
-                        success = 1;
-                }
-        }
-        alias = reverse_list(&(sev->alias));
-        return (success);
+			{
+				argstr = _strcat(argstr, "='", mt);
+				argstr = _strcat(argstr, alias->value, mt);
+				argstr = _strcat(argstr, "'\n", mt);
+				write(STDOUT_FILENO, argstr, _strlen(argstr));
+				alias = reverse_list(&(sev->alias));
+				return (1);
+			}
+		}
+		else if (flag == -1)
+		{
+			if (!_strcmp(argstr, key))
+			{
+				alias->value = value;
+				alias = reverse_list(&(sev->alias));
+				return (1);
+			}
+		}	
+		else
+		{
+			argstr = _strcat(argstr, "='", mt);
+			argstr = _strcat(argstr, alias->value, mt);
+			argstr = _strcat(argstr, "'\n", mt);
+			write(STDOUT_FILENO, argstr, _strlen(argstr));
+			success = 1;
+		}
+	}
+	alias = reverse_list(&(sev->alias));
+	return (success);
 }
