@@ -17,6 +17,9 @@
  * @errmsg: error message associated with the error number
  * @olderror: error from previous command
  * @pid: pid of current shell
+ * @alias: ptr to link list of all alias created by user
+ * @shell_d: the path to directory where all files reside
+ *
  * Description: Structure containing all the shell environment variables.
  * This one structure will be passed from function to function and contain
  * all the shell environment variables for the current session.
@@ -37,6 +40,8 @@ typedef struct sev_s
 	int olderror;
 	pid_t pid;
 	list_t *alias;
+	char *shell_d;
+
 } sev_t;
 
 #endif /* _SHELLVARS_H_ */

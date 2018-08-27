@@ -52,6 +52,7 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev);
 list_t *read_env(sev_t *sev, char **ev);
 void display_error(sev_t *sev);
 void var_expansion(sev_t *sev);
+int print_alias_val(sev_t *sev, char *key, char *value, int flag);
 
 /* _getline.c */
 ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt);

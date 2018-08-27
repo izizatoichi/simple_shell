@@ -103,63 +103,6 @@ void history(sev_t *sev)
 }
 
 /**
- * print_alias_val - prints and retrieves alias
- * @sev: struct of shell variables
- * @key: alias
- * @value: value stored in alias
- * @flag: a flag to modify function's performance
- *
- * Description: Function has three modes: print specific alias (flag = 0),
- * set alias if alias exists (flag = -1), and print all aliases (flag != -1 &&
- * flag != 0). Using the key and value inputs, function is able to parse
- * through alias linked list and perform desired functionality.
- * Return: 1 for success/found, 0 for failure/not found. 
- */
-int print_alias_val(sev_t *sev, char *key, char *value, int flag)
-{
-	list_t *alias = reverse_list(&(sev->alias));
-	list_t **mt = &(sev->mem);
-	char *argstr = NULL;
-	int success = 0;
-
-	for (; alias; alias = alias->next)
-	{
-		argstr = alias->key;
-		if (!flag)
-		{
-			if (!_strcmp(argstr, key))
-			{
-				argstr = _strcat(argstr, "='", mt);
-				argstr = _strcat(argstr, alias->value, mt);
-				argstr = _strcat(argstr, "'\n", mt);
-				write(STDOUT_FILENO, argstr, _strlen(argstr));
-				alias = reverse_list(&(sev->alias));
-				return (1);
-			}
-		}
-		else if (flag == -1)
-		{
-			if (!_strcmp(argstr, key))
-			{
-				alias->value = value;
-				alias = reverse_list(&(sev->alias));
-				return (1);
-			}
-		}	
-		else
-		{
-			argstr = _strcat(argstr, "='", mt);
-			argstr = _strcat(argstr, alias->value, mt);
-			argstr = _strcat(argstr, "'\n", mt);
-			write(STDOUT_FILENO, argstr, _strlen(argstr));
-			success = 1;
-		}
-	}
-	alias = reverse_list(&(sev->alias));
-	return (success);
-}
-
-/**
  * alias - assign and retrieve alias
  * @sev: struct of shell variables
  *
@@ -204,6 +147,14 @@ void alias(sev_t *sev)
 	}
 }
 
+/**
+ * _help - display help for builtin
+ * @sev: struct containing shell variables
+ *
+ * Description: Function checks if argument is a valid builtin. If so, display
+ * help for the command. Otherwise, display error.
+ * Return: void
+ */
 void _help(sev_t *sev)
 {
 	list_t **mt = &(sev->mem);
@@ -241,8 +192,10 @@ void _help(sev_t *sev)
 				break;
 			}
 		}
-
-		filepath = _strcat("/home/vagrant/simple_shell/", file, mt);
+		
+		filepath = _strdup(sev->shell_d, mt);
+		filepath = _strcat(filepath, "/", mt);
+		filepath = _strcat(filepath, file, mt);
 		infile = open(filepath, O_RDONLY);
 	
 		r_val = read(infile, buf, BUF_SIZE);
@@ -270,10 +223,3 @@ void _help(sev_t *sev)
 	exit:
 		;
 }
-
-
-
-
-
-
-
