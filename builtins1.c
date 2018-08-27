@@ -38,6 +38,8 @@ void exit_sh(sev_t *sev)
 	{
 		sigint &= BYTE;
 		sev->error = sigint;
+		if (!av[1])
+			sev->error = sev->olderror;
 		sev->good2go = 0;
 	}
 	else
