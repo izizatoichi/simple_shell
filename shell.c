@@ -13,8 +13,15 @@ int main(int ac, char **av, char **ev)
 	int exitcode = 0;
 	(void)ac;
 	(void)av;
+
 	initialize_shell_env(&sev, ev);
-	BANNER;
+
+	NEWLINE;
+	B1;
+	B2;
+	B1;
+	NEWLINE;
+
 	while (sev.good2go)
 	{
 		display_prompt(sev);

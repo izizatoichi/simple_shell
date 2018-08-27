@@ -32,8 +32,8 @@
 #define PS2 write(STDOUT_FILENO, "\nJS$ ", 5)
 #define NEWLINE write(STDOUT_FILENO, "\n", 1)
 #define DELIM " \t"
-#define BANNER write(STDOUT_FILENO, "WELCOME TO JIAN'S AND STEVE'S SHELL\n", 36);
-
+#define B1 write(STDOUT_FILENO, "***********************************\n", 36);
+#define B2 write(STDOUT_FILENO, " WELCOME TO JIAN'S & STEVE'S SHELL\n", 35);
 /* shellhelpers1.c */
 void sig_handler(int signum);
 void display_prompt(sev_t sev);
