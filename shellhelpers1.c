@@ -85,12 +85,12 @@ char **make_arr_str(char *s, const char *delim, sev_t *sev)
 	int numnodes = 0;
 	char **argv = NULL;
 
-	token = _strtok(s, delim);
+	token = _stok(s, delim);
 	while (token)
 	{
 		numnodes++;
 		add_node(&head, NULL, token);
-		token = _strtok(NULL, delim);
+		token = _stok(NULL, delim);
 	}
 	if (numnodes)
 	{
