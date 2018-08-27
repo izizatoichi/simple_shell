@@ -17,12 +17,11 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev)
 	sev->p_input = NULL;
 	sev->error = 0;
 	sev->errmsg = NULL;
-	sev->oldpwd = NULL;
 	sev->olderror = 0;
 	sev->pid = getpid();
+	sev->alias = NULL;
 
 	sev->env = read_env(sev, ev);
-	sev->oldpwd = _getenv("PWD", sev);
 	sev->log_cnt = get_log_count(sev);
 
 	signal(SIGINT, sig_handler);

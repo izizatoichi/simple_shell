@@ -11,15 +11,12 @@
  */
 void change_dir(sev_t *sev)
 {
-	//list_t *ev = sev->env;
 	list_t **mt = &sev->mem;
 	char *home = _getenv("HOME", sev), *envar = "PWD";
 	char *targetdir = (sev->p_input)[1];
-       //	*str = NULL;
 	char *pwd_to_print, *oldpwd = "OLDPWD", *oldcp = "OLDPWD";
 	char cwd[4096];
 	int ret_val;
-	//unsigned int i;
 
 	/* call getcwd with size 4096 buffer */
 	reset_buffer(cwd, 4096);
@@ -59,41 +56,8 @@ void change_dir(sev_t *sev)
 	/* change pwd in env list and reset oldpwd */
 	else
 	{
-		/*
-		for (ev = sev->env; ev; ev = ev->next)
-		{
-			str = ev->dataptr;
-			for (i = 0; i <_strlen(oldcp); i++)
-				if (oldcp[i] != str[i])
-					break;
-			if (!oldcp[i])
-			{
-				oldcp = _strcat(oldcp, "=", mt);
-				oldcp = _strcat(oldcp, cwd, mt);
-				ev->dataptr = _strdup(oldcp, mt);
-				break;
-			}
-		}
-		*/
 	  	_setenv_helper(sev, oldcp, cwd);
 		getcwd(cwd, 4096);
-
-		/*
-		for (ev = sev->env; ev; ev = ev->next)
-		{
-			str = ev->dataptr;
-			for (i = 0; i < _strlen(envar); i++)
-				if (envar[i] != str[i])
-					break;
-			if (!envar[i])
-			{
-				envar = _strcat(envar, "=", mt);
-				envar = _strcat(envar, cwd, mt);
-				ev->dataptr = _strdup(envar, mt);
-				break;
-			}
-		}*/
-
 		_setenv_helper(sev, envar, cwd);
 	}
 }
@@ -136,4 +100,106 @@ void history(sev_t *sev)
 		walker = walker->next;
 	}
 	reverse_list(&sev->log);
+}
+
+/**
+ * print_alias_val - prints and retrieves alias
+ * @sev: struct of shell variables
+ * @key: alias
+ * @value: value stored in alias
+ * @flag: a flag to modify function's performance
+ *
+ * Description: Function has three modes: print specific alias (flag = 0),
+ * set alias if alias exists (flag = -1), and print all aliases (flag != -1 &&
+ * flag != 0). Using the key and value inputs, function is able to parse
+ * through alias linked list and perform desired functionality.
+ * Return: 1 for success/found, 0 for failure/not found. 
+ */
+int print_alias_val(sev_t *sev, char *key, char *value, int flag)
+{
+	list_t *alias = reverse_list(&(sev->alias));
+	list_t **mt = &(sev->mem);
+	char *argstr = NULL;
+	int success = 0;
+
+	for (; alias; alias = alias->next)
+	{
+		argstr = alias->key;
+		if (!flag)
+		{
+			if (!_strcmp(argstr, key))
+			{
+				argstr = _strcat(argstr, "='", mt);
+				argstr = _strcat(argstr, alias->value, mt);
+				argstr = _strcat(argstr, "'\n", mt);
+				write(STDOUT_FILENO, argstr, _strlen(argstr));
+				alias = reverse_list(&(sev->alias));
+				return (1);
+			}
+		}
+		else if (flag == -1)
+		{
+			if (!_strcmp(argstr, key))
+			{
+				alias->value = value;
+				alias = reverse_list(&(sev->alias));
+				return (1);
+			}
+		}	
+		else
+		{
+			argstr = _strcat(argstr, "='", mt);
+			argstr = _strcat(argstr, alias->value, mt);
+			argstr = _strcat(argstr, "'\n", mt);
+			write(STDOUT_FILENO, argstr, _strlen(argstr));
+			success = 1;
+		}
+	}
+	alias = reverse_list(&(sev->alias));
+	return (success);
+}
+
+/**
+ * alias - assign and retrieve alias
+ * @sev: struct of shell variables
+ *
+ * Description: Function allows for the assignment of a value to a variable.
+ * The value is retrievable by using this function with the alias.
+ * Return: void
+ */
+void alias(sev_t *sev)
+{
+	list_t **mt = &(sev->mem);
+	char *key = NULL, *value = NULL, *arg = NULL, *arg_cp = NULL;
+	char **av = sev->p_input;
+	int i = 1, found = 1;
+
+	if (!av[1])
+		print_alias_val(sev, NULL, NULL, 1);
+
+	while ((arg = av[i]))
+	{
+		arg_cp = _strdup(arg, mt);
+		key = _strtok(arg_cp, EQUAL); 
+		value = _strchr(arg, '=');
+		if (value)
+			value += 1;
+		if (key && value)
+		{
+			if (!print_alias_val(sev, key, value, -1))
+				add_node(&(sev->alias), key, value);
+		}
+		else if (key)
+		{
+			found = print_alias_val(sev, key, value, 0);
+		}
+		if (!found)
+		{
+			sev->error = 1; 
+			sev->errmsg = invalidalias(sev, i);
+			display_error(sev);
+      		}
+		i++;
+		found = 1;
+	}
 }

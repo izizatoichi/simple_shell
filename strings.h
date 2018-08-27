@@ -21,4 +21,7 @@ char *_strcat(char *s1, char *s2, list_t **mt);
 char *_itoa(ssize_t num, list_t **mt);
 char *reverse_str(char *s);
 
+/* strings3.c */
+char *_strchr(char *s, char c);
+
 #endif /* _STRINGS_H_ */

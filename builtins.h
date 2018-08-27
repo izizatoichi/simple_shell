@@ -24,5 +24,7 @@ int check_builtin(sev_t *sev);
 /* builtins2.c */
 void change_dir(sev_t *sev);
 void history(sev_t *sev);
+int print_alias_val(sev_t *sev, char *key, char *value, int flag);
+void alias(sev_t *sev);
 
 #endif
