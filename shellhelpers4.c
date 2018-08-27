@@ -38,9 +38,7 @@ void display_banner(int ia_mode)
 	write(STDOUT_FILENO, "   |  |    (_____  )\n", 21);
 	write(STDOUT_FILENO, "   |  |          ) |\n", 21);
 	write(STDOUT_FILENO, "|\\_)  )    /\\____) |\n", 21);
-	write(STDOUT_FILENO, "(____/     \\_______)\n", 21);
-	NEWLINE;
-	NEWLINE;
+	write(STDOUT_FILENO, "(____/     \\_______)\n\n\n", 23);
 	write(STDOUT_FILENO, " _______           _______  _        _\n", 39);
 	write(1, "(  ____ \\|\\     /|(  ____ \\( \\      ( \\\n", 40);
 	write(1, "| (    \\/| )   ( || (    \\/| (      | (\n", 40);
@@ -48,15 +46,15 @@ void display_banner(int ia_mode)
 	write(1, "(_____  )|  ___  ||  __)   | |      | |\n", 40);
 	write(1, "      ) || (   ) || (      | |      | |\n", 40);
 	write(1, "/\\____) || )   ( || (____/\\| (____/\\| (____/\\\n", 46);
-	write(1, "\\_______)|/     \\|(_______/(_______/(_______/\n", 46);
-	NEWLINE;
+	write(1, "\\_______)|/     \\|(_______/(_______/(_______/\n\n", 47);
 	write(STDOUT_FILENO, "AUTHORS:\n", 9);
-	write(STDOUT_FILENO, "\tStephen Chu <stephen.chu530@gmail.com>", 39);
-	NEWLINE;
-	write(STDOUT_FILENO, "\tJian Huang <jian.huang.8581@gmail.com>", 39);
-	NEWLINE;
-	write(STDOUT_FILENO, "***********************************\n", 36);
-	write(STDOUT_FILENO, " WELCOME TO JIAN'S & STEVE'S SHELL\n", 35);
-	write(STDOUT_FILENO, "***********************************\n", 36);
+	write(STDOUT_FILENO, "\tStephen Chu <stephen.chu530@gmail.com>\n", 40);
+	write(STDOUT_FILENO, "\tJian Huang <jian.huang.8581@gmail.com>\n\n", 41);
+	write(STDOUT_FILENO, "=======================", 23);
+	write(STDOUT_FILENO, "=======================\n", 24);
+	write(STDOUT_FILENO, "       WELCOME TO JIAN'S &", 26);
+	write(STDOUT_FILENO, " STEVE'S SHELL       \n", 22);
+	write(STDOUT_FILENO, "=======================", 23);
+	write(STDOUT_FILENO, "=======================\n", 24);
 	NEWLINE;
 }
