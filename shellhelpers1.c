@@ -38,7 +38,7 @@ char *getcommand(sev_t *sev)
 
 	if (!sev->cmd_q)
 	{
-		numread = getline(&buffer, &size, stdin);
+		numread = _getline(&buffer, &size, STDIN_FILENO, &sev->mem);
 		if (numread == -2 || numread == -1)
 		{
 			sev->good2go = 0;
