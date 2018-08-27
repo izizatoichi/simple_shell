@@ -20,3 +20,17 @@ void process_input(char *cmd, sev_t *sev)
 	}
 	reverse_list(&sev->cmd_q);
 }
+
+/**
+ * display_banner - displays the shell banner
+ * @ia_mode: interactive mode flag
+ * Return - nothing
+ */
+void display_banner(int ia_mode)
+{
+	if (!ia_mode)
+		return;
+	write(STDOUT_FILENO, "***********************************\n", 36);
+	write(STDOUT_FILENO, " WELCOME TO JIAN'S & STEVE'S SHELL\n", 35);
+	write(STDOUT_FILENO, "***********************************\n", 36);
+}

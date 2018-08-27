@@ -16,12 +16,6 @@ int main(int ac, char **av, char **ev)
 
 	initialize_shell_env(&sev, ev);
 
-	NEWLINE;
-	B1;
-	B2;
-	B1;
-	NEWLINE;
-
 	while (sev.good2go)
 	{
 		display_prompt(sev);

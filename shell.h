@@ -32,8 +32,7 @@
 #define PS2 write(STDOUT_FILENO, "\nJS$ ", 5)
 #define NEWLINE write(STDOUT_FILENO, "\n", 1)
 #define DELIM " \t"
-#define B1 write(STDOUT_FILENO, "***********************************\n", 36);
-#define B2 write(STDOUT_FILENO, " WELCOME TO JIAN'S & STEVE'S SHELL\n", 35);
+
 /* shellhelpers1.c */
 void sig_handler(int signum);
 void display_prompt(sev_t sev);
@@ -57,6 +56,7 @@ int print_alias_val(sev_t *sev, char *key, char *value, int flag);
 
 /* shellhelpers4.c */
 void process_input(char *cmd, sev_t *sev);
+void display_banner(int ia_mode);
 
 /* _getline.c */
 ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt);
