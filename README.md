@@ -1,7 +1,5 @@
 # Jian-Stephen Simple Shell
 
-[JSSS.jpg](https://github.com/stephenchu530/simple_shell/master/jsss.jpg)
-
 ### Project details
 -----
 Welcome to the `Jian-Stephen Simple Shell` project! This program is a simple shell that can be compiled and launched from the command line within any number of Linux versions. It contains the most basic features and functions found in the various shell programs.
