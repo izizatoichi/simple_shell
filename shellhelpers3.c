@@ -102,6 +102,8 @@ void var_expansion(sev_t *sev)
 				str = _getenv(sev->p_input[index] + 1, sev);
 			}
 			sev->p_input[index] = str;
+			if (index == 0)
+				sev->input = str;
 		}
 	}
 
