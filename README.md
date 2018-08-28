@@ -11,9 +11,9 @@ The `Jian-Stephen Simple Shell` project is a major team project conducted by Jia
 
 ### Quick Start
 -----
-1. Download, clone, or copy all the files from this respository to your local directory.
+1. Git clone all this respository to your local directory.
 ```
-$ wget https://github.com/stephenchu530/simple_shell.git
+$ git clone https://github.com/stephenchu530/simple_shell.git
 ```
 2. Compile the program.
 ```
