@@ -85,12 +85,12 @@ unsigned int _strlen(char *s)
 }
 
 /**
- * _stok - takes in a string and splits it into tokens based on delim
+ * _strtok - takes in a string and splits it into tokens based on delim
  * @s: input char * string
  * @delim: string of delimiters to split up the input string
  * Return: pointer to the token or NULL if at the end
  */
-char *_stok(char *s, const char *delim)
+char *_strtok(char *s, const char *delim)
 {
 	static char *remainder;
 	char *token = NULL;
