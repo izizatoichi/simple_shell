@@ -57,6 +57,7 @@ int print_alias_val(sev_t *sev, char *key, char *value, int flag);
 /* shellhelpers4.c */
 void process_input(char *cmd, sev_t *sev);
 void display_banner(int ia_mode);
+void stripquotes(sev_t *sev);
 
 /* _getline.c */
 ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt);
