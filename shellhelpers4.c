@@ -21,6 +21,7 @@ void process_input(char *cmd, sev_t *sev)
 	reverse_list(&sev->cmd_q);
 }
 
+/**
  * display_banner - displays the shell banner
  * @ia_mode: interactive mode flag
  * Return - nothing
@@ -29,7 +30,7 @@ void display_banner(int ia_mode)
 {
 	if (!ia_mode)
 		return;
- 	NEWLINE;
+	NEWLINE;
 	write(STDOUT_FILENO, "_________   _______\n", 20);
 	write(STDOUT_FILENO, "\\__    _/  (  ____ \\\n", 21);
 	write(STDOUT_FILENO, "   )  (    | (    \\/\n", 21);
@@ -48,7 +49,7 @@ void display_banner(int ia_mode)
 	write(1, "      ) || (   ) || (      | |      | |\n", 40);
 	write(1, "/\\____) || )   ( || (____/\\| (____/\\| (____/\\\n", 46);
 	write(1, "\\_______)|/     \\|(_______/(_______/(_______/\n", 46);
-  NEWLINE;
+	NEWLINE;
 	write(STDOUT_FILENO, "AUTHORS:\n", 9);
 	write(STDOUT_FILENO, "\tStephen Chu <stephen.chu530@gmail.com>", 39);
 	NEWLINE;
@@ -57,5 +58,5 @@ void display_banner(int ia_mode)
 	write(STDOUT_FILENO, "***********************************\n", 36);
 	write(STDOUT_FILENO, " WELCOME TO JIAN'S & STEVE'S SHELL\n", 35);
 	write(STDOUT_FILENO, "***********************************\n", 36);
-  NEWLINE;
+	NEWLINE;
 }
