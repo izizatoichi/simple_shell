@@ -123,7 +123,7 @@ void alias(sev_t *sev)
 	while ((arg = av[i]))
 	{
 		arg_cp = _strdup(arg, mt);
-		key = _strtok(arg_cp, EQUAL);
+		key = _stok(arg_cp, EQUAL);
 		value = _strchr(arg, '=');
 		if (value)
 			value += 1;

@@ -12,11 +12,11 @@ void process_input(char *cmd, sev_t *sev)
 {
 	char *token1 = NULL;
 
-	token1 = _strtok(cmd, "\n");
+	token1 = _stok(cmd, "\n");
 	while (token1)
 	{
 		add_node(&sev->cmd_q, NULL, _strdup(token1, &sev->mem));
-		token1 = _strtok(NULL, "\n");
+		token1 = _stok(NULL, "\n");
 	}
 	reverse_list(&sev->cmd_q);
 }
