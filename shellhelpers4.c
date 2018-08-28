@@ -20,3 +20,44 @@ void process_input(char *cmd, sev_t *sev)
 	}
 	reverse_list(&sev->cmd_q);
 }
+
+/**
+ * display_banner - displays banner
+ *
+ * Description: Function writes a custom banner to stdout
+ * Return: void
+ */
+void display_banner(void)
+{
+	NEWLINE;
+	B1;
+	B2;
+	B1;
+	NEWLINE;
+	write(STDOUT_FILENO, "AUTHORS:\n", 9);
+	write(STDOUT_FILENO, "\tStephen Chu <stephen.chu530@gmail.com>", 39);
+	NEWLINE;
+	write(STDOUT_FILENO, "\tJian Huang <jian.huang.8581@gmail.com>", 39);
+	NEWLINE;
+	NEWLINE;
+	write(STDOUT_FILENO, "_________   _______\n", 20);
+	write(STDOUT_FILENO, "\\__    _/  (  ____ \\\n", 21);
+	write(STDOUT_FILENO, "   )  (    | (    \\/\n", 21);
+	write(STDOUT_FILENO, "   |  |    | (_____ \n", 21);
+	write(STDOUT_FILENO, "   |  |    (_____  )\n", 21);
+	write(STDOUT_FILENO, "   |  |          ) |\n", 21);
+	write(STDOUT_FILENO, "|\\_)  )    /\\____) |\n", 21);
+	write(STDOUT_FILENO, "(____/     \\_______)\n", 21);
+	NEWLINE;
+	NEWLINE;
+	write(STDOUT_FILENO, " _______           _______  _        _\n", 39);
+	write(1, "(  ____ \\|\\     /|(  ____ \\( \\      ( \\\n", 40);
+	write(1, "| (    \\/| )   ( || (    \\/| (      | (\n", 40);
+	write(1, "| (_____ | (___) || (__    | |      | |\n", 40);
+	write(1, "(_____  )|  ___  ||  __)   | |      | |\n", 40);
+	write(1, "      ) || (   ) || (      | |      | |\n", 40);
+	write(1, "/\\____) || )   ( || (____/\\| (____/\\| (____/\\\n", 46);
+	write(1, "\\_______)|/     \\|(_______/(_______/(_______/\n", 46);
+	NEWLINE;
+	NEWLINE;
+}

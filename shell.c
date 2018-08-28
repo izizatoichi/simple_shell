@@ -15,12 +15,7 @@ int main(int ac, char **av, char **ev)
 	(void)av;
 
 	initialize_shell_env(&sev, ev);
-
-	NEWLINE;
-	B1;
-	B2;
-	B1;
-	NEWLINE;
+	display_banner();
 
 	while (sev.good2go)
 	{

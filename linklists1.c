@@ -3,7 +3,8 @@
 /**
  * add_node - adds a new node at the beginning of a linked list
  * @head: ptr to the beginning of a linked list
- * @dataptr: ptr to new element for new node
+ * @key: string that contains key
+ * @value: string that contains value for key
  * Return: ptr to the new linked list
  */
 list_t *add_node(list_t **head, void *key, void *value)
@@ -70,7 +71,7 @@ void free_list(list_t **head, int flag)
 
 
 /**
- * delete_nodeint_at_index - delete node at index
+ * delete_node_at_index - delete node at index
  * @head: head of linked list
  * @index: index of deletion
  *

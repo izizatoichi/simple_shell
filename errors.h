@@ -10,4 +10,7 @@ char *permdenied(sev_t *sev);
 char *invaliddir(sev_t *sev);
 char *invalidalias(sev_t *sev, int reset);
 
+/* errors2.c */
+char *helpfilenotfound(sev_t *sev);
+
 #endif /* _ERRORS_H_ */

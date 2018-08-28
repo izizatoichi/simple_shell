@@ -1,14 +1,17 @@
 #include "shell.h"
 
 /**
- * init_sev - initialzies the shell environment variables
+ * initialize_shell_env - initialzies the shell environment variables
+ * @sev: struct containing shell variables
+ * @ev: ptr to array of environment variables
+ *
  * Return: the initialized values of type sev_t
  */
 sev_t *initialize_shell_env(sev_t *sev, char **ev)
 {
 	char cwd[4096];
-	reset_buffer(cwd, 4096);
 
+	reset_buffer(cwd, 4096);
 	sev->good2go = 1;
 	sev->ia_mode = isatty(STDIN_FILENO);
 	sev->log = NULL;
@@ -120,7 +123,7 @@ void var_expansion(sev_t *sev)
  * set alias if alias exists (flag = -1), and print all aliases (flag != -1 &&
  * flag != 0). Using the key and value inputs, function is able to parse
  * through alias linked list and perform desired functionality.
- * Return: 1 for success/found, 0 for failure/not found. 
+ * Return: 1 for success/found, 0 for failure/not found.
  */
 int print_alias_val(sev_t *sev, char *key, char *value, int flag)
 {
@@ -152,7 +155,7 @@ int print_alias_val(sev_t *sev, char *key, char *value, int flag)
 				alias = reverse_list(&(sev->alias));
 				return (1);
 			}
-		}	
+		}
 		else
 		{
 			argstr = _strcat(argstr, "='", mt);
