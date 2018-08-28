@@ -101,7 +101,10 @@ void _setenv(sev_t *sev)
 			add_node(&(sev->env), NULL, _strdup(new, mt));
 	}
 	else
-		write(STDERR_FILENO, "Usage: setenv VARIABLE VALUE\n", 29);
+	{
+		sev->errmsg = "Usage: setenv VARIABLE VALUE\n";
+		sev->error = 1;
+	}
 }
 
 /**
@@ -142,10 +145,16 @@ void _unsetenv(sev_t *sev)
 		if (found)
 			delete_node_at_index(&(sev->env), index_count);
 		else
-			write(STDERR_FILENO, "Unable to find VARIABLE\n", 24);
+		{
+			sev->errmsg = "Unable to find VARIABLE\n";
+			sev->error = 1;
+		}
 	}
 	else
-		write(STDERR_FILENO, "Usage: unsetenv VARIABLE\n", 25);
+	{
+		sev->errmsg = "Usage: unsetenv VARIABLE\n";
+		sev->error = 1;
+	}
 }
 /**
  * check_builtin - call builtin function

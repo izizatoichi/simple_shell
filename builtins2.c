@@ -49,7 +49,7 @@ void change_dir(sev_t *sev)
 	/* throw error message when chdir fails */
 	if (ret_val == -1)
 	{
-		sev->error = 2;
+		sev->error = 1;
 		sev->errmsg = invaliddir(sev);
 	}
 
