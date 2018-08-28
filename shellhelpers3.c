@@ -97,7 +97,7 @@ void var_expansion(sev_t *sev)
 				str = _itoa(sev->pid, &sev->mem);
 			else if (!_strcmp(sev->p_input[index], "$?"))
 				str = _itoa(sev->olderror, &sev->mem);
-			else if (sev->p_input[index][0] == '$')
+			else if (sev->p_input[index][1] != '\0')
 				str = _getenv(sev->p_input[index] + 1, sev);
 			sev->p_input[index] = str;
 		}
