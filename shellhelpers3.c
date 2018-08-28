@@ -31,6 +31,7 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev)
 	sev->shell_d = _strdup(getcwd(cwd, 4096), &(sev->mem));
 
 	signal(SIGINT, sig_handler);
+	display_banner(sev->ia_mode);
 
 	return (sev);
 }
