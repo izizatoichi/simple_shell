@@ -50,6 +50,11 @@ char *illegaloptions(sev_t *sev)
 	return (errmsg);
 }
 
+/**
+ * invalidenv - invalid env
+ * @sev: sev variable
+ * Return: string
+ */
 char *invalidenv(sev_t *sev)
 {
 	char *errmsg = "env: ";
