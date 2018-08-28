@@ -1,2 +1,12 @@
-HELP_EXIT
+exit: exit [STATUS]
+	Exit the shell.
 
+	Exit the shell with STATUS. If no STATUS is given then exit will return
+	with exit code 0.
+
+	Options:
+		No options are available.
+
+	Exit Status:
+		Negative exit codes are not allowed. Exit returns a 2 for any
+	STATUS less than 0 or greater than INT_MAX.

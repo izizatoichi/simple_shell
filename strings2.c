@@ -81,7 +81,7 @@ char *_strcat(char *s1, char *s2, list_t **mt)
  * _itoa - number to string convertor
  * @num: the number of type ssize_t to be converted
  * @mt: ptr to the memory tracker link list
- 8 Return: returns the string
+ * Return: returns the string
  */
 char *_itoa(ssize_t num, list_t **mt)
 {

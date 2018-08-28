@@ -1,0 +1,18 @@
+history: history
+	Display list of past commands
+
+	Display history of past commands in order of their execution. Each
+	command will be displayed with a number on its own line.
+
+	History will also store a list of the past commands in a file called
+	".simple_shell_history" in the user's HOME directory upon exiting the
+	shell. The file will be overwritten with new history every time user
+	enters a new instance of the shell. The file will not contain line
+	numbers and will only store up to 4096 commands (including blanks).
+
+	Options:
+		No available options.
+
+	History:
+		Return 0 if history is successfully displayed, or 1 if history
+		fails to display to screen.

@@ -1,0 +1,16 @@
+unsetenv: unsetenv [VARIABLE]
+	Unset existing environment variable.
+
+	Remove existing environment variable from list of environment
+	variables.
+
+	unsetenv takes in exactly one argument (VARIABLE). Passing fewer than
+	one argument will throw an error. Passing more than one argument
+	will result in the later arguments being ignored. Environment variable
+	will be unset if found, otherwise error will be thrown.
+
+	Option:
+		There are no options availables.
+
+	Exit Status:
+		Return 0 for success and 1 for error.

@@ -94,7 +94,7 @@ void _setenv(sev_t *sev)
 
 	if (variable && value)
 	{
- 		new = _strcat(variable, "=", mt);
+		new = _strcat(variable, "=", mt);
 		new = _strcat(new, value, mt);
 
 		if (!_setenv_helper(sev, variable, value))
@@ -112,7 +112,7 @@ void _setenv(sev_t *sev)
  * exists, then it will be removed from the list of environment variables.
  * Return: void
  */
-void _unsetenv(sev_t*sev)
+void _unsetenv(sev_t *sev)
 {
 	list_t *ev = sev->env;
 	unsigned int i = 0, index_count = 0, found = 0;

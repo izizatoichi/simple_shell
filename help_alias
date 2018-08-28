@@ -1,0 +1,14 @@
+alias: alias [name[='value'] ...]
+	Set or display aliases to screen.
+
+	Without arguments, all aliases will be printed out in form
+	"name='value'".
+
+	Otherwise, alias is set for each name. When alias is used with "name,"
+	the appropriate alias will be printed. If alias is not found, an error
+	message will be printed instead.
+
+	There are no available options.
+
+	Exit status:
+	alias will return true, otherwise 0 with exit status 1.

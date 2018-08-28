@@ -56,7 +56,7 @@ void change_dir(sev_t *sev)
 	/* change pwd in env list and reset oldpwd */
 	else
 	{
-	  	_setenv_helper(sev, oldcp, cwd);
+		_setenv_helper(sev, oldcp, cwd);
 		getcwd(cwd, 4096);
 		_setenv_helper(sev, envar, cwd);
 	}
@@ -94,7 +94,7 @@ void history(sev_t *sev)
 		}
 		entry = _strcat(entry, SPACE, &sev->mem);
 		entry = _strcat(entry, walker->value, &sev->mem);
-		write (STDOUT_FILENO, entry, _strlen(entry));
+		write(STDOUT_FILENO, entry, _strlen(entry));
 		NEWLINE;
 		counter++;
 		walker = walker->next;
@@ -123,7 +123,7 @@ void alias(sev_t *sev)
 	while ((arg = av[i]))
 	{
 		arg_cp = _strdup(arg, mt);
-		key = _strtok(arg_cp, EQUAL); 
+		key = _strtok(arg_cp, EQUAL);
 		value = _strchr(arg, '=');
 		if (value)
 			value += 1;
@@ -138,10 +138,10 @@ void alias(sev_t *sev)
 		}
 		if (!found)
 		{
-			sev->error = 1; 
+			sev->error = 1;
 			sev->errmsg = invalidalias(sev, i);
 			display_error(sev);
-      		}
+		}
 		i++;
 		found = 1;
 	}
@@ -174,16 +174,16 @@ void _help(sev_t *sev)
 		{"help", "help_help"},
 		{NULL, NULL}
 	};
-	
+
 	if (av && *av)
 	{
 		arg = av[1];
+
 		if (!arg)
 		{
-			write(STDOUT_FILENO, "Arg\n", 4);
-			goto exit;
+			goto skip;
 		}
-	
+
 		for (i = 0; help_l[i].arg; i++)
 		{
 			if (!_strcmp(arg, help_l[i].arg))
@@ -192,17 +192,24 @@ void _help(sev_t *sev)
 				break;
 			}
 		}
-		
+
 		filepath = _strdup(sev->shell_d, mt);
 		filepath = _strcat(filepath, "/", mt);
-		filepath = _strcat(filepath, file, mt);
+skip:
+
+		if (arg)
+			filepath = _strcat(filepath, file, mt);
+		else
+			filepath = _strcat(filepath, "help_main", mt);
+
 		infile = open(filepath, O_RDONLY);
-	
+
 		r_val = read(infile, buf, BUF_SIZE);
-	
+
 		if (r_val == -1)
 		{
-			write(STDOUT_FILENO, "Fix me\n", 7);
+			sev->errmsg = helpfilenotfound(sev);
+			sev->error = 1;
 			r_val = 0;
 		}
 
@@ -212,7 +219,8 @@ void _help(sev_t *sev)
 
 			if (w_val == -1)
 			{
-				write(STDOUT_FILENO, "Fix me!\n", 8);
+				sev->errmsg = "Error!\n";
+				sev->error = 1;
 				break;
 			}
 			r_val = read(infile, buf, BUF_SIZE);
@@ -220,6 +228,4 @@ void _help(sev_t *sev)
 
 		close(infile);
 	}
-	exit:
-		;
 }

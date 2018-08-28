@@ -35,17 +35,17 @@ char *illegalnum(sev_t *sev)
 	char *errmsg = NULL;
 
 	errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
-        errmsg = _strcat(errmsg, SPACE, &sev->mem);
-        errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
-        errmsg = _strcat(errmsg, COLON, &sev->mem);
-        errmsg = _strcat(errmsg, SPACE, &sev->mem);
-        errmsg = _strcat(errmsg, sev->input, &sev->mem);
-        errmsg = _strcat(errmsg, COLON, &sev->mem);
-        errmsg = _strcat(errmsg, SPACE, &sev->mem);
-        errmsg = _strcat(errmsg, "Illegal number: ", &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
+	errmsg = _strcat(errmsg, COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, sev->input, &sev->mem);
+	errmsg = _strcat(errmsg, COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, "Illegal number: ", &sev->mem);
 	errmsg = _strcat(errmsg, sev->p_input[1], &sev->mem);
-        errmsg = _strcat(errmsg, "\n", &sev->mem);
-        sev->errmsg = errmsg;
+	errmsg = _strcat(errmsg, "\n", &sev->mem);
+	sev->errmsg = errmsg;
 
 	return (errmsg);
 }
@@ -74,35 +74,52 @@ char *permdenied(sev_t *sev)
 	return (errmsg);
 }
 
+/**
+ * invaliddir - contructs invalid directory error message
+ * @sev: struct containing shell variables
+ *
+ * Description: Function creates error messages based on arguments based on
+ * sev.
+ * Return: the constructed error message
+ */
 char *invaliddir(sev_t *sev)
 {
-        char *errmsg = NULL;
+	char *errmsg = NULL;
 
-        errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
-        errmsg = _strcat(errmsg, SPACE, &sev->mem);
-        errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
-        errmsg = _strcat(errmsg, COLON, &sev->mem);
-        errmsg = _strcat(errmsg, SPACE, &sev->mem);
-        errmsg = _strcat(errmsg, sev->input, &sev->mem);
-        errmsg = _strcat(errmsg, COLON, &sev->mem);
-        errmsg = _strcat(errmsg, SPACE, &sev->mem);
-        errmsg = _strcat(errmsg, "can't cd to ", &sev->mem);
-        errmsg = _strcat(errmsg, (sev->p_input)[1], &sev->mem);
-        errmsg = _strcat(errmsg, "\n", &sev->mem);
+	errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
+	errmsg = _strcat(errmsg, COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, sev->input, &sev->mem);
+	errmsg = _strcat(errmsg, COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, "can't cd to ", &sev->mem);
+	errmsg = _strcat(errmsg, (sev->p_input)[1], &sev->mem);
+	errmsg = _strcat(errmsg, "\n", &sev->mem);
 	sev->errmsg = errmsg;
 
-        return (errmsg);
+	return (errmsg);
 }
 
+/**
+ * invalidalias - constructs invalid alias error message
+ * @sev: struct containing shell variables
+ * @node: index of desired key
+ *
+ * Description: Function creates error messages based on arguments based on
+ * sev.
+ * Return: the constructed error message
+ */
 char *invalidalias(sev_t *sev, int node)
 {
 	char *errmsg = NULL;
 	int i = node;
-	
-        errmsg = _strcat("alias: ", (sev->p_input)[i++], &sev->mem);
+
+	errmsg = _strcat("alias: ", (sev->p_input)[i++], &sev->mem);
 	errmsg = _strcat(errmsg, " not found", &sev->mem);
-        errmsg = _strcat(errmsg, "\n", &sev->mem);
+	errmsg = _strcat(errmsg, "\n", &sev->mem);
 	sev->errmsg = errmsg;
-	
+
 	return (errmsg);
-}	
+}

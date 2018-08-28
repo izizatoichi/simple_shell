@@ -1,0 +1,4 @@
+alias [name[='value'] ...]			help [COMMAND]
+cd [DIRECTORY]					history
+env						setenv [VARIABLE] [VALUE]
+exit [STATUS]					unsetenv [VARIABLE]

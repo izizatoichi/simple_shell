@@ -3,7 +3,7 @@
 /**
  * _getenv - get environment variable
  * @envar: target environment variable
- * @env: list of environment variables
+ * @sev: struct containing shell variables
  *
  * Description: Function takes a list of env variables and returns env variable
  * if found.
@@ -117,12 +117,6 @@ char *pathfinder(sev_t *sev)
  */
 void clean_sev(sev_t *sev)
 {
-/*	char *tmp = NULL;
- *
- *	tmp = _itoa(sev->error, &sev->mem);
- *	tmp = _strcat(tmp, "\n", &sev->mem);
- *	write(STDERR_FILENO, tmp, _strlen(tmp));
- */
 	free_list(&sev->mem, 1);
 	free_list(&sev->log, 0);
 	free_list(&sev->env, 0);

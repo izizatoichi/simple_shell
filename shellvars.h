@@ -11,6 +11,7 @@
  * @log_cnt: number of log entries for the curent shell session
  * @mem: ptr to memory allocations for the current shell session
  * @env: ptr to the os environment variables
+ * @evp: ptr to environment variables in array
  * @input: ptr to the user's input
  * @p_input: ptr to the procssed input
  * @error: error number from current command

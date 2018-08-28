@@ -69,8 +69,12 @@ char *getcommand(sev_t *sev)
 
 /**
  * make_arr_str - makes an array of strings from an input string
+ * @s: input string
  * @sev: shell environment variable struct
  * @delim: const char * used to split each token
+ *
+ * Description: Function takes in a string and breaks it down into tokens and
+ * returns an array of strings.
  * Return: resulting NULL terminated char ** array of strings. Will return
  * NULL if input s is empty.
  */
