@@ -1,6 +1,6 @@
 # Jian-Stephen Simple Shell
 
-![jsss logo](/jsss.png)
+![jsss logo](/JSSS.png)
 
 ### Project details
 -----
