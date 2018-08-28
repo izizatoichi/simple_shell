@@ -1,27 +1,64 @@
 .\" Manpage for Simple Shell.
 .\" Contact Stephen Chu stephenchu530@gmail.com to correct errors or typos.
-.TH "Simple Shell" 1 "30 August 2018" "1.0" "Simple Shell man page"
+.TH "JS Simple Shell" 1 "30 August 2018" "1.0" "JS Simple Shell man page"
 
 .SH NAME
-Simple Shell
+hsh - Jian-Stephen Simple Shell
 
 .SH SYNOPSIS
-PLACEHOLDER
+hsh (does not support arguments)
 
 .SH DESCRIPTION
-PLACEHOLDER
+Welcome to the Jian-Stephen Simple Shell project! This program is a simple shell that can be compiled and launched from the command line within any number of Linux versions. It contains the most basic features and functions found in the various shell programs.
 
-.SS OTHER STUFF
-PLACEHOLDER
+.SH OVERVIEW
+The Jian-Stephen Simple Shell project is a major team project conducted by Jian Huang and Stephen Chu, students at Holberton School, for educational purposes. It consists of developing and makng our own clone of DASH - Debian Almquist shell found in several versions of Ubuntu Linux. Though cloning of DASH was the general guidance, having the same exact functionalities and features was not the goal. The goal for us was to learn and develop various team and individual skills regarding coding and git.
 
-.SH EXAMPLES
-PLACEHOLDER
+.SH RETURN VALUE
+The shell returns the error code given by the last completed command followed by either ctrl-d or exit with no status code. 
+
+.SH SYNTAX
+JS$ <command> <flags or options> <argument 1> <argument 2> ...
+.SS
+EXAMPLE 1:
+JS$ /bin/ls
+.SS
+EXAMPLE 2:
+JS$ ls -l
+.SS
+EXAMPLE 3:
+JS$ cat textfile
+
+.SH BUILTIN COMMANDS
+.SS alias
+- create or list an alias
+
+.SS cd
+- change directory
+
+.SS env
+- list the current environment variables
+
+.SS exit
+- exit the shell
+
+.SS help
+- display help for a builtin command
+
+.SS history
+- display the command history for the current shell session
+
+.SS setenv
+- sets and environment variable
+
+.SS unsetenv
+- unsets an environment variable
 
 .SH SEE ALSO
-PLACEHOLDER
+DASH(1)
 
 .SH BUGS
-PLACEHOLDER
+No known bugs
 
 .SH AUTHORS
 Jian Huang
