@@ -153,11 +153,9 @@ void alias(sev_t *sev)
 	reverse_list(&success);
 	for (w = fail; w; w = w->next)
 		write(STDERR_FILENO, w->value, _strlen(w->value));
+	fflush(stdout);
 	for (w = success; w; w = w->next)
-	{
-		write(STDOUT_FILENO, w->value, _strlen(w->value));
-		NEWLINE;
-	}
+		print_alias_val(sev, w->key, w->value, 0);
 	free_list(&fail, 0);
 	free_list(&success, 0);
 	sev->errmsg = "";
