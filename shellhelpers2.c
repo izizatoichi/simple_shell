@@ -72,21 +72,31 @@ char *pathfinder(sev_t *sev)
 				return (cmd);
 			sev->error = 126;
 			permdenied(sev);
-			return (NULL);
 		}
 		else
 		{
-			sev->error = 127;
-			filenotfound(sev);
-			return (NULL);
+			if (!sev->error)
+			{
+				sev->error = 127;
+				filenotfound(sev);
+			}
 		}
+		return (NULL);
 	}
 	if (ev_path)
 		pathlist = make_arr_str(ev_path, COLON, sev);
 	else
+	{
+		sev->error = 127;
+		filenotfound(sev);
 		return (NULL);
+	}
 	if (!pathlist || !*pathlist)
+	{
+		sev->error = 127;
+		filenotfound(sev);
 		return (NULL);
+	}
 	for (; *pathlist; pathlist++)
 	{
 		fpath = _strcat(*pathlist, FSLASH, &(sev->mem));
@@ -103,7 +113,7 @@ char *pathfinder(sev_t *sev)
 		}
 		else
 		{
-			if (sev->error != -2)
+			if (!sev->error)
 			{
 				sev->error = 127;
 				filenotfound(sev);
