@@ -100,6 +100,8 @@ void var_expansion(sev_t *sev)
 			else if (sev->p_input[index][1] != '\0')
 			{
 				str = _getenv(sev->p_input[index] + 1, sev);
+				if (!str)
+					str = "";
 			}
 			sev->p_input[index] = str;
 			if (index == 0)

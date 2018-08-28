@@ -12,20 +12,19 @@
 char *_getenv(char *envar, sev_t *sev)
 {
 
-	ssize_t j = 0, len = 0;
+	ssize_t j = 0;
 	char *found = NULL, *str;
 	list_t *env = sev->env;
 
 	if (envar && *envar)
 	{
-		len = _strlen(envar);
 		for (; env; env = env->next)
 		{
 			str = env->value;
-			for (j = 0; j < len; j++)
+			for (j = 0; envar[j] && str[j]; j++)
 				if (envar[j] != str[j])
 					break;
-			if (!envar[j])
+			if (!envar[j] && str[j] == '=')
 			{
 				found = _strdup(str, &sev->mem);
 				return (_strpbrk(found, EQUAL) + 1);
