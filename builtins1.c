@@ -61,7 +61,7 @@ void exit_sh(sev_t *sev)
 void _printenv(sev_t *sev)
 {
 	list_t *ev = reverse_list(&(sev->env));
-	char *s;
+	char *s = NULL;
 
 	if (sev->p_input[1] != NULL)
 	{
@@ -79,6 +79,7 @@ void _printenv(sev_t *sev)
 		}
 	}
 	reverse_list(&(sev->env));
+
 }
 
 /**
