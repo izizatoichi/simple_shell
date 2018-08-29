@@ -52,8 +52,6 @@ char *pathfinder(sev_t *sev)
 	char **pathlist = NULL;
 	DIR *dp = NULL;
 
-	if (!ev_path)
-		return (NULL);
 	dp = opendir(sev->p_input[0]);
 	if (dp)
 	{
@@ -64,6 +62,22 @@ char *pathfinder(sev_t *sev)
 		}
 	if (sev->p_input)
 	{
+		if (!ev_path)
+		{
+			if (!access(sev->p_input[0], X_OK))
+				return (sev->p_input[0]);
+			if (!access(sev->p_input[0], F_OK))
+			{
+				sev->error = 126;
+				permdenied(sev);
+			}
+			else
+			{
+				sev->error = 127;
+				filenotfound(sev);
+			}
+			return (NULL);
+		}
 		if (sev->p_input[0][0] == '/' || sev->p_input[0][0] == '.')
 		{
 			if (!access(sev->p_input[0], X_OK))
