@@ -58,34 +58,3 @@ void display_banner(int ia_mode)
 	write(STDOUT_FILENO, "=======================\n", 24);
 	NEWLINE;
 }
-
-/**
- * stripquotes - removes quotes from arugments
- * @sev: ptr to shell envirovment variable
- * Return: nothing
- */
-void stripquotes(sev_t *sev)
-{
-	int i = 0, j = 0;
-	char *str = NULL;
-	char start, end;
-
-	for (i = 0; sev->p_input[i]; i++)
-	{
-		str = sev->p_input[i];
-		start = str[0];
-		end = str[_strlen(str) - 1];
-		if (start == '"' || start == '\'')
-		{
-			if (start == end)
-			{
-				for (j = 0; str[j]; j++)
-					str[j] = str[j + 1];
-				str[_strlen(str) - 1] = '\0';
-			}
-		}
-		else if (start == '\\')
-			for (j = 0; str[j]; j++)
-				str[j] = str[j + 1];
-	}
-}
