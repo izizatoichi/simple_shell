@@ -47,7 +47,7 @@ void change_dir(sev_t *sev)
 		sev->errmsg = illegaloptions(sev);
 		sev->error = 1;
 		return;
-	}		
+	}
 
 	ret_val = chdir(targetdir);
 

@@ -23,6 +23,12 @@ char *_strchr(char *s, char c)
 	return (NULL);
 }
 
+/**
+ * _chartostr - convert a char to a str
+ * @s: buffer
+ * @c: input char
+ * Return: void
+ */
 void _chartostr(char *s, char c)
 {
 	s[0] = c;

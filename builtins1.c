@@ -62,7 +62,7 @@ void _printenv(sev_t *sev)
 {
 	list_t *ev = reverse_list(&(sev->env));
 	char *s;
-	//ev = reverse_list(&ev);
+
 	if (ev)
 	{
 		for (; ev; ev = ev->next)
@@ -73,7 +73,6 @@ void _printenv(sev_t *sev)
 		}
 	}
 	reverse_list(&(sev->env));
-	//ev = reverse_list(&ev);
 }
 
 /**
