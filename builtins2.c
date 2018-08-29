@@ -130,6 +130,7 @@ void alias(sev_t *sev)
 		arg_cp = _strdup(arg, mt);
 		key = _strtok(arg_cp, EQUAL);
 		value = _strchr(arg, '=');
+		
 		if (value)
 			value += 1;
 		if (key && value)
@@ -144,6 +145,8 @@ void alias(sev_t *sev)
 		if (!found)
 		{
 			sev->errmsg = invalidalias(sev, i);
+			sev->error = 1;
+			display_error(sev);
 			error = 1;
 		}
 		i++;
