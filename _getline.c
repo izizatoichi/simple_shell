@@ -18,10 +18,8 @@ ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt)
 {
 	static char *buf;
 	ssize_t char_read = 0, char_to_read = BUF_SIZE / 2;
-	static ssize_t buf_size; 
-	ssize_t count = 0;
+	ssize_t buf_size = BUF_SIZE, count = 0;
 
-	buf_size = BUF_SIZE;
 	buf = malloc(buf_size);
 	add_node(mt, NULL, buf);
 
