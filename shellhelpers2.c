@@ -49,10 +49,13 @@ char *_getenv(char *envar, sev_t *sev)
 char *pathfinder(sev_t *sev)
 {
 	char *fpath = NULL, *ev_path = _getenv("PATH", sev);
+	char *cmd = NULL;
 	char **pathlist = NULL;
 	DIR *dp = NULL;
-
-	if (!_strcmp(sev->p_input[0], "."))
+  
+	if (sev->p_input && sev->p_input[0])
+		cmd = sev->p_input[0];
+	if (!_strcmp(cmd, "."))
 		return (NULL);
 	dp = opendir(sev->p_input[0]);
 	if (dp)
@@ -62,67 +65,51 @@ char *pathfinder(sev_t *sev)
 		permdenied(sev);
 		return (NULL);
 	}
-	if (sev->p_input)
+	if (cmd[0] == '/' || cmd[0] == '.')
 	{
-		if (!ev_path)
+		if (!access(cmd, F_OK))
 		{
-			if (!access(sev->p_input[0], X_OK))
-				return (sev->p_input[0]);
-			if (!access(sev->p_input[0], F_OK))
-			{
-				sev->error = 126;
-				permdenied(sev);
-			}
-			else
-			{
-				sev->error = 127;
-				filenotfound(sev);
-			}
+			if (!access(cmd, X_OK))
+				return (cmd);
+			sev->error = 126;
+			permdenied(sev);
 			return (NULL);
 		}
-		if (sev->p_input[0][0] == '/' || sev->p_input[0][0] == '.')
+		else
 		{
-			if (!access(sev->p_input[0], X_OK))
-				return (sev->p_input[0]);
-			if (!access(sev->p_input[0], F_OK))
-			{
-				sev->error = 126;
-				permdenied(sev);
-			}
-			else
-			{
-				sev->error = 127;
-				filenotfound(sev);
-			}
+			sev->error = 127;
+			filenotfound(sev);
 			return (NULL);
 		}
+	}
+	if (ev_path)
 		pathlist = make_arr_str(ev_path, COLON, sev);
-		if (!pathlist)
-			return (NULL);
-		for (; *pathlist; pathlist++)
+	else
+		return (NULL);
+	if (!pathlist && !*pathlist)
+		return (NULL);
+	for (; *pathlist; pathlist++)
+	{
+		fpath = _strcat(*pathlist, FSLASH, &(sev->mem));
+		fpath = _strcat(fpath, sev->p_input[0], &(sev->mem));
+		if (!access(fpath, X_OK))
 		{
-			fpath = _strcat(*pathlist, FSLASH, &(sev->mem));
-			fpath = _strcat(fpath, sev->p_input[0], &(sev->mem));
-			if (!access(fpath, X_OK))
+			sev->error = 0;
+			return (fpath);
+		}
+		if (!access(fpath, F_OK))
+		{
+			sev->error = 126;
+			permdenied(sev);
+		}
+		else
+		{
+			if (sev->error != -2)
 			{
-				sev->error = 0;
-				return (fpath);
-			}
-			if (!access(fpath, F_OK))
-			{
-				sev->error = 126;
-				permdenied(sev);
-			}
-			else
-			{
-				if (sev->error != -2)
-				{
-					sev->error = 127;
-					filenotfound(sev);
-				}
+				sev->error = 127;
+				filenotfound(sev);
 			}
 		}
-
 	}
 	return (NULL);
 }
