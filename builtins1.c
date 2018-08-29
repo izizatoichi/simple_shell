@@ -63,6 +63,11 @@ void _printenv(sev_t *sev)
 	list_t *ev = reverse_list(&(sev->env));
 	char *s;
 
+	if (sev->p_input[1] != NULL)
+	{
+		sev->errmsg = invalidenv(sev);
+		sev->error = 127;
+	}
 	if (ev)
 	{
 		for (; ev; ev = ev->next)
