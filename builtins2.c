@@ -36,13 +36,18 @@ void change_dir(sev_t *sev)
 	 */
 	if (!targetdir)
 		targetdir = home;
-
 	else if (!_strcmp(targetdir, "-"))
 	{
 		targetdir = _getenv(oldpwd, sev);
 		pwd_to_print = _strcat(targetdir, "\n", mt);
 		write(STDOUT_FILENO, pwd_to_print, _strlen(pwd_to_print));
 	}
+	else if (targetdir[0] == '-')
+	{
+		sev->errmsg = illegaloptions(sev);
+		sev->error = 1;
+		return;
+	}		
 
 	ret_val = chdir(targetdir);
 

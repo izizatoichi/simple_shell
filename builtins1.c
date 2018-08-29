@@ -60,9 +60,9 @@ void exit_sh(sev_t *sev)
  */
 void _printenv(sev_t *sev)
 {
-	list_t *ev = sev->env;
+	list_t *ev = reverse_list(&(sev->env));
 	char *s;
-	ev = reverse_list(&ev);
+	//ev = reverse_list(&ev);
 	if (ev)
 	{
 		for (; ev; ev = ev->next)
@@ -72,7 +72,8 @@ void _printenv(sev_t *sev)
 			write(STDOUT_FILENO, "\n", 1);
 		}
 	}
-	ev = reverse_list(&ev);
+	reverse_list(&(sev->env));
+	//ev = reverse_list(&ev);
 }
 
 /**

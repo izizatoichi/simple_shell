@@ -12,5 +12,6 @@ char *invalidalias(sev_t *sev, int reset);
 
 /* errors2.c */
 char *helpfilenotfound(sev_t *sev);
+char *illegaloptions(sev_t *sev);
 
 #endif /* _ERRORS_H_ */

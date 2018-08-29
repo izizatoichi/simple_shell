@@ -22,3 +22,9 @@ char *_strchr(char *s, char c)
 	}
 	return (NULL);
 }
+
+void _chartostr(char *s, char c)
+{
+	s[0] = c;
+	s[1] = '\0';
+}

@@ -55,7 +55,7 @@ list_t *read_env(sev_t *sev, char **ev)
 
 	for (; *ev; ev++)
 		add_node(&head, NULL, _strdup(*ev, mt));
-
+	
 	return (head);
 }
 
@@ -98,7 +98,9 @@ void var_expansion(sev_t *sev)
 			else if (!_strcmp(sev->p_input[index], "$?"))
 				str = _itoa(sev->olderror, &sev->mem);
 			else if (sev->p_input[index][1] != '\0')
+			{
 				str = _getenv(sev->p_input[index] + 1, sev);
+			}
 			sev->p_input[index] = str;
 		}
 	}

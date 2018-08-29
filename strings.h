@@ -23,5 +23,6 @@ char *reverse_str(char *s);
 
 /* strings3.c */
 char *_strchr(char *s, char c);
+void _chartostr(char *s, char c);
 
 #endif /* _STRINGS_H_ */

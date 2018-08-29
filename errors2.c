@@ -18,3 +18,32 @@ char *helpfilenotfound(sev_t *sev)
 
 	return (errmsg);
 }
+
+/**
+ *
+ *
+ *
+ *
+ */
+char *illegaloptions(sev_t *sev)
+{
+	char *errmsg = NULL;
+	char chartoprint[2]; 
+	
+	_chartostr(chartoprint, sev->p_input[1][1]);
+
+	errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
+	errmsg = _strcat(errmsg, COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, sev->input, &sev->mem);
+	errmsg = _strcat(errmsg, COLON, &sev->mem);
+	errmsg = _strcat(errmsg, SPACE, &sev->mem);
+	errmsg = _strcat(errmsg, "Illegal option ", &sev->mem);
+	errmsg = _strcat(errmsg, chartoprint, &sev->mem);
+	errmsg = _strcat(errmsg, "\n", &sev->mem);
+	sev->errmsg = errmsg;
+
+	return (errmsg);
+}
