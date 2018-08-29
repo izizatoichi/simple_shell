@@ -117,41 +117,41 @@ void history(sev_t *sev)
  */
 void alias(sev_t *sev)
 {
-	list_t *success = NULL, *fail = NULL, *w = NULL;
+	list_t **mt = &(sev->mem);
+	list *succ = NULL, *fail = NULL;
+	char *key = NULL, *value = NULL, *arg = NULL, *arg_cp = NULL;
 	char **av = sev->p_input;
-	char *key = NULL, *value = NULL;
-	int i = 0;
+	int i = 1, found = 1;
 
 	if (!av[1])
 		print_alias_val(sev, NULL, NULL, 1);
-	for (i = 1; av[i]; i++)
+
+	while ((arg = av[i]))
 	{
-		if (_strchr(av[i], '='))
+		arg_cp = _strdup(arg, mt);
+		key = _strtok(arg_cp, EQUAL);
+		value = _strchr(arg, '=');
+		if (value)
+			value += 1;
+		if (key && value)
 		{
-			key = _strtok(av[i], EQUAL);
-			value = _strtok(NULL, SPACE);
 			if (!print_alias_val(sev, key, value, -1))
-				add_node(&sev->alias, key, value);
+				add_node(&(sev->alias), key, value);
 		}
-		else
+		else if (key)
 		{
-			for (w = sev->alias; w; w = w->next)
-			{
-				if (!_strcmp(av[i], w->key))
-				{
-					add_node(&success, w->key, w->value);
-					break;
-				}
-			}
-			if (!w)
-			{
-				sev->error = 1;
-				add_node(&fail, NULL, invalidalias(sev, i));
-			}
+			add_node(&succ, key, value);
 		}
+		if (!found)
+		{
+			sev->error = 1;
+			add_node(&fail, NULL, invalidalias(sev, i));
+		}
+		i++;
+		found = 1;
 	}
+	reverse_list(&succ);
 	reverse_list(&fail);
-	reverse_list(&success);
 	for (w = fail; w; w = w->next)
 		write(STDERR_FILENO, w->value, _strlen(w->value));
 	fflush(stdout);
