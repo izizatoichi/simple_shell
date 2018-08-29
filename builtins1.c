@@ -60,13 +60,24 @@ void exit_sh(sev_t *sev)
  */
 void _printenv(sev_t *sev)
 {
-	int i = 0;
+	list_t *ev = reverse_list(&(sev->env));
+	char *s;
 
-	for (i = 0; sev->evp[i]; i++)
+	if (sev->p_input[1] != NULL)
 	{
-		write(STDOUT_FILENO, sev->evp[i], _strlen(sev->evp[i]));
-		write(STDOUT_FILENO, "\n", 1);
+		sev->errmsg = invalidenv(sev);
+		sev->error = 127;
 	}
+	if (ev)
+	{
+		for (; ev; ev = ev->next)
+		{
+			s = ev->value;
+			write(STDOUT_FILENO, s, _strlen(s));
+			write(STDOUT_FILENO, "\n", 1);
+		}
+	}
+	reverse_list(&(sev->env));
 }
 
 /**
