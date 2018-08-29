@@ -20,16 +20,17 @@ char *helpfilenotfound(sev_t *sev)
 }
 
 /**
+ * illegaloptions - create error message for cd
+ * @sev: struct containing shell variables
  *
- *
- *
- *
+ * Description: Create error message using arguments in sev.
+ * Return: error message
  */
 char *illegaloptions(sev_t *sev)
 {
 	char *errmsg = NULL;
-	char chartoprint[2]; 
-	
+	char chartoprint[2];
+
 	_chartostr(chartoprint, sev->p_input[1][1]);
 
 	errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
