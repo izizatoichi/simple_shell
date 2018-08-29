@@ -45,7 +45,7 @@ void change_dir(sev_t *sev)
 	else if (targetdir[0] == '-')
 	{
 		sev->errmsg = illegaloptions(sev);
-		sev->error = 2;
+		sev->error = 1;
 		return;
 	}
 
@@ -54,7 +54,7 @@ void change_dir(sev_t *sev)
 	/* throw error message when chdir fails */
 	if (ret_val == -1)
 	{
-		sev->error = 2;
+		sev->error = 1;
 		sev->errmsg = invaliddir(sev);
 	}
 
@@ -117,39 +117,48 @@ void history(sev_t *sev)
  */
 void alias(sev_t *sev)
 {
-	list_t **mt = &(sev->mem);
-	char *key = NULL, *value = NULL, *arg = NULL, *arg_cp = NULL;
+	list_t *success = NULL, *fail = NULL, *w = NULL;
 	char **av = sev->p_input;
-	int i = 1, found = 1;
+	char *key = NULL, *value = NULL;
+	int i = 0;
 
 	if (!av[1])
 		print_alias_val(sev, NULL, NULL, 1);
-
-	while ((arg = av[i]))
+	for (i = 1; av[i]; i++)
 	{
-		arg_cp = _strdup(arg, mt);
-		key = _strtok(arg_cp, EQUAL);
-		value = _strchr(arg, '=');
-		if (value)
-			value += 1;
-		if (key && value)
+		if (_strchr(av[i], '='))
 		{
-			if (!print_alias_val(sev, key, value, -1))
-				add_node(&(sev->alias), key, value);
+			key = _strtok(av[i], EQUAL);
+			value = _strtok(NULL, EQUAL);
+			add_node(&sev->alias, key, value);
 		}
-		else if (key)
+		else
 		{
-			found = print_alias_val(sev, key, value, 0);
+			for (w = sev->alias; w; w = w->next)
+			{
+				if (!_strcmp(av[i], w->key))
+				{
+					add_node(&success, w->key, w->value);
+					break;
+				}
+			}
+			if (!w)
+			{
+				sev->error = 1;
+				add_node(&fail, NULL, invalidalias(sev, i));
+			}
 		}
-		if (!found)
-		{
-			sev->error = 1;
-			sev->errmsg = invalidalias(sev, i);
-			display_error(sev);
-		}
-		i++;
-		found = 1;
 	}
+	reverse_list(&fail);
+	reverse_list(&success);
+	for (w = fail; w; w = w->next)
+		write(STDERR_FILENO, w->value, _strlen(w->value));
+	fflush(stdout);
+	for (w = success; w; w = w->next)
+		print_alias_val(sev, w->key, w->value, 0);
+	free_list(&fail, 0);
+	free_list(&success, 0);
+	sev->errmsg = "";
 }
 
 /**
