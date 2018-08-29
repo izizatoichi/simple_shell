@@ -143,7 +143,7 @@ void alias(sev_t *sev)
 			}
 
 			else
-			{		  
+			{
 				key = _strtok(arg_cp, EQUAL);
 				value = _strchr(arg, '=');
 
@@ -227,7 +227,7 @@ skip:
 			filepath = _strcat(filepath, file, mt);
 		else
 			filepath = _strcat(filepath, "help_main", mt);
-	
+
 		infile = open(filepath, O_RDONLY);
 
 		r_val = read(infile, buf, BUF_SIZE);
