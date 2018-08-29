@@ -11,6 +11,7 @@
  */
 char *_getenv(char *envar, sev_t *sev)
 {
+
 	ssize_t j = 0, len = 0;
 	char *found = NULL, *str;
 	list_t *env = sev->env;
