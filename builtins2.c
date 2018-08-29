@@ -13,7 +13,7 @@ void change_dir(sev_t *sev)
 {
 	list_t **mt = &sev->mem;
 	char *home = _getenv("HOME", sev), *envar = "PWD";
-	char *targetdir = (sev->p_input)[1];
+	char *targetdir = (sev->p_input)[1], *newpwd = NULL;
 	char *pwd_to_print, *oldpwd = "OLDPWD", *oldcp = "OLDPWD";
 	char cwd[4096];
 	int ret_val;
@@ -21,6 +21,14 @@ void change_dir(sev_t *sev)
 	/* call getcwd with size 4096 buffer */
 	reset_buffer(cwd, 4096);
 	getcwd(cwd, 4096);
+
+	if (!_getenv(envar, sev))
+	{
+		newpwd = _strcat(envar, "=", mt);
+		newpwd = _strcat(newpwd, cwd, mt);
+		add_node(&sev->env, NULL, _strdup(newpwd, mt));
+	}
+
 	if (!_getenv(oldpwd, sev))
 	{
 		oldpwd = _strcat(oldpwd, "=", mt);

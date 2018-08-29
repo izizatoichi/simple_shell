@@ -52,7 +52,7 @@ char *pathfinder(sev_t *sev)
 	char *cmd = NULL;
 	char **pathlist = NULL;
 	DIR *dp = NULL;
-
+  
 	if (sev->p_input && sev->p_input[0])
 		cmd = sev->p_input[0];
 	if (!_strcmp(cmd, "."))
