@@ -49,3 +49,14 @@ char *illegaloptions(sev_t *sev)
 
 	return (errmsg);
 }
+
+char *invalidenv(sev_t *sev)
+{
+	char *errmsg = "env: ";
+
+	errmsg = _strcat(errmsg, sev->p_input[1], &sev->mem);
+	errmsg = _strcat(errmsg, ": No such file or directory\n", &sev->mem);
+	sev->errmsg = errmsg;
+
+	return (errmsg);
+}
