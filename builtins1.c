@@ -58,7 +58,6 @@ void exit_sh(sev_t *sev)
  * Description: Function prints all environment variables
  * Return: void
  */
-/*
 void _printenv(sev_t *sev)
 {
 	list_t *ev = reverse_list(&(sev->env));
@@ -80,30 +79,8 @@ void _printenv(sev_t *sev)
 		}
 	}
 	reverse_list(&(sev->env));
-}*/
-
-void _printenv(sev_t *sev)
-{
-	char *s = NULL;
-	int i = 0;
-
-	if (sev->p_input[1] != NULL)
-	{
-		sev->errmsg = invalidenv(sev);
-		sev->error = 127;
-		return;
-	}
-	if (sev->evp)
-	{
-		for (; sev->evp[i]; i++)
-		{
-			s = sev->evp[i];
-			write(STDOUT_FILENO, s, _strlen(s));
-			NEWLINE;
-		}
-	}
 }
-	
+
 /**
  * _setenv - set environment variable
  * @sev: struct of shell variables
