@@ -27,7 +27,7 @@
 #define COLON ":"
 #define BSLASH "\\"
 #define FSLASH "/"
-#define BUF_SIZE 1024
+#define BUF_SIZE 4096
 #define PS1 write(STDOUT_FILENO, "JS$ ", 4)
 #define PS2 write(STDOUT_FILENO, "\nJS$ ", 5)
 #define NEWLINE write(STDOUT_FILENO, "\n", 1)
