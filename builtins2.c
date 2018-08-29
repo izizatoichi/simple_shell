@@ -130,7 +130,16 @@ void alias(sev_t *sev)
 		{
 			key = _strtok(av[i], EQUAL);
 			value = _strtok(NULL, EQUAL);
-			add_node(&sev->alias, key, value);
+			for (w = sev->alias; w; w = w->next)
+			{
+				if (!_strcmp(key, w->key))
+				{
+					w->value = value;
+					break;
+				}
+			}
+			if (!w)
+				add_node(&sev->alias, key, value);
 		}
 		else
 		{
