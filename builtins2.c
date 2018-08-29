@@ -118,7 +118,7 @@ void history(sev_t *sev)
 void alias(sev_t *sev)
 {
 	list_t **mt = &(sev->mem);
-	char *key = NULL, *value = NULL, *arg = NULL, *arg_cp = NULL;
+	char *key = NULL, *value = NULL, *arg = NULL, *arg_cp = NULL, *token = NULL;
 	char **av = sev->p_input;
 	int i = 1, found = 1, error = 0;
 
@@ -128,11 +128,29 @@ void alias(sev_t *sev)
 	while ((arg = av[i]))
 	{
 		arg_cp = _strdup(arg, mt);
-		key = _strtok(arg_cp, EQUAL);
-		value = _strchr(arg, '=');
-		
-		if (value)
-			value += 1;
+
+		if (arg_cp)
+		{
+			if (arg_cp[0] == '=')
+			{
+				key = _strcat(key, "=", mt);
+				token = _strtok(arg_cp + 1, EQUAL);
+				key = _strcat(key, token, mt);
+
+				value = _strchr(arg + 1, '=');
+				if (value)
+					value += 1;
+			}
+
+			else
+			{		  
+				key = _strtok(arg_cp, EQUAL);
+				value = _strchr(arg, '=');
+
+				if (value)
+					value += 1;
+			}
+		}
 		if (key && value)
 		{
 			if (!print_alias_val(sev, key, value, -1))
@@ -209,7 +227,7 @@ skip:
 			filepath = _strcat(filepath, file, mt);
 		else
 			filepath = _strcat(filepath, "help_main", mt);
-
+	
 		infile = open(filepath, O_RDONLY);
 
 		r_val = read(infile, buf, BUF_SIZE);
