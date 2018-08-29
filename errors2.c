@@ -42,6 +42,7 @@ char *illegaloptions(sev_t *sev)
 	errmsg = _strcat(errmsg, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
 	errmsg = _strcat(errmsg, "Illegal option ", &sev->mem);
+	errmsg = _strcat(errmsg, "-", &sev->mem);
 	errmsg = _strcat(errmsg, chartoprint, &sev->mem);
 	errmsg = _strcat(errmsg, "\n", &sev->mem);
 	sev->errmsg = errmsg;
