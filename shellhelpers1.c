@@ -32,8 +32,8 @@ void display_prompt(sev_t sev)
  */
 char *getcommand(sev_t *sev)
 {
-	char *buffer = NULL;
-	size_t size = 0, len = 0;
+	char *buffer = NULL, *tmp = NULL;
+	size_t size = 0, len = 0, ws = 0;
 	ssize_t numread = -1;
 
 	if (!sev->cmd_q)
@@ -56,7 +56,14 @@ char *getcommand(sev_t *sev)
 	}
 	if (sev->cmd_q)
 	{
-		sev->input = sev->cmd_q->value;
+		tmp = _strdup(sev->cmd_q->value, &sev->mem);
+		ws = _strspn(tmp, DELIM);
+		if (*(tmp + ws))
+			sev->input = tmp + ws;
+		else
+		{
+			sev->input = "";
+		}
 		delete_node_at_index(&sev->cmd_q, 0);
 	}
 	else
