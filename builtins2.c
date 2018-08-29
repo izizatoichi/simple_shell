@@ -120,7 +120,7 @@ void alias(sev_t *sev)
 	list_t **mt = &(sev->mem);
 	char *key = NULL, *value = NULL, *arg = NULL, *arg_cp = NULL;
 	char **av = sev->p_input;
-	int i = 1, found = 1;
+	int i = 1, found = 1, error = 0;
 
 	if (!av[1])
 		print_alias_val(sev, NULL, NULL, 1);
@@ -143,13 +143,13 @@ void alias(sev_t *sev)
 		}
 		if (!found)
 		{
-			sev->error = 1;
 			sev->errmsg = invalidalias(sev, i);
-			display_error(sev);
+			error = 1;
 		}
 		i++;
 		found = 1;
 	}
+	sev->error = error;
 }
 
 /**
