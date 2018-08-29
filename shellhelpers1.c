@@ -70,6 +70,7 @@ char *getcommand(sev_t *sev)
 		sev->input = NULL;
 	add_log(sev);
 	sev->p_input = make_arr_str(sev->input, DELIM, sev);
+	stripquotes(sev);
 	var_expansion(sev);
 	return (sev->input);
 }
