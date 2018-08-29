@@ -52,6 +52,8 @@ char *pathfinder(sev_t *sev)
 	char **pathlist = NULL;
 	DIR *dp = NULL;
 
+	if (!_strcmp(sev->p_input[0], "."))
+		return (NULL);
 	dp = opendir(sev->p_input[0]);
 	if (dp)
 	{
@@ -59,7 +61,7 @@ char *pathfinder(sev_t *sev)
 		sev->error = 126;
 		permdenied(sev);
 		return (NULL);
-		}
+	}
 	if (sev->p_input)
 	{
 		if (!ev_path)
