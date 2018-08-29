@@ -28,8 +28,8 @@
 #define BSLASH "\\"
 #define FSLASH "/"
 #define BUF_SIZE 1024
-#define PS1 write(STDOUT_FILENO, "$ ", 2)
-#define PS2 write(STDOUT_FILENO, "\n$ ", 3)
+#define PS1 write(STDOUT_FILENO, "JS$ ", 4)
+#define PS2 write(STDOUT_FILENO, "\nJS$ ", 5)
 #define NEWLINE write(STDOUT_FILENO, "\n", 1)
 #define DELIM " \t"
 
