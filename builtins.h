@@ -7,7 +7,7 @@
 #include "shellvars.h"
 
 #define BYTE 255
-#define BUF_SIZE 1024
+#define BUF_SIZE 4096
 
 /**
  * struct builtin - struct containing function name and its respective function
