@@ -118,7 +118,6 @@ void history(sev_t *sev)
 void alias(sev_t *sev)
 {
 	list_t **mt = &(sev->mem);
-	list_t *succ = NULL, *fail = NULL, *w = NULL;
 	char *key = NULL, *value = NULL, *arg = NULL, *arg_cp = NULL;
 	char **av = sev->p_input;
 	int i = 1, found = 1;
@@ -140,26 +139,17 @@ void alias(sev_t *sev)
 		}
 		else if (key)
 		{
-			add_node(&succ, key, value);
+			found = print_alias_val(sev, key, value, 0);
 		}
 		if (!found)
 		{
 			sev->error = 1;
-			add_node(&fail, NULL, invalidalias(sev, i));
+			sev->errmsg = invalidalias(sev, i);
+			display_error(sev);
 		}
 		i++;
 		found = 1;
 	}
-	reverse_list(&succ);
-	reverse_list(&fail);
-	for (w = fail; w; w = w->next)
-		write(STDERR_FILENO, w->value, _strlen(w->value));
-	fflush(stdout);
-	for (w = succ; w; w = w->next)
-		print_alias_val(sev, w->key, w->value, 0);
-	free_list(&fail, 0);
-	free_list(&succ, 0);
-	sev->errmsg = "";
 }
 
 /**
