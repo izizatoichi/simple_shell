@@ -61,7 +61,7 @@ char *pathfinder(sev_t *sev)
 		sev->error = 126;
 		permdenied(sev);
 		return (NULL);
-	}
+		}
 	if (sev->p_input)
 	{
 		if (sev->p_input[0][0] == '/' || sev->p_input[0][0] == '.')
