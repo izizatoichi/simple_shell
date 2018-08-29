@@ -32,39 +32,38 @@ void display_prompt(sev_t sev)
  */
 char *getcommand(sev_t *sev)
 {
-	char *buffer = NULL;
+	char *buffer = NULL, *tmp = NULL;
 	size_t size = 0, len = 0;
 	ssize_t numread = -1;
 
-	if (!sev->cmd_q)
+	numread = getline(&buffer, &size, stdin);
+	if (numread == -2 || numread == -1)
 	{
-		numread = _getline(&buffer, &size, STDIN_FILENO, &sev->mem);
-		if (numread == -2 || numread == -1)
-		{
-			sev->good2go = 0;
-			sev->error = sev->olderror;
-			if (sev->ia_mode)
-				NEWLINE;
-		}
-		if (numread > 0)
-		{
-			len = _strlen(buffer);
-			if (buffer[len - 1] == '\n')
-				buffer[len - 1] = '\0';
-		}
-		process_input(buffer, sev);
+		sev->good2go = 0;
+		sev->error = sev->olderror;
+		if (sev->ia_mode)
+			NEWLINE;
+		free(buffer);
+		buffer = NULL;
 	}
-	if (sev->cmd_q)
+	if (numread > 0)
 	{
-		sev->input = sev->cmd_q->value;
-		delete_node_at_index(&sev->cmd_q, 0);
+		len = _strlen(buffer);
+		if (buffer[len - 1] == '\n')
+			buffer[len - 1] = '\0';
 	}
+	if (!buffer)
+		tmp = "";
 	else
-		sev->input = NULL;
+	{
+		tmp = _strdup(buffer, &sev->mem);
+		free(buffer);
+	}
+	sev->input = tmp;
 	add_log(sev);
 	sev->p_input = make_arr_str(sev->input, DELIM, sev);
 	var_expansion(sev);
-	return (sev->input);
+	return (sev->input = tmp);
 }
 
 /**
