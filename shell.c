@@ -18,7 +18,6 @@ int main(int ac, char **av, char **ev)
 
 	while (sev.good2go)
 	{
-		sev.env = read_env(&sev, ev);
 		display_prompt(sev);
 		getcommand(&sev);
 		if (!check_builtin(&sev))
