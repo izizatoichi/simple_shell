@@ -67,6 +67,7 @@ void _printenv(sev_t *sev)
 	{
 		sev->errmsg = invalidenv(sev);
 		sev->error = 127;
+		return;
 	}
 	if (ev)
 	{

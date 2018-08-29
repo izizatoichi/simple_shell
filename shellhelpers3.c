@@ -104,18 +104,18 @@ void var_expansion(sev_t *sev)
 			sev->p_input[index] = str;
 		}
 	}
-/*
-*	if (!_strcmp(sev->p_input[0], "cd"))
-*	{
-*		if (sev->p_input[1] && sev->p_input[1][0] == '~' &&
-*		    sev->p_input[1][1] == '\0')
-*		{
-*			str = _getenv("HOME", sev);
-*			str = _strcat(str, sev->p_input[1] + 1, &sev->mem);
-*			sev->p_input[1] = str;
-*		}
-*	}
-*/
+
+	if (!_strcmp(sev->p_input[0], "cd"))
+	{
+		if (sev->p_input[1] && sev->p_input[1][0] == '~' &&
+		    sev->p_input[1][1] == '\0')
+		{
+			str = _getenv("HOME", sev);
+			str = _strcat(str, sev->p_input[1] + 1, &sev->mem);
+			sev->p_input[1] = str;
+		}
+	}
+
 }
 
 /**
