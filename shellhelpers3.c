@@ -17,6 +17,7 @@ sev_t *initialize_shell_env(sev_t *sev, char **av, char **ev)
 	sev->ia_mode = isatty(STDIN_FILENO);
 	sev->log = NULL;
 	sev->log_cnt = 0;
+	sev->cmd_cnt = 0;
 	sev->mem = NULL;
 	sev->env = NULL;
 	sev->evp = ev;

@@ -9,6 +9,7 @@
  * @ia_mode: interactive mode - 1 yes, 0 no
  * @log: ptr to log link list for the current shell session
  * @log_cnt: number of log entries for the curent shell session
+ * @cmd_cnt: cmd counter separate from log counter
  * @mem: ptr to memory allocations for the current shell session
  * @env: ptr to the os environment variables
  * @evp: ptr to environment variables in array
@@ -34,6 +35,7 @@ typedef struct sev_s
 	int ia_mode;
 	list_t *log;
 	int log_cnt;
+	int cmd_cnt;
 	list_t *mem;
 	list_t *env;
 	char **evp;
