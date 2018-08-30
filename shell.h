@@ -58,7 +58,6 @@ int print_alias_val(sev_t *sev, char *key, char *value, int flag);
 void process_input(char *cmd, sev_t *sev);
 void display_banner(int ia_mode);
 void check_alias(sev_t *sev);
-void strip_comments(sev_t *sev);
 
 /* _getline.c */
 ssize_t _getline(char **lineptr, size_t *n, int fd, list_t **mt);

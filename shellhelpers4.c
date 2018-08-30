@@ -95,23 +95,3 @@ void display_banner(int ia_mode)
 	write(STDOUT_FILENO, "=======================\n", 24);
 	NEWLINE;
 }
-
-/**
- * strip_comments - removes comments from the input command
- * @sev: ptr to the shell environment variable
- * Return: nothing
- */
-void strip_comments(sev_t *sev)
-{
-	char *str = sev->input;
-	int i = 0;
-
-	if (!str || !*str)
-		return;
-	str = sev->input;
-	for (i = 0; str[i]; i++)
-		if (str[i] == '#')
-			break;
-	for (; str[i]; i++)
-		str[i] = '\0';
-}
