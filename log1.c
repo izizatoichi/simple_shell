@@ -31,7 +31,6 @@ int write_log(sev_t *sev)
 	fd = open(fullpath, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (fd == -1)
 	{
-		sev->error = -1;
 		return (0);
 	}
 	reverse_list(&(sev->log));
@@ -44,7 +43,6 @@ int write_log(sev_t *sev)
 		if (write(fd, entry, len) < len)
 		{
 			close(fd);
-			sev->error = -1;
 			return (0);
 		}
 		walker = walker->next;
@@ -71,7 +69,6 @@ int get_log_count(sev_t *sev)
 	fd = open(fullpath, O_RDONLY);
 	if (fd == -1)
 	{
-		sev->error = -1;
 		return (0);
 	}
 	while (numread)
@@ -80,7 +77,6 @@ int get_log_count(sev_t *sev)
 		if (numread == -1)
 		{
 			close(fd);
-			sev->error = -1;
 			return (0);
 		}
 		for (index = 0; index < numread; index++)
