@@ -34,6 +34,7 @@ sev_t *initialize_shell_env(sev_t *sev, char **av, char **ev)
 
 	sev->env = read_env(sev, ev);
 	sev->log_cnt = get_log_count(sev);
+	sev->cmd_cnt = get_log_count(sev);
 	sev->shell_d = _strdup(getcwd(cwd, 4096), &(sev->mem));
 
 	signal(SIGINT, sig_handler);
