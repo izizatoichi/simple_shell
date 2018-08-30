@@ -25,6 +25,7 @@ $ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
 ```
 $ ./hsh
 ```
+Note: You can also run this shell in non-interactive mode, by simply piping your desired commands into the shell executable.
 
 ### Syntax
 -----
@@ -32,8 +33,12 @@ When using this shell, the syntax for running any command follows the familiar s
 ```
 JS$ <command> <flags or options> <argument 1> <argument 2> ...
 ```
-
+In non-interactive mode:
+```
+JS$ <command> | ./hsh
+```
 #### Example
+Interactive mode:
 ```
 JS$ /bin/ls
 ```
@@ -44,6 +49,10 @@ JS$ ls -l
 or
 ```
 JS$ cat textfile
+```
+Non-interactive mode:
+```
+JS$ echo "ls -l" | ./hsh
 ```
 
 ### Builtin Commands
