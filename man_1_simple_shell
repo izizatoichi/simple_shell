@@ -19,6 +19,11 @@ The shell returns the error code given by the last completed command followed by
 
 .SH SYNTAX
 JS$ <command> <flags or options> <argument 1> <argument 2> ...
+OR NON-INTERACTIVE MODE:
+$ <command> | ./hsh
+.SS
+Interactive mode:
+
 .SS
 EXAMPLE 1:
 JS$ /bin/ls
@@ -28,6 +33,12 @@ JS$ ls -l
 .SS
 EXAMPLE 3:
 JS$ cat textfile
+.SS
+Non-interactive mode:
+
+.SS
+EXAMPLE 1:
+$ echo "ls -l" | ./hsh
 
 .SH BUILTIN COMMANDS
 .SS alias
