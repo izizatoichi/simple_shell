@@ -3,11 +3,12 @@
 /**
  * initialize_shell_env - initialzies the shell environment variables
  * @sev: struct containing shell variables
+ * @av: ptr to array of args passed into shell program
  * @ev: ptr to array of environment variables
  *
  * Return: the initialized values of type sev_t
  */
-sev_t *initialize_shell_env(sev_t *sev, char **ev)
+sev_t *initialize_shell_env(sev_t *sev, char **av, char **ev)
 {
 	char cwd[4096];
 
@@ -16,6 +17,7 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev)
 	sev->ia_mode = isatty(STDIN_FILENO);
 	sev->log = NULL;
 	sev->log_cnt = 0;
+	sev->cmd_cnt = 0;
 	sev->mem = NULL;
 	sev->env = NULL;
 	sev->evp = ev;
@@ -28,6 +30,7 @@ sev_t *initialize_shell_env(sev_t *sev, char **ev)
 	sev->alias = NULL;
 	sev->cmd_q = NULL;
 	sev->shell_d = NULL;
+	sev->arg0 = av[0];
 
 	sev->env = read_env(sev, ev);
 	sev->log_cnt = get_log_count(sev);

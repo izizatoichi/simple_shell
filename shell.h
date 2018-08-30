@@ -48,7 +48,7 @@ char **make_evp_arr(sev_t *sev);
 int _setenv_helper(sev_t *sev, char *tofind, char *cwd);
 
 /* shellhelpers3.c */
-sev_t *initialize_shell_env(sev_t *sev, char **ev);
+sev_t *initialize_shell_env(sev_t *sev, char **av, char **ev);
 list_t *read_env(sev_t *sev, char **ev);
 void display_error(sev_t *sev);
 void var_expansion(sev_t *sev);
