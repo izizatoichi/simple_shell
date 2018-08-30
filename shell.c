@@ -27,5 +27,5 @@ int main(int ac, char **av, char **ev)
 	write_log(&sev);
 	exitcode = sev.error;
 	clean_sev(&sev);
-	return (exitcode);
+	_exit(exitcode);
 }
