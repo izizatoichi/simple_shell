@@ -22,6 +22,44 @@ void process_input(char *cmd, sev_t *sev)
 }
 
 /**
+ * check_alias - check if alias exists
+ * @sev: struct containing shell variables
+ *
+ * Description: Function checks if an alias exists. If it does, the alias is
+ * replaced by the value of the alias instead.
+ * Return: void
+ */
+void check_alias(sev_t *sev)
+{
+	char *input = NULL;
+	list_t *alias = sev->alias;
+	int found = 1;
+
+	if (sev->p_input && alias)
+	{
+		while (found)
+		{
+			input = sev->p_input[0];
+			found = 0;
+			for (alias = sev->alias; alias; alias = alias->next)
+			{
+				if (!_strcmp(alias->key, input))
+				{
+					sev->p_input[0] = alias->value;
+					sev->input = alias->value;
+					printf("%s\n", sev->p_input[0]);
+					found = 1;
+				}
+			}
+			if (!found)
+				break;
+		}
+	}
+}
+
+
+
+/**
  * display_banner - displays the shell banner
  * @ia_mode: interactive mode flag
  * Return - nothing
