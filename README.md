@@ -35,7 +35,7 @@ JS$ <command> <flags or options> <argument 1> <argument 2> ...
 ```
 In non-interactive mode:
 ```
-JS$ <command> | ./hsh
+$ <command> | ./hsh
 ```
 #### Example
 Interactive mode:
@@ -52,7 +52,7 @@ JS$ cat textfile
 ```
 Non-interactive mode:
 ```
-JS$ echo "ls -l" | ./hsh
+$ echo "ls -l" | ./hsh
 ```
 
 ### Builtin Commands
