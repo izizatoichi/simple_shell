@@ -52,8 +52,11 @@ void change_dir(sev_t *sev)
 	}
 	else if (targetdir[0] == '-')
 	{
-		sev->errmsg = illegaloptions(sev);
-		sev->error = 1;
+		if (sev->ia_mode)
+		{
+			sev->errmsg = illegaloptions(sev);
+			sev->error = 1;
+		}
 		return;
 	}
 
@@ -62,8 +65,11 @@ void change_dir(sev_t *sev)
 	/* throw error message when chdir fails */
 	if (ret_val == -1)
 	{
-		sev->error = 1;
-		sev->errmsg = invaliddir(sev);
+		if (sev->ia_mode)
+		{
+			sev->errmsg = invaliddir(sev);
+			sev->error = 1;
+		}
 	}
 
 	/* change pwd in env list and reset oldpwd */
