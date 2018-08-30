@@ -22,6 +22,8 @@
  * @shell_d: the path to directory where all files reside
  * @alias: ptr to the link list containing the aliases
  * @cmd_q: ptr to the list of commands in the queue
+ * @shell_d: current working directory
+ * @arg0: command executed to run shell
  * Description: Structure containing all the shell environment variables.
  * This one structure will be passed from function to function and contain
  * all the shell environment variables for the current session.
@@ -44,7 +46,7 @@ typedef struct sev_s
 	list_t *alias;
 	list_t *cmd_q;
 	char *shell_d;
-
+	char *arg0;
 } sev_t;
 
 #endif /* _SHELLVARS_H_ */
