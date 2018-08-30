@@ -47,7 +47,6 @@ void check_alias(sev_t *sev)
 				{
 					sev->p_input[0] = alias->value;
 					sev->input = alias->value;
-					printf("%s\n", sev->p_input[0]);
 					found = 1;
 				}
 			}
