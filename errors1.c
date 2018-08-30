@@ -12,7 +12,7 @@ char *filenotfound(sev_t *sev)
 
 	errmsg = _strcat(sev->arg0, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
-	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
+	errmsg = _strcat(errmsg, _itoa(sev->cmd_cnt, &sev->mem), &sev->mem);
 	errmsg = _strcat(errmsg, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
 	errmsg = _strcat(errmsg, sev->input, &sev->mem);
@@ -36,7 +36,7 @@ char *illegalnum(sev_t *sev)
 
 	errmsg = _strcat(sev->arg0, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
-	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
+	errmsg = _strcat(errmsg, _itoa(sev->cmd_cnt, &sev->mem), &sev->mem);
 	errmsg = _strcat(errmsg, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
 	errmsg = _strcat(errmsg, sev->input, &sev->mem);
@@ -61,7 +61,7 @@ char *permdenied(sev_t *sev)
 
 	errmsg = _strcat(sev->arg0, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
-	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
+	errmsg = _strcat(errmsg, _itoa(sev->cmd_cnt, &sev->mem), &sev->mem);
 	errmsg = _strcat(errmsg, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
 	errmsg = _strcat(errmsg, sev->input, &sev->mem);
@@ -88,7 +88,7 @@ char *invaliddir(sev_t *sev)
 
 	errmsg = _strcat(sev->arg0, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
-	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
+	errmsg = _strcat(errmsg, _itoa(sev->cmd_cnt, &sev->mem), &sev->mem);
 	errmsg = _strcat(errmsg, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
 	errmsg = _strcat(errmsg, sev->input, &sev->mem);
