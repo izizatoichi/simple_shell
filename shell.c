@@ -12,9 +12,8 @@ int main(int ac, char **av, char **ev)
 	sev_t sev;
 	int exitcode = 0;
 	(void)ac;
-	(void)av;
 
-	initialize_shell_env(&sev, ev);
+	initialize_shell_env(&sev, av, ev);
 
 	while (sev.good2go)
 	{

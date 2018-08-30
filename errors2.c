@@ -33,7 +33,7 @@ char *illegaloptions(sev_t *sev)
 
 	_chartostr(chartoprint, sev->p_input[1][1]);
 
-	errmsg = _strcat(_getenv("_", sev), COLON, &sev->mem);
+	errmsg = _strcat(sev->arg0, COLON, &sev->mem);
 	errmsg = _strcat(errmsg, SPACE, &sev->mem);
 	errmsg = _strcat(errmsg, _itoa(sev->log_cnt, &sev->mem), &sev->mem);
 	errmsg = _strcat(errmsg, COLON, &sev->mem);
