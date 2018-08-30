@@ -85,7 +85,7 @@ char *pathfinder(sev_t *sev)
 		pathlist = make_arr_str(ev_path, COLON, sev);
 	else
 		return (NULL);
-	if (!pathlist && !*pathlist)
+	if (!pathlist || !*pathlist)
 		return (NULL);
 	for (; *pathlist; pathlist++)
 	{
