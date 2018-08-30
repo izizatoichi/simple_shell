@@ -79,8 +79,6 @@ void _printenv(sev_t *sev)
 			write(STDOUT_FILENO, "\n", 1);
 		}
 	}
-	else
-		sev->error = 1;
 
 	reverse_list(&(sev->env));
 }
