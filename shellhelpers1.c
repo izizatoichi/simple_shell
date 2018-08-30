@@ -69,6 +69,7 @@ char *getcommand(sev_t *sev)
 	else
 		sev->input = NULL;
 	add_log(sev);
+	strip_comments(sev);
 	sev->p_input = make_arr_str(sev->input, DELIM, sev);
 	var_expansion(sev);
 	return (sev->input);
