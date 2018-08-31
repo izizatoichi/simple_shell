@@ -49,6 +49,8 @@ void check_alias(sev_t *sev)
 					sev->input = alias->value;
 					found = 1;
 				}
+				if (!_strcmp(alias->key, alias->value))
+					found = 0;
 			}
 			if (!found)
 				break;
