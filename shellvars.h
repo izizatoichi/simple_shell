@@ -20,8 +20,6 @@
  * @olderror: error from previous command
  * @pid: pid of current shell
  * @alias: ptr to link list of all alias created by user
- * @shell_d: the path to directory where all files reside
- * @alias: ptr to the link list containing the aliases
  * @cmd_q: ptr to the list of commands in the queue
  * @shell_d: current working directory
  * @arg0: command executed to run shell
