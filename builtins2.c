@@ -43,15 +43,10 @@ void change_dir(sev_t *sev)
 	 * else if: user specifies hyphen, set target dir to old dir instead
 	 */
 	if (!targetdir)
-	{
-		if (home)
-			targetdir = home;
-		else
-			targetdir = cwd;
-	}
+		targetdir = home;
 	else if (!_strcmp(targetdir, "-"))
 	{
-		targetdir = _getenv(oldcp, sev);
+		targetdir = _getenv(oldpwd, sev);
 		pwd_to_print = _strcat(targetdir, "\n", mt);
 		write(STDOUT_FILENO, pwd_to_print, _strlen(pwd_to_print));
 	}
