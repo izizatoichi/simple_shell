@@ -165,6 +165,7 @@ void _unsetenv(sev_t *sev)
 		sev->error = 1;
 	}
 }
+
 /**
  * check_builtin - call builtin function
  * @sev: struct containing shell variables

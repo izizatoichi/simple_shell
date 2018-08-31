@@ -56,8 +56,6 @@ void check_alias(sev_t *sev)
 	}
 }
 
-
-
 /**
  * display_banner - displays the shell banner
  * @ia_mode: interactive mode flag
@@ -86,7 +84,8 @@ void display_banner(int ia_mode)
 	write(1, "\\_______)|/     \\|(_______/(_______/(_______/\n\n", 47);
 	write(STDOUT_FILENO, "AUTHORS:\n", 9);
 	write(STDOUT_FILENO, "\tStephen Chu <stephen.chu530@gmail.com>\n", 40);
-	write(STDOUT_FILENO, "\tJian Huang <jian.huang.8581@gmail.com>\n\n", 41);
+	write(STDOUT_FILENO, "\tJian Huang <jian.huang.8581@gmail.com>\n\n",
+	      41);
 	write(STDOUT_FILENO, "=======================", 23);
 	write(STDOUT_FILENO, "=======================\n", 24);
 	write(STDOUT_FILENO, "       WELCOME TO JIAN'S &", 26);
