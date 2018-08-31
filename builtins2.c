@@ -132,7 +132,8 @@ void history(sev_t *sev)
 void alias(sev_t *sev)
 {
 	list_t **mt = &(sev->mem);
-	char *key = NULL, *value = NULL, *arg = NULL, *arg_cp = NULL, *token = NULL;
+	char *key = NULL, *value = NULL, *arg = NULL;
+	char *arg_cp = NULL, *token = NULL;
 	char **av = sev->p_input;
 	int i = 1, found = 1, error = 0;
 
