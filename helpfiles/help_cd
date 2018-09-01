@@ -1,0 +1,24 @@
+cd: cd [DIRECTORY]
+	Change the shell working directory.
+
+	Change the current working directory to DIRECTORY. If no directory is
+	specified, then the current working directory will be set as the user's
+	home directory defined in $HOME.
+
+	If the directory is not found or directory does not have appropriate
+	access permissions, an error message will be printed for the user.
+
+	Options:
+		No options are available. However, cd supports tilde (~) and
+		hyphen (-) as DIRECTORY.
+
+		Using the tilde will have the same effect as not specifying a
+		DIRECTORY. The current working directory will be set as the
+		user's $HOME directory.
+
+		Using the hyphen will set the directory to the user's previous
+		working directory.
+
+	Exit Status:
+		Returns 0 if directory successfully changes. Otherwise,
+		error message will be displayed with exit status of 1.

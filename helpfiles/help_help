@@ -1,0 +1,13 @@
+help: help [COMMAND]
+	Display information about builtin commands.
+
+	Display description and usage of builtin commands. If no COMMAND is
+	specified then a list of available builtin will be displayed for the
+	user along with their proper usage.
+
+	Options:
+		No options are currently available.
+
+	Exit Status:
+		Returns exit code of 0 for success and 1 for failure or any
+		errors that occurred.
