@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include "../linklists.h"
-#include "../memory.h"
+#include "../memoryfiles/memory.h"
 
 #define MAXNUMLEN 1024
 
