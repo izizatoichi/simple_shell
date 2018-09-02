@@ -14,12 +14,12 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "strings.h"
+#include "./stringfiles/strings.h"
 #include "linklists.h"
 #include "memory.h"
 #include "shellvars.h"
-#include "builtins.h"
-#include "errors.h"
+#include "./builtinfiles/builtins.h"
+#include "./errorfiles/errors.h"
 #include "log.h"
 
 #define SPACE " "
