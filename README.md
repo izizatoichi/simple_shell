@@ -71,7 +71,7 @@ This shell supports a variety of builtin commands:
 
 `history` - display the command history for the current shell session
 
-`setenv` - sets and environment variable
+`setenv` - sets an environment variable
 
 `unsetenv` - unsets an environment variable
 
@@ -84,7 +84,7 @@ JS$ help <builtin command>
 -----
 Files are compiled this way:
 ```
-$ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+$ make all
 ```
 
 ### Files
