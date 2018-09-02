@@ -119,10 +119,10 @@ Brief description of every file in this repository. Subject to change.
 | README.md | This file that you are reading |
 | shell.c | Primary shell source code |
 | shell.h | Shell header file |
-| shellhelpers1.c | Helper functions used in our implemtation of shell #1 |
-| shellhelpers2.c | Helper functions used in our implemtation of shell #2 |
-| shellhelpers3.c | Helper functions used in our implemtation of shell #3 |
-| shellhelpers4.c | Helper functions used in our implemtation of shell #4 |
+| shellhelpers1.c | Helper functions used in our implementation of shell #1 |
+| shellhelpers2.c | Helper functions used in our implementation of shell #2 |
+| shellhelpers3.c | Helper functions used in our implementation of shell #3 |
+| shellhelpers4.c | Helper functions used in our implementation of shell #4 |
 | shellvars.h | Shell environment variable structure definition |
 | strings1.c | String function source code #1 |
 | strings2.c | String function source code #2 |
