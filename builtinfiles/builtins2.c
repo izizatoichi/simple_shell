@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "../shell.h"
 
 /**
  * change_dir - change directory
@@ -234,9 +234,10 @@ void _help(sev_t *sev)
 			}
 		}
 
+skip:
 		filepath = _strdup(sev->shell_d, mt);
 		filepath = _strcat(filepath, "/", mt);
-skip:
+		filepath = _strcat(filepath, "helpfiles/", mt);
 
 		if (arg)
 			filepath = _strcat(filepath, file, mt);

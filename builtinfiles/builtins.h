@@ -3,8 +3,8 @@
 
 #include <limits.h>
 
-#include "shell.h"
-#include "shellvars.h"
+#include "../shell.h"
+#include "../shellvars.h"
 
 #define BYTE 255
 #define BUF_SIZE 4096

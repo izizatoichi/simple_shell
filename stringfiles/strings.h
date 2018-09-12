@@ -2,8 +2,8 @@
 #define _STRINGS_H_
 
 #include <stdlib.h>
-#include "linklists.h"
-#include "memory.h"
+#include "../linklists.h"
+#include "../memoryfiles/memory.h"
 
 #define MAXNUMLEN 1024
 

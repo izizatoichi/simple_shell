@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "../shell.h"
 
 /**
  * initialize_shell_env - initialzies the shell environment variables

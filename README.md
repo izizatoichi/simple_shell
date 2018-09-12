@@ -15,11 +15,11 @@ The `Jian-Stephen Simple Shell` project is a major team project conducted by Jia
 -----
 1. Git clone all this respository to your local directory.
 ```
-$ git clone https://github.com/stephenchu530/simple_shell.git
+$ git clone https://github.com/TrieToSucceed/simple_shell.git
 ```
 2. Compile the program.
 ```
-$ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+$ make all
 ```
 3. Execute the shell.
 ```
@@ -71,7 +71,7 @@ This shell supports a variety of builtin commands:
 
 `history` - display the command history for the current shell session
 
-`setenv` - sets and environment variable
+`setenv` - sets an environment variable
 
 `unsetenv` - unsets an environment variable
 
@@ -84,7 +84,7 @@ JS$ help <builtin command>
 -----
 Files are compiled this way:
 ```
-$ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+$ make all
 ```
 
 ### Files
@@ -119,10 +119,10 @@ Brief description of every file in this repository. Subject to change.
 | README.md | This file that you are reading |
 | shell.c | Primary shell source code |
 | shell.h | Shell header file |
-| shellhelpers1.c | Helper functions used in our implemtation of shell #1 |
-| shellhelpers2.c | Helper functions used in our implemtation of shell #2 |
-| shellhelpers3.c | Helper functions used in our implemtation of shell #3 |
-| shellhelpers4.c | Helper functions used in our implemtation of shell #4 |
+| shellhelpers1.c | Helper functions used in our implementation of shell #1 |
+| shellhelpers2.c | Helper functions used in our implementation of shell #2 |
+| shellhelpers3.c | Helper functions used in our implementation of shell #3 |
+| shellhelpers4.c | Helper functions used in our implementation of shell #4 |
 | shellvars.h | Shell environment variable structure definition |
 | strings1.c | String function source code #1 |
 | strings2.c | String function source code #2 |
