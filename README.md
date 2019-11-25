@@ -1,63 +1,18 @@
-# Jian-Stephen Simple Shell
+# Mandalorian Simple Shell
 
-![jsss logo](/JSSS.png)
+
 
 ### Project details
 -----
-Welcome to the `Jian-Stephen Simple Shell` project! This program is a simple shell that can be compiled and launched from the command line within any number of Linux versions. It contains the most basic features and functions found in the various shell programs.
+Welcome to the `Mandalorian Simple Shell` project! This program is a simple shell that can be compiled and launched from the command line. It contains the most basic features and functions found in the various shell programs.
 
 
-### Background
------
-The `Jian-Stephen Simple Shell` project is a major team project conducted by Jian Huang and Stephen Chu, students at Holberton School, for educational purposes. It consists of developing and makng our own clone of `DASH` - Debian Almquist shell found in several versions of Ubuntu Linux. Though cloning of `DASH` was the general guidance, having the same exact functionalities and features was not the goal. The goal for us was to learn and develop various team and individual skills regarding coding and git.
-
-### Quick Start
------
-1. Git clone all this respository to your local directory.
-```
-$ git clone https://github.com/stephenchu530/simple_shell.git
-```
-or
-```
-$ git clone https://github.com/TrieToSucceed/simple_shell.git
-```
-2. Compile the program.
-```
-$ make all
-```
-3. Execute the shell.
-```
-$ ./hsh
-```
 Note: You can also run this shell in non-interactive mode, by simply piping your desired commands into the shell executable.
 
 ### Syntax
 -----
-When using this shell, the syntax for running any command follows the familiar syntax when running a command in any other shell:
-```
-JS$ <command> <flags or options> <argument 1> <argument 2> ...
-```
-In non-interactive mode:
-```
-$ <command> | ./hsh
-```
-#### Example
-Interactive mode:
-```
-JS$ /bin/ls
-```
-or
-```
-JS$ ls -l
-```
-or
-```
-JS$ cat textfile
-```
-Non-interactive mode:
-```
-$ echo "ls -l" | ./hsh
-```
+When using this shell, the syntax for running any command follows the familiar syntax when running a command in any other shell.
+
 
 ### Builtin Commands
 -----
@@ -135,6 +90,4 @@ Brief description of every file in this repository. Subject to change.
 
 ### Authors
 -----
-[Jian Huang](https://github.com/TrieToSucceed)
 
-[Stephen Chu](https://github.com/stephenchu530)
