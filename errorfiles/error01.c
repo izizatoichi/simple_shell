@@ -1,11 +1,11 @@
-#include "errors.h"
+#include "error.h"
 
 /**
- * filenotfound - constructs the error message for file not found
- * @sev: ptr to the shell environment variable
- * Return: the constructed error message
+ * fnotfound - construct the error mess for file not found
+ * @sev: ptr to the shell env var
+ * Return: the constructed error mess
  */
-char *filenotfound(sev_t *sev)
+char *fnotfound(sev_t *sev)
 {
 	char *errmsg = NULL;
 
@@ -25,11 +25,11 @@ char *filenotfound(sev_t *sev)
 }
 
 /**
- * illegalnum - constructs the error message for the illegal exit number
- * @sev: ptr to the shell environment variable
- * Return: the constructed error message
+ * illnum - constructs the error mess for the illegal exit num
+ * @sev: ptr to the shell env var
+ * Return: the constructed error mess
  */
-char *illegalnum(sev_t *sev)
+char *illnum(sev_t *sev)
 {
 	char *errmsg = NULL;
 
@@ -50,11 +50,11 @@ char *illegalnum(sev_t *sev)
 }
 
 /**
- * permdenied - constructs the permission denied message
- * @sev: ptr to the shell environment variable struct
- * Return: the constructed error message
+ * perdenied - constructs the permission denied mess
+ * @sev: ptr to the shell env var struct
+ * Return: the constructed error mess
  */
-char *permdenied(sev_t *sev)
+char *perdenied(sev_t *sev)
 {
 	char *errmsg = NULL;
 
@@ -74,14 +74,14 @@ char *permdenied(sev_t *sev)
 }
 
 /**
- * invaliddir - contructs invalid directory error message
- * @sev: struct containing shell variables
+ * invaldir - contructs invalid dir error mess
+ * @sev: struct contain shell vars
  *
- * Description: Function creates error messages based on arguments based on
+ * Description: Func creates error mess based on args based on
  * sev.
- * Return: the constructed error message
+ * Return: the constructed error mess
  */
-char *invaliddir(sev_t *sev)
+char *invaldir(sev_t *sev)
 {
 	char *errmsg = NULL;
 
@@ -102,15 +102,15 @@ char *invaliddir(sev_t *sev)
 }
 
 /**
- * invalidalias - constructs invalid alias error message
- * @sev: struct containing shell variables
+ * invalalias - constructs invalid alias error mess
+ * @sev: struct contain shell vars
  * @node: index of desired key
  *
- * Description: Function creates error messages based on arguments based on
+ * Description: Func creates error mess based on args based on
  * sev.
- * Return: the constructed error message
+ * Return: the constructed error mess
  */
-char *invalidalias(sev_t *sev, int node)
+char *invalalias(sev_t *sev, int node)
 {
 	char *errmsg = NULL;
 	int i = node;
