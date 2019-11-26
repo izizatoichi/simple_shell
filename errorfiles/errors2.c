@@ -1,13 +1,13 @@
 #include "errors.h"
 
 /**
- * helpfilenotfound - create error message for help
+ * helpfnotfound - create error message for help
  * @sev: struct containing shell variables
  *
  * Description: Create error message using arguments in sev.
  * Return: error message
  */
-char *helpfilenotfound(sev_t *sev)
+char *helpfnotfound(sev_t *sev)
 {
 	char *errmsg = NULL;
 	char *msg = "-JS: help: no help topics match `";
@@ -20,13 +20,13 @@ char *helpfilenotfound(sev_t *sev)
 }
 
 /**
- * illegaloptions - create error message for cd
+ * illoptions - create error message for cd
  * @sev: struct containing shell variables
  *
  * Description: Create error message using arguments in sev.
  * Return: error message
  */
-char *illegaloptions(sev_t *sev)
+char *illoptions(sev_t *sev)
 {
 	char *errmsg = NULL;
 	char chartoprint[2];
@@ -51,11 +51,11 @@ char *illegaloptions(sev_t *sev)
 }
 
 /**
- * invalidenv - invalid env
+ * invalenv - invalid env
  * @sev: sev variable
  * Return: string
  */
-char *invalidenv(sev_t *sev)
+char *invalenv(sev_t *sev)
 {
 	char *errmsg = "env: ";
 
