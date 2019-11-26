@@ -2,17 +2,17 @@
 
 /* shellhelper01.c */
 void sig_hand(int signum);
-void display_prompt(sev_t sev);
-char *getcommand(sev_t *sev);
-char **make_arr_str(char *s, const char *delim, sev_t *sev);
-int action(sev_t *sev);
+void dis_prompt(sev_t sev);
+char *getcom(sev_t *sev);
+char **make_array_str(char *s, const char *delim, sev_t *sev);
+int actions(sev_t *sev);
 
 /* shellhelper02.c */
 char *_getenv(char *envar, sev_t *sev);
-char *pathfinder(sev_t *sev);
-void clean_sev(sev_t *sev);
-char **make_evp_arr(sev_t *sev);
-int _setenv_helper(sev_t *sev, char *tofind, char *cwd);
+char *pathfind(sev_t *sev);
+void cl_sev(sev_t *sev);
+char **make_evp_array(sev_t *sev);
+int _setenv_help(sev_t *sev, char *tofind, char *cwd);
 
 /* shellhelper03.c */
 sev_t *initialize_shell_env(sev_t *sev, char **av, char **ev);
