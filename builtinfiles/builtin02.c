@@ -2,11 +2,11 @@
 
 /**
  * change_dir - change directory
- * @sev: struct containing shell variables
+ * @sev: struct contain shell vars
  *
- * Description: Function changes current working directory to a user specified
- * directory. If no directory is given, then directory is changed to directory
- * in $HOME. User is also able to return to previous directory using a hyphen.
+ * Description: Func changes current working dir
+ * If no dir is given, then dir is changed to dir
+ * in $HOME. User is also able to return to prev dir using a hyphen.
  * Return: void
  */
 void change_dir(sev_t *sev)
@@ -16,9 +16,8 @@ void change_dir(sev_t *sev)
 	char *targetdir = (sev->p_input)[1], *newpwd = NULL;
 	char *pwd_to_print, *oldpwd = "OLDPWD", *oldcp = "OLDPWD";
 	char cwd[4096];
-	int ret_val;
+	int rt_val;
 
-	/* call getcwd with size 4096 buffer */
 	reset_buffer(cwd, 4096);
 	getcwd(cwd, 4096);
 
@@ -36,12 +35,6 @@ void change_dir(sev_t *sev)
 		add_node(&sev->env, NULL, _strdup(oldpwd, mt));
 	}
 
-	/*
-	 * if: dir is not given or user wants to go to home's parent dir,
-	 * set target dir to home instead
-	 *
-	 * else if: user specifies hyphen, set target dir to old dir instead
-	 */
 	if (!targetdir)
 	{
 		if (home)
@@ -63,16 +56,14 @@ void change_dir(sev_t *sev)
 		return;
 	}
 
-	ret_val = chdir(targetdir);
+	rt_val = chdir(targetdir);
 
-	/* throw error message when chdir fails */
-	if (ret_val == -1)
+	if (rt_val == -1)
 	{
 		sev->error = 1;
 		sev->errmsg = invaliddir(sev);
 	}
 
-	/* change pwd in env list and reset oldpwd */
 	else
 	{
 		_setenv_helper(sev, oldcp, cwd);
@@ -83,7 +74,7 @@ void change_dir(sev_t *sev)
 
 /**
  * history - displays the user command history for the current session
- * @sev: ptr to the shell environment variable struct
+ * @sev: ptr to the shell env var struct
  * Return: nothing
  */
 void history(sev_t *sev)
@@ -91,7 +82,7 @@ void history(sev_t *sev)
 	list_t *walker = NULL;
 	char *entry = NULL;
 	size_t counter = sev->log_cnt;
-	unsigned int num_spaces = 0;
+	unsigned int num_space = 0;
 
 	reverse_list(&sev->log);
 	walker = sev->log;
@@ -105,11 +96,11 @@ void history(sev_t *sev)
 	while (walker)
 	{
 		entry = _itoa(counter, &sev->mem);
-		num_spaces = 5 - _strlen(entry);
-		while (num_spaces)
+		num_space = 5 - _strlen(entry);
+		while (num_space)
 		{
 			entry = _strcat(SPACE, entry, &sev->mem);
-			num_spaces--;
+			num_space--;
 		}
 		entry = _strcat(entry, SPACE, &sev->mem);
 		entry = _strcat(entry, walker->value, &sev->mem);
@@ -123,10 +114,10 @@ void history(sev_t *sev)
 
 /**
  * alias - assign and retrieve alias
- * @sev: struct of shell variables
+ * @sev: struct of shell vars
  *
- * Description: Function allows for the assignment of a value to a variable.
- * The value is retrievable by using this function with the alias.
+ * Description: Func allows for the assignment of a value to a var.
+ * The value is retrievable by using this func with the alias.
  * Return: void
  */
 void alias(sev_t *sev)
@@ -135,12 +126,12 @@ void alias(sev_t *sev)
 	char *key = NULL, *value = NULL, *arg = NULL;
 	char *arg_cp = NULL, *token = NULL;
 	char **av = sev->p_input;
-	int i = 1, found = 1, error = 0;
+	int j = 1, found = 1, error = 0;
 
 	if (!av[1])
 		print_alias_val(sev, NULL, NULL, 1);
 
-	while ((arg = av[i]))
+	while ((arg = av[j]))
 	{
 		arg_cp = _strdup(arg, mt);
 
@@ -177,12 +168,12 @@ void alias(sev_t *sev)
 		}
 		if (!found)
 		{
-			sev->errmsg = invalidalias(sev, i);
+			sev->errmsg = invalidalias(sev, j);
 			sev->error = 1;
 			display_error(sev);
 			error = 1;
 		}
-		i++;
+		j++;
 		found = 1;
 	}
 	sev->error = error;
@@ -190,10 +181,10 @@ void alias(sev_t *sev)
 
 /**
  * _help - display help for builtin
- * @sev: struct containing shell variables
+ * @sev: struct contain shell variables
  *
- * Description: Function checks if argument is a valid builtin. If so, display
- * help for the command. Otherwise, display error.
+ * Description: Func checks if argument is a valid builtin. If so, display
+ * help for command. Otherwise, display error.
  * Return: void
  */
 void _help(sev_t *sev)
@@ -202,7 +193,7 @@ void _help(sev_t *sev)
 	char *filepath = NULL, *file = NULL, *arg = NULL;
 	char buf[BUF_SIZE];
 	char **av = sev->p_input;
-	int infile = 0, r_val = 0, w_val = 0, i = 0;
+	int infile = 0, rs_val = 0, ws_val = 0, i = 0;
 
 	help_t help_l[] = {
 		{"exit", "help_exit"},
@@ -246,26 +237,26 @@ skip:
 
 		infile = open(filepath, O_RDONLY);
 
-		r_val = read(infile, buf, BUF_SIZE);
+		rs_val = read(infile, buf, BUF_SIZE);
 
-		if (r_val == -1)
+		if (rs_val == -1)
 		{
 			sev->errmsg = helpfilenotfound(sev);
 			sev->error = 1;
-			r_val = 0;
+			rs_val = 0;
 		}
 
-		while (r_val)
+		while (rs_val)
 		{
-			w_val = write(STDOUT_FILENO, buf, r_val);
+			ws_val = write(STDOUT_FILENO, buf, rs_val);
 
-			if (w_val == -1)
+			if (ws_val == -1)
 			{
 				sev->errmsg = "Error!\n";
 				sev->error = 1;
 				break;
 			}
-			r_val = read(infile, buf, BUF_SIZE);
+			rs_val = read(infile, buf, BUF_SIZE);
 		}
 
 		close(infile);
