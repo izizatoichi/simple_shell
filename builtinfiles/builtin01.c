@@ -1,10 +1,10 @@
-#include "builtins.h"
+#include "builtin.h"
 
 /**
- * exit_sh - terminate shell
- * @sev: struct containing shell variables
+ * exit_sh - exit shell
+ * @sev: struct contain shell vars
  *
- * Description: Function causes shell to exit normally
+ * Description: Func to exit
  * Return: void
  */
 void exit_sh(sev_t *sev)
@@ -52,10 +52,10 @@ void exit_sh(sev_t *sev)
 }
 
 /**
- * _printenv - print environment variables
- * @sev: struct containing shell variables
+ * _printenv - print env vars
+ * @sev: struct contain shell vars
  *
- * Description: Function prints all environment variables
+ * Description: Func prints all env vars
  * Return: void
  */
 void _printenv(sev_t *sev)
@@ -117,11 +117,11 @@ void _setenv(sev_t *sev)
 }
 
 /**
- * _unsetenv - remove environment variable
- * @sev: struct of shell variables
+ * _unsetenv - rmv env var
+ * @sev: struct of shell vars
  *
- * Description: Function checks to see if environment variable exists. If it
- * exists, then it will be removed from the list of environment variables.
+ * Description: Func checks to see if env var exists. If it
+ * exists, it will be rmv from the list of env vars.
  * Return: void
  */
 void _unsetenv(sev_t *sev)
@@ -167,12 +167,12 @@ void _unsetenv(sev_t *sev)
 }
 
 /**
- * check_builtin - call builtin function
- * @sev: struct containing shell variables
+ * check_builtin - call builtin func
+ * @sev: struct contain shell vars
  *
- * Description: Function checks if builtin function exists. If it does, the
- * builtin function will be executed.
- * Return: 1 for success; 0 for failure
+ * Description: Func checks if builtin func exists. If it does,
+ * builtin func will be executed.
+ * Return: 1 in success; 0 in fail
  */
 int check_builtin(sev_t *sev)
 {
