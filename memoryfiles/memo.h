@@ -1,5 +1,5 @@
-#ifndef _MEMORY_H
-#define _MEMORY_H
+#ifndef _MEMO_H
+#define _MEMO_H
 
 #include <stdlib.h>
 #include "../linklists.h"
