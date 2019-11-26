@@ -43,7 +43,7 @@ sev_t *init_shell_env(sev_t *sev, char **av, char **ev)
 }
 
 /**
- * read_env - read list of env and store in linked list
+ * read_environment - read list of env and store in linked list
  * @sev: shell variable struct
  * @ev: list of env vars
  *
