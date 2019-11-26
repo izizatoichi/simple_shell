@@ -145,7 +145,7 @@ int actions(sev_t *sev)
 		}
 		else if (pid == 0)
 		{
-			evp = make_evp_arr(sev);
+			evp = make_evp_array(sev);
 			result = execve(fullpath, sev->p_input, evp);
 			if (result == -1)
 				perror("Error");
