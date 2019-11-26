@@ -1,19 +1,19 @@
 #include "../shell.h"
 
 /**
- * initialize_shell_env - initialzies the shell environment variables
- * @sev: struct containing shell variables
- * @av: ptr to array of args passed into shell program
- * @ev: ptr to array of environment variables
+ * init_shell_env - init shell env vars
+ * @sev: struct contain shell vars
+ * @av: ptr to arr of args passed into shell program
+ * @ev: ptr to arr of env vars
  *
- * Return: the initialized values of type sev_t
+ * Return: the init values of type sev_t
  */
-sev_t *initialize_shell_env(sev_t *sev, char **av, char **ev)
+sev_t *init_shell_env(sev_t *sev, char **av, char **ev)
 {
 	char cwd[4096];
 
 	reset_buffer(cwd, 4096);
-	sev->good2go = 1;
+	sev->skywalker = 1;
 	sev->ia_mode = isatty(STDIN_FILENO);
 	sev->log = NULL;
 	sev->log_cnt = 0;
@@ -32,12 +32,12 @@ sev_t *initialize_shell_env(sev_t *sev, char **av, char **ev)
 	sev->shell_d = NULL;
 	sev->arg0 = av[0];
 
-	sev->env = read_env(sev, ev);
+	sev->env = read_environment(sev, ev);
 	sev->log_cnt = get_log_count(sev);
 	sev->shell_d = _strdup(getcwd(cwd, 4096), &(sev->mem));
 
-	signal(SIGINT, sig_handler);
-	display_banner(sev->ia_mode);
+	signal(SIGINT, sig_hand);
+	dis_banner(sev->ia_mode);
 
 	return (sev);
 }
@@ -45,13 +45,13 @@ sev_t *initialize_shell_env(sev_t *sev, char **av, char **ev)
 /**
  * read_env - read list of env and store in linked list
  * @sev: shell variable struct
- * @ev: list of environment variables
+ * @ev: list of env vars
  *
- * Description: Function parses a list of env vars and stores each string in
+ * Description: Func parses a list of env vars and stores each str in
  * linked list
  * Return: head of linked list
  */
-list_t *read_env(sev_t *sev, char **ev)
+list_t *read_environment(sev_t *sev, char **ev)
 {
 	list_t **mt = &(sev->mem);
 	list_t *head = NULL;
@@ -63,16 +63,16 @@ list_t *read_env(sev_t *sev, char **ev)
 }
 
 /**
- * display_error - display the error
- * @sev: ptr to the shell environment variable link list
- * Return: nothing
+ * dis_error - dis error
+ * @sev: ptr to the shell env var link list
+ * Return: nada
  */
-void display_error(sev_t *sev)
+void dis_error(sev_t *sev)
 {
 	sev->olderror = sev->error;
 	if (sev->error)
 		write(STDERR_FILENO, sev->errmsg, _strlen(sev->errmsg));
-	if (sev->good2go)
+	if (sev->skywalker)
 	{
 		sev->error = 0;
 		sev->errmsg = NULL;
@@ -80,11 +80,11 @@ void display_error(sev_t *sev)
 }
 
 /**
- * var_expansion - checks the inputs for $ and performs an expansion
- * @sev: ptr to the shell environment variable
- * Return: nothing
+ * var_expan - checks the inputs for $ and perform an expansion
+ * @sev: ptr to the shell env var
+ * Return: nada
  */
-void var_expansion(sev_t *sev)
+void var_expan(sev_t *sev)
 {
 	int index = 0;
 	char *str = NULL;
@@ -102,7 +102,7 @@ void var_expansion(sev_t *sev)
 				str = _itoa(sev->olderror, &sev->mem);
 			else if (sev->p_input[index][1] != '\0')
 			{
-				str = _getenv(sev->p_input[index] + 1, sev);
+				str = _getenvironment(sev->p_input[index] + 1, sev);
 				if (!str)
 					str = "";
 			}
@@ -117,7 +117,7 @@ void var_expansion(sev_t *sev)
 		if (sev->p_input[1] && sev->p_input[1][0] == '~' &&
 		    sev->p_input[1][1] == '\0')
 		{
-			str = _getenv("HOME", sev);
+			str = _getenvironment("HOME", sev);
 			str = _strcat(str, sev->p_input[1] + 1, &sev->mem);
 			sev->p_input[1] = str;
 		}
@@ -126,19 +126,19 @@ void var_expansion(sev_t *sev)
 }
 
 /**
- * print_alias_val - prints and retrieves alias
- * @sev: struct of shell variables
+ * p_alias_val - print retrieves alias
+ * @sev: struct of shell vars
  * @key: alias
  * @value: value stored in alias
- * @flag: a flag to modify function's performance
+ * @flag: a flag to modify func's performance
  *
- * Description: Function has three modes: print specific alias (flag = 0),
+ * Description: Func has three modes: print specific alias (flag = 0),
  * set alias if alias exists (flag = -1), and print all aliases (flag != -1 &&
- * flag != 0). Using the key and value inputs, function is able to parse
+ * flag != 0). Use key and value inputs, func is able to parse
  * through alias linked list and perform desired functionality.
- * Return: 1 for success/found, 0 for failure/not found.
+ * Return: 1 for success/found, zero for failure/not found.
  */
-int print_alias_val(sev_t *sev, char *key, char *value, int flag)
+int p_alias_val(sev_t *sev, char *key, char *value, int flag)
 {
 	list_t *alias = reverse_list(&(sev->alias));
 	list_t **mt = &(sev->mem);
