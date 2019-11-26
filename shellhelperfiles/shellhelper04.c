@@ -59,18 +59,18 @@ void checker_alias(sev_t *sev)
 }
 
 /**
- * display_banner - displays the shell banner
+ * dis_banner - displays the shell banner
  * @ia_mode: interactive mode flag
  * Return - nothing
  */
-void display_banner(int ia_mode)
+void dis_banner(int ia_mode)
 {
 	if (!ia_mode)
 		return;
 	NEWLINE;
 	write(STDOUT_FILENO, "AUTHORS:\n", 9);
-	write(STDOUT_FILENO, "\ Mohamed Mehdi Bouchoucha <mehdiboch@gmail.com>\n", 40);
-	write(STDOUT_FILENO, "\ Sami Lafine <samibenomar84@gmail.com>\n\n", 40);
+	write(STDOUT_FILENO, "\tMohamed Mehdi Bouchoucha <mehdiboch@gmail.com>\n", 40);
+	write(STDOUT_FILENO, "\tSami Lafine <samibenomar84@gmail.com>\n\n", 40);
 	write(STDOUT_FILENO, "=======================", 23);
 	write(STDOUT_FILENO, "=======================\n", 24);
 	write(STDOUT_FILENO, "     WELCOME TO  ", 26);
