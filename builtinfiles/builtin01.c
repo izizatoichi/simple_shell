@@ -12,7 +12,7 @@ void exit_sh(sev_t *sev)
 	char **av = sev->p_input;
 	char *signal = "0";
 	unsigned long siglong = 0, i, max = (long) INT_MAX;
-	int sigint;
+	int sgint;
 
 	if (av[1])
 		signal = av[1];
@@ -33,21 +33,21 @@ void exit_sh(sev_t *sev)
 		}
 	}
 
-	sigint = (int) siglong;
-	if (sigint >= 0 && sigint <= INT_MAX)
+	sgint = (int) siglong;
+	if (sgint >= 0 && sgint <= INT_MAX)
 	{
 		sigint &= BYTE;
-		sev->error = sigint;
+		sev->error = sgint;
 		if (!av[1])
 			sev->error = sev->olderror;
-		sev->good2go = 0;
+		sev->skywalker = 0;
 	}
 	else
 	{
 		sigint = 2;
 		sev->error = sigint;
 		sev->errmsg = illegalnum(sev);
-		sev->good2go = 1;
+		sev->skywalker = 1;
 	}
 }
 
@@ -61,7 +61,7 @@ void exit_sh(sev_t *sev)
 void _printenv(sev_t *sev)
 {
 	list_t *ev = reverse_list(&(sev->env));
-	char *s = NULL;
+	char *st = NULL;
 
 	if (sev->p_input[1] != NULL)
 	{
@@ -74,8 +74,8 @@ void _printenv(sev_t *sev)
 	{
 		for (; ev; ev = ev->next)
 		{
-			s = ev->value;
-			write(STDOUT_FILENO, s, _strlen(s));
+			st = ev->value;
+			write(STDOUT_FILENO, st, _strlen(st));
 			write(STDOUT_FILENO, "\n", 1);
 		}
 	}
@@ -85,7 +85,7 @@ void _printenv(sev_t *sev)
 
 /**
  * _setenv - set environment variable
- * @sev: struct of shell variables
+ * @sev: struct of shell variable
  *
  * Description: Function checks to see if environment variable exists. If
  * exists, the value will be overwritten with new value passed in by user. If
@@ -96,17 +96,17 @@ void _setenv(sev_t *sev)
 {
 	list_t **mt = &(sev->mem);
 	char **av = sev->p_input;
-	char *variable, *value, *new;
+	char *variabl, *value, *new;
 
-	variable = av[1];
+	variabl = av[1];
 	value = av[2];
 
-	if (variable && value)
+	if (variabl && value)
 	{
-		new = _strcat(variable, "=", mt);
+		new = _strcat(variabl, "=", mt);
 		new = _strcat(new, value, mt);
 
-		if (!_setenv_helper(sev, variable, value))
+		if (!_setenv_helper(sev, variabl, value))
 			add_node(&(sev->env), NULL, _strdup(new, mt));
 	}
 	else
@@ -129,21 +129,21 @@ void _unsetenv(sev_t *sev)
 	list_t *ev = sev->env;
 	unsigned int i = 0, index_count = 0, found = 0;
 	char **av = sev->p_input;
-	char *variable, *envar;
+	char *variabl, *envar;
 
-	variable = av[1];
+	variabl = av[1];
 
-	if (variable)
+	if (variabl)
 	{
 		for (; ev; ev = ev->next)
 		{
 			envar = ev->value;
-			for (i = 0; i < _strlen(variable); i++)
+			for (i = 0; i < _strlen(variabl); i++)
 			{
-				if (variable[i] != envar[i])
+				if (variabl[i] != envar[i])
 					break;
 			}
-			if (!variable[i])
+			if (!variabl[i])
 			{
 				found = 1;
 				break;
@@ -171,7 +171,7 @@ void _unsetenv(sev_t *sev)
  * @sev: struct contain shell vars
  *
  * Description: Func checks if builtin func exists. If it does,
- * builtin func will be executed.
+ * builtin func will be exec.
  * Return: 1 in success; 0 in fail
  */
 int check_builtin(sev_t *sev)
