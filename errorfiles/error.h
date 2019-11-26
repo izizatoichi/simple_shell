@@ -13,6 +13,6 @@ char *invalalias(sev_t *sev, int reset);
 /* error02.c */
 char *helpfnotfound(sev_t *sev);
 char *illoptions(sev_t *sev);
-char *invaldenv(sev_t *sev);
+char *invalenv(sev_t *sev);
 
 #endif /* _ERROR_H_ */
