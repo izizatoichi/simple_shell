@@ -1,15 +1,15 @@
 #include "../shell.h"
 
 /**
- * _getenv - get environment variable
- * @envar: target environment variable
- * @sev: struct containing shell variables
+ * _getenvironment - get env var
+ * @envar: target env var
+ * @sev: struct contain shell vars
  *
- * Description: Function takes a list of env variables and returns env variable
+ * Description: Func takes a list of env vars and returns env var
  * if found.
- * Return: environment variable if found; otherwise, NULL
+ * Return: env var if found; otherwise, NULL
  */
-char *_getenv(char *envar, sev_t *sev)
+char *_getenvironment(char *envar, sev_t *sev)
 {
 
 	ssize_t j = 0;
@@ -35,19 +35,19 @@ char *_getenv(char *envar, sev_t *sev)
 }
 
 /**
- * pathfinder - determines if a command is in path
- * @sev: shell environment variable struct
+ * pathfind - deter if a command is in path
+ * @sev: shell env var struct
  *
- * Description: Function takes a list of arguments and uses the first argument
- * to determine if the argument is an executable in a directory of PATH
- * environment variable. Function will return the path to the executable if
- * process has access executable permission to the file. Otherwise, function
+ * Description: Func takes a list of args and uses the first arg
+ * to deter if the arg is an exec in a dir of PATH
+ * env var. Func will return the path to the exec if
+ * process has access exec permission to the file. Otherwise, func
  * returns NULL.
- * Return: Path to executable or NULL
+ * Return: Path to exec or NULL
  */
-char *pathfinder(sev_t *sev)
+char *pathfind(sev_t *sev)
 {
-	char *fpath = NULL, *ev_path = _getenv("PATH", sev);
+	char *fpath = NULL, *ev_path = _getenvironment("PATH", sev);
 	char *cmd = NULL;
 	char **pathlist = NULL;
 	DIR *dp = NULL;
@@ -61,7 +61,7 @@ char *pathfinder(sev_t *sev)
 	{
 		closedir(dp);
 		sev->error = 126;
-		permdenied(sev);
+		perdenied(sev);
 		return (NULL);
 	}
 	if (cmd[0] == '/' || cmd[0] == '.')
@@ -71,30 +71,30 @@ char *pathfinder(sev_t *sev)
 			if (!access(cmd, X_OK))
 				return (cmd);
 			sev->error = 126;
-			permdenied(sev);
+			perdenied(sev);
 		}
 		else
 		{
 			if (!sev->error)
 			{
 				sev->error = 127;
-				filenotfound(sev);
+				fnotfound(sev);
 			}
 		}
 		return (NULL);
 	}
 	if (ev_path)
-		pathlist = make_arr_str(ev_path, COLON, sev);
+		pathlist = make_array_str(ev_path, COLON, sev);
 	else
 	{
 		sev->error = 127;
-		filenotfound(sev);
+		fnotfound(sev);
 		return (NULL);
 	}
 	if (!pathlist || !*pathlist)
 	{
 		sev->error = 127;
-		filenotfound(sev);
+		fnotfound(sev);
 		return (NULL);
 	}
 	for (; *pathlist; pathlist++)
@@ -109,14 +109,14 @@ char *pathfinder(sev_t *sev)
 		if (!access(fpath, F_OK))
 		{
 			sev->error = 126;
-			permdenied(sev);
+			perdenied(sev);
 		}
 		else
 		{
 			if (!sev->error)
 			{
 				sev->error = 127;
-				filenotfound(sev);
+				fnotfound(sev);
 			}
 		}
 	}
@@ -124,8 +124,8 @@ char *pathfinder(sev_t *sev)
 }
 
 /**
- * clean_sev - go through and free the link lists in the sev
- * @sev: ptr to the shell environment variable link list
+ * clean_sev - go through and free link lists in the sev
+ * @sev: ptr to the shell env var link list
  * Return: nothing
  */
 void clean_sev(sev_t *sev)
@@ -138,12 +138,12 @@ void clean_sev(sev_t *sev)
 }
 
 /**
- * make_evp_arr - makes the enviroment varaible array from the in memory
+ * make_evp_array - makes the env var arr from the in memo
  * copy
- * @sev: ptr to the shell environment variable link list
- * Return: ptr to the constucted environment array
+ * @sev: ptr to shell env variable link list
+ * Return: ptr to the constucted env arr
  */
-char **make_evp_arr(sev_t *sev)
+char **make_evp_array(sev_t *sev)
 {
 	char **evp = NULL;
 	int entries = 0, i = 0;
@@ -170,19 +170,19 @@ char **make_evp_arr(sev_t *sev)
 }
 
 /**
- * _setenv_helper - set dataptr in node
+ * _setenv_help - set dataptr in node
  * @sev: struct containing shell variables
  * @tofind: string to find
- * @strtoappend: string to append
+ * @strtoappend: str to append
  *
- * Description: Function parses linked list containing environment variables to
- * to find "tofind." If found, function will append "tofind" with "=" then with
+ * Description: Func parses linked list contain env var to
+ * to find "tofind." If found, func will append "tofind" with "=" then with
  * "strtoappend" and set the node's dataptr, which "tofind" was found in, as
- * the newly concatenated string. If function fails to find node, then null is
- * returned to the user.
- * Return: 1 if success, 0 if failure
+ * the newly concatenated string. If func fails to find node, then null is
+ * returned to user.
+ * Return: 1 if success, zero if fail
  */
-int _setenv_helper(sev_t *sev, char *tofind, char *strtoappend)
+int _setenv_help(sev_t *sev, char *tofind, char *strtoappend)
 {
 	list_t *ev = sev->env;
 	list_t **mt = &sev->mem;
