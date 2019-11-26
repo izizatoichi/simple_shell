@@ -1,11 +1,11 @@
-#ifndef _SHELLVARS_H_
-#define _SHELLVARS_H_
+#ifndef _SHELLVAR_H_
+#define _SHELLVAR_H_
 
 #include "shell.h"
 
 /**
  * struct sev_s - shell environment variables
- * @good2go: flag to continue or not continue with shell
+ * @skywalker: flag to continue or not continue with shell
  * @ia_mode: interactive mode - 1 yes, 0 no
  * @log: ptr to log link list for the current shell session
  * @log_cnt: number of log entries for the curent shell session
@@ -23,13 +23,13 @@
  * @cmd_q: ptr to the list of commands in the queue
  * @shell_d: current working directory
  * @arg0: command executed to run shell
- * Description: Structure containing all the shell environment variables.
- * This one structure will be passed from function to function and contain
- * all the shell environment variables for the current session.
+ * Description: Struct contain all the shell env vars.
+ * This one struct will be passed from func to func and contain
+ * all the shell env vars for the current session.
  */
 typedef struct sev_s
 {
-	int good2go;
+	int skywalker;
 	int ia_mode;
 	list_t *log;
 	int log_cnt;
@@ -49,4 +49,4 @@ typedef struct sev_s
 	char *arg0;
 } sev_t;
 
-#endif /* _SHELLVARS_H_ */
+#endif /* _SHELLVAR_H_ */
