@@ -1,36 +1,36 @@
 #include "../shell.h"
 
 /**
- * sig_handler - handles interruption signal
+ * sig_hand - handles interrup signal
  * @signum: signal num
  *
- * Description: Function takes signal and performs certain task instead of
- * executing original function
+ * Description: Func takes signal and performs certain task instead of
+ * exec orig func
  * Return: void
  */
-void sig_handler(int signum)
+void sig_hand(int signum)
 {
 	(void) signum;
 	PS2;
 }
 
 /**
- * display_prompt - displays the prompt if in interactive mode
- * @sev: shell environment variable
- * Return: nothing
+ * dis_prompt - displays the prompt if in interac mode
+ * @sev: shell env var
+ * Return: nada
  */
-void display_prompt(sev_t sev)
+void dis_prompt(sev_t sev)
 {
 	if (sev.ia_mode)
 		PS1;
 }
 
 /**
- * getcommand - gets the command from the user and returns a string
- * @sev: ptr to the shell environmen variable struct
- * Return: char * string output or NULL if no input
+ * getcom - get command from the user and return a str
+ * @sev: ptr to the shell env var struct
+ * Return: char * str output or NULL if no input
  */
-char *getcommand(sev_t *sev)
+char *getcom(sev_t *sev)
 {
 	char *buffer = NULL, *tmp = NULL;
 	size_t size = 0, len = 0, ws = 0;
@@ -41,7 +41,7 @@ char *getcommand(sev_t *sev)
 		numread = _getline(&buffer, &size, STDIN_FILENO, &sev->mem);
 		if (numread == -2 || numread == -1)
 		{
-			sev->good2go = 0;
+			sev->skywalker = 0;
 			sev->error = sev->olderror;
 			if (sev->ia_mode)
 				NEWLINE;
@@ -75,17 +75,17 @@ char *getcommand(sev_t *sev)
 }
 
 /**
- * make_arr_str - makes an array of strings from an input string
- * @s: input string
- * @sev: shell environment variable struct
+ * make_array_str - makes an arr of strs from an input str
+ * @s: input str
+ * @sev: shell env var struct
  * @delim: const char * used to split each token
  *
- * Description: Function takes in a string and breaks it down into tokens and
- * returns an array of strings.
- * Return: resulting NULL terminated char ** array of strings. Will return
+ * Description: Func takes in a str and breaks it down into tokens and
+ * returns an arr of strs.
+ * Return: result NULL terminated char ** arr of strs. Will return
  * NULL if input s is empty.
  */
-char **make_arr_str(char *s, const char *delim, sev_t *sev)
+char **make_array_str(char *s, const char *delim, sev_t *sev)
 {
 	char *token = NULL;
 	list_t *head = NULL, *walker = NULL;
@@ -120,16 +120,16 @@ char **make_arr_str(char *s, const char *delim, sev_t *sev)
 }
 
 /**
- * action - function use to fork and execute commands entered by the user
- * @sev: ptr to the shell environment variables struct
+ * action - func use to fork and exec coms entered by the user
+ * @sev: ptr to the shell env vars struct
  * Return: error code from execve.
  */
-int action(sev_t *sev)
+int actions(sev_t *sev)
 {
 	pid_t pid;
 	char *fullpath = NULL, **evp;
 	int result = 0;
-	int status;
+	int stat;
 
 	if (_strlen(sev->input))
 		fullpath = pathfinder(sev);
@@ -152,7 +152,7 @@ int action(sev_t *sev)
 		}
 		else
 		{
-			wait(&status);
+			wait(&stat);
 			sev->error = WEXITSTATUS(status);
 			if (sev->error)
 				sev->errmsg = NULL;
