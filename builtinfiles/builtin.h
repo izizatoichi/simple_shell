@@ -10,7 +10,7 @@
 #define BUF_SIZE 4096
 
 /**
- * struct builtin - struct containing func name
+ * struct builtin - struct contain func name
  * @funcname: name of func
  * @func: func to be called when name is invoked
  *
@@ -28,7 +28,7 @@ typedef struct builtin
  * @file: path of file
  *
  * Description: Struct contain str arg and path to the file where its
- * help description is found
+ * help desc is found
  */
 typedef struct help_list
 {
