@@ -43,7 +43,7 @@ int write_log(sev_t *sev)
 		len = _strlen(entry);
 		if (write(fds, entry, len) < len)
 		{
-			close(fd);
+			close(fds);
 			return (0);
 		}
 		walker = walker->next;
