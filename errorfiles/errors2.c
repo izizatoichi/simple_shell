@@ -1,11 +1,11 @@
 #include "errors.h"
 
 /**
- * helpfnotfound - create error message for help
- * @sev: struct containing shell variables
+ * helpfnotfound - create error mess for help
+ * @sev: struct contain shell vars
  *
- * Description: Create error message using arguments in sev.
- * Return: error message
+ * Description: Create error mess using args in sev.
+ * Return: error mess
  */
 char *helpfnotfound(sev_t *sev)
 {
@@ -20,11 +20,11 @@ char *helpfnotfound(sev_t *sev)
 }
 
 /**
- * illoptions - create error message for cd
- * @sev: struct containing shell variables
+ * illoptions - create error mess for cd
+ * @sev: struct contain shell vars
  *
- * Description: Create error message using arguments in sev.
- * Return: error message
+ * Description: Create error mess using args in sev.
+ * Return: error mess
  */
 char *illoptions(sev_t *sev)
 {
@@ -52,8 +52,8 @@ char *illoptions(sev_t *sev)
 
 /**
  * invalenv - invalid env
- * @sev: sev variable
- * Return: string
+ * @sev: sev var
+ * Return: str
  */
 char *invalenv(sev_t *sev)
 {
