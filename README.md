@@ -32,18 +32,12 @@ This shell supports a variety of commands:
 
 `unsetenv` - unsets an environment variable
 
-*Note:* To read the help information and syntax for a particular builtin command, run the following from the shell prompt:
 ```
 MANDALORIAN$ help <builtin command>
 ```
 
 ### Compilation
 -----
-Files are compiled this way:
-```
-$ make all
-```
-
 ### Files
 -----
 Brief description of every file in this repository. Subject to change.
@@ -79,8 +73,8 @@ Brief description of every file in this repository. Subject to change.
 | string.h | Str function header file |
 
 ### Authors
-----
+---
 [Mohamed Mehdi Bouchoucha](https://github.com/mmbouchoucha)
 -
 [Sami Afine](https://github.com/afinesami)
---
+-
