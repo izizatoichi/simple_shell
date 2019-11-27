@@ -1,7 +1,7 @@
 #include "../shell.h"
 
 /**
- * sig_hand - handles interrup signal
+ * sig_hand - handle interrup signal
  * @signum: signal num
  *
  * Description: Func takes signal and performs certain task instead of
@@ -120,7 +120,7 @@ char **make_array_str(char *s, const char *delim, sev_t *sev)
 }
 
 /**
- * action - func use to fork and exec coms entered by the user
+ * actions - func use to fork and exec coms entered by the user
  * @sev: ptr to the shell env vars struct
  * Return: error code from execve.
  */
