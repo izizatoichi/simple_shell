@@ -73,10 +73,10 @@ void free_list(list_t **head, int flag)
 /**
  * delete_node_at_index - delete node at index
  * @head: head of linked list
- * @index: index of deletion
+ * @index: index of del
  *
  * Description: Func will take a linked list and del node at index.
- * Return: 1 if success, -1 if failure
+ * Return: 1 in success, -1 in fail
  */
 int delete_node_at_index(list_t **head, unsigned int index)
 {
