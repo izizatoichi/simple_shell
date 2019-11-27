@@ -126,7 +126,7 @@ void var_expan(sev_t *sev)
 }
 
 /**
- * p_alias_val - print retrieves alias
+ * p_alias_val - print retrieve alias
  * @sev: struct of shell vars
  * @key: alias
  * @value: value stored in alias
