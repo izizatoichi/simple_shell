@@ -3,7 +3,7 @@
 /**
  * _getline - get line from file descrip
  * @lineptr: p to buff
- * @n: size of buffer
+ * @n: size of buff
  * @fd: file descrip
  * @mt: p to memo tracker link list
  *
