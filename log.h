@@ -7,7 +7,7 @@
 #define MAXLOGSIZE 4096
 #define MAXBUFREAD 1024
 
-/* log1.c */
+/* log01.c */
 int add_log(sev_t *sev);
 int write_log(sev_t *sev);
 int get_log_count(sev_t *sev);
