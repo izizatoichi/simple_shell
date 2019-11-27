@@ -80,4 +80,4 @@ Brief description of every file in this repository. Subject to change.
 
 ### Authors
 -----
-[Mohamed Mehdi Bouchoucha] (https://github.com/mmbouchoucha)
+[Mohamed Mehdi Bouchoucha](https://github.com/mmbouchoucha)
