@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * main - the shell program entry point
- * @ac: integer number of command line args
- * @av: null term'd array of strings containing arguments
- * @ev: null term'd array of strings containing environment vars
- * Return: integer result. 0 for success, everything else is an error
+ * main - the shell program start point
+ * @ac: int num of command line args
+ * @av: null term'd arr of strs contain args
+ * @ev: null term'd arr of strs contain env vars
+ * Return: int result. 0 in success, everything else is an error
  */
 int main(int ac, char **av, char **ev)
 {
@@ -13,19 +13,19 @@ int main(int ac, char **av, char **ev)
 	int exitcode = 0;
 	(void)ac;
 
-	initialize_shell_env(&sev, av, ev);
+	init_shell_env(&sev, av, ev);
 
-	while (sev.good2go)
+	while (sev.skywalker)
 	{
-		display_prompt(sev);
-		getcommand(&sev);
-		check_alias(&sev);
+		dis_prompt(sev);
+		getcom(&sev);
+		checker_alias(&sev);
 		if (!check_builtin(&sev))
-			action(&sev);
-		display_error(&sev);
+			actions(&sev);
+		dis_error(&sev);
 	}
 	write_log(&sev);
 	exitcode = sev.error;
-	clean_sev(&sev);
+	cl_sev(&sev);
 	return (exitcode);
 }
