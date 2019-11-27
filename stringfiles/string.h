@@ -2,7 +2,7 @@
 #define _STRING_H_
 
 #include <stdlib.h>
-#include "../linklists.h"
+#include "../linklist.h"
 #include "../memofiles/memo.h"
 
 #define MAXNUMLEN 1024
