@@ -14,13 +14,13 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "./stringfiles/strings.h"
-#include "linklists.h"
-#include "./memoryfiles/memory.h"
-#include "shellvars.h"
-#include "./builtinfiles/builtins.h"
-#include "./errorfiles/errors.h"
-#include "./shellhelperfiles/shellhelpers.h"
+#include "./stringfile/string.h"
+#include "linklist.h"
+#include "./memoryfile/memo.h"
+#include "shellvar.h"
+#include "./builtinfile/builtin.h"
+#include "./errorfile/error.h"
+#include "./shellhelperfile/shellhelper.h"
 #include "log.h"
 
 #define SPACE " "
