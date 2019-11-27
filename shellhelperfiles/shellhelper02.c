@@ -124,11 +124,11 @@ char *pathfind(sev_t *sev)
 }
 
 /**
- * clean_sev - go through and free link lists in the sev
+ * cl_sev - go through and free link lists in the sev
  * @sev: ptr to the shell env var link list
  * Return: nothing
  */
-void clean_sev(sev_t *sev)
+void cl_sev(sev_t *sev)
 {
 	free_list(&sev->mem, 1);
 	free_list(&sev->log, 0);
