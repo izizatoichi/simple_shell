@@ -1,11 +1,11 @@
-#include "linklists.h"
+#include "linklist.h"
 
 /**
- * add_node - adds a new node at the beginning of a linked list
- * @head: ptr to the beginning of a linked list
- * @key: string that contains key
- * @value: string that contains value for key
- * Return: ptr to the new linked list
+ * add_node - add a new node at the start of a linked list
+ * @head: ptr to the start of a linked list
+ * @key: str that contain key
+ * @value: str that contain value for key
+ * Return: ptr to new linked list
  */
 list_t *add_node(list_t **head, void *key, void *value)
 {
@@ -28,8 +28,8 @@ list_t *add_node(list_t **head, void *key, void *value)
 
 /**
  * reverse_list - reverses a linked list
- * @head: list_t pointer to the linked list
- * Return: list_t pointer to the reversed list
+ * @head: list_t p to the linked list
+ * Return: list_t p to the reversed list
  */
 list_t *reverse_list(list_t **head)
 {
@@ -47,7 +47,7 @@ list_t *reverse_list(list_t **head)
 }
 
 /**
- * free_list - frees a linked list and sets the head to NULL
+ * free_list - free a linked list and sets the head to NULL
  * @head: list_t type
  * @flag: flag 1 to free dataptr, 0 to not free dataptr
  * Return: nada
@@ -75,12 +75,12 @@ void free_list(list_t **head, int flag)
  * @head: head of linked list
  * @index: index of deletion
  *
- * Description: Function will take a linked list and delete node at index.
- * Return: 1 if successful, -1 if failure
+ * Description: Func will take a linked list and del node at index.
+ * Return: 1 if success, -1 if failure
  */
 int delete_node_at_index(list_t **head, unsigned int index)
 {
-	unsigned int listidx = 0;
+	unsigned int listid = 0;
 	list_t *cur;
 	list_t *prev;
 
@@ -89,14 +89,14 @@ int delete_node_at_index(list_t **head, unsigned int index)
 	cur = *head;
 	prev = *head;
 
-	while (listidx < index)
+	while (listid < index)
 	{
 		if (!cur)
 			return (-1);
-		if (listidx < index - 1)
+		if (listid < index - 1)
 			prev = prev->next;
 		cur = cur->next;
-		listidx++;
+		listid++;
 	}
 	if (!index)
 	{
