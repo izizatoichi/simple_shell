@@ -1,28 +1,28 @@
-#include "strings.h"
+#include "string.h"
 
 /**
- * _strcmp - compares string1 and string 2
+ * _strcmp - compares string1 and string2
  * @s1: string 1
  * @s2: string 2
  *
  * Description: Function takes two strings, s1 and s2, and compares to see if
  * they are equal
- * Return: 0 if equal or difference between s1 and s2
+ * Return: 0 if equal or diff between s1 and s2
  */
 int _strcmp(char *s1, char *s2)
 {
-	int i;
+	int j;
 
-	for (i = 0; s1[i] == s2[i]; i++)
-		if (s1[i] == '\0')
+	for (j = 0; s1[j] == s2[j]; j++)
+		if (s1[j] == '\0')
 			return (0);
-	return (s1[i] - s2[i]);
+	return (s1[j] - s2[j]);
 }
 
 /**
- * _atoi - converts string to integer
- * @s: string to be converted
- * Description: Finds integers in a string and returns it as an int
+ * _atoi - convert str to int
+ * @s: str to be converted
+ * Description: Find int in a str and returns it as an int
  * Return: int
  */
 int _atoi(char *s)
@@ -46,14 +46,14 @@ int _atoi(char *s)
  * @s2: string2
  * @mt: memory tracker
  *
- * Description: Function takes two strings and combines them together into
- * a new string. A forward slash is inserted into the new string between the
- * two strings.
+ * Description: Func takes two strs and combines them together into
+ * a new string. A forward slash is inserted into the new str between the
+ * two strs.
  * Return: Concatenated string or NULL
  */
 char *_strcat(char *s1, char *s2, list_t **mt)
 {
-	size_t len1 = 0, len2 = 0, i = 0;
+	size_t len1 = 0, len2 = 0, j = 0;
 	char *newstring = NULL;
 
 	if (s1)
@@ -68,24 +68,24 @@ char *_strcat(char *s1, char *s2, list_t **mt)
 
 	reset_buffer(newstring, len1 + len2 + 1);
 
-	for (i = 0; i < len1; i++)
-		newstring[i] = s1[i];
-	for (; i < len1 + len2; i++)
-		newstring[i] = s2[i - len1];
+	for (j = 0; j < len1; j++)
+		newstring[j] = s1[j];
+	for (; j < len1 + len2; j++)
+		newstring[j] = s2[j - len1];
 
-	newstring[i] = '\0';
+	newstring[j] = '\0';
 	return (newstring);
 }
 
 /**
- * _itoa - number to string convertor
- * @num: the number of type ssize_t to be converted
- * @mt: ptr to the memory tracker link list
- * Return: returns the string
+ * _itoa - num to str convertor
+ * @num: the num of type ssize_t to be converted
+ * @mt: ptr to the memo tracker link list
+ * Return: return str
  */
 char *_itoa(ssize_t num, list_t **mt)
 {
-	int index = 0, sign = 1, tmp = 0, numsize = 0;
+	int index = 0, sign = 1, tmps = 0, numsize = 0;
 	char *result = NULL;
 
 	if (num == 0)
@@ -101,10 +101,10 @@ char *_itoa(ssize_t num, list_t **mt)
 	{
 		if (num < 0)
 			sign = -1;
-		tmp = num;
-		while (tmp)
+		tmps = num;
+		while (tmps)
 		{
-			tmp /= 10;
+			tmps /= 10;
 			numsize++;
 		}
 		if (sign == -1)
@@ -131,8 +131,8 @@ char *_itoa(ssize_t num, list_t **mt)
 }
 
 /**
- * reverse_str - in place string reversal
- * @s: string to be reversed
+ * reverse_str - in place str reversal
+ * @s: str to be revers
  * Return: void
  */
 char *reverse_str(char *s)
