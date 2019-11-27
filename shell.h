@@ -16,7 +16,7 @@
 
 #include "./stringfile/string.h"
 #include "linklist.h"
-#include "./memoryfile/memo.h"
+#include "./memofile/memo.h"
 #include "shellvar.h"
 #include "./builtinfile/builtin.h"
 #include "./errorfile/error.h"
